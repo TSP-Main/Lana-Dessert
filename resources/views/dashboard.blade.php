@@ -13,7 +13,7 @@
                     </h2>
                     <p>We are a bakery that creatively combines desserts and fast food, emphasising unique flavours
                         and inventive culinary presentations for enjoyment</p>
-                    <button class="btn px-5 py-3">view more</button>
+                        <button onclick="window.location.href='{{ route('menus') }}'" class="btn px-5 py-3">Online Order</button>
                 </div>
             </div>
             <div class="col-md-6 text-end">
@@ -27,11 +27,11 @@
 </div>
 <div class="have-look my-5 pt-5" data-aos="fade-down" data-aos-duration="1500">
     <div class="container">
-        <div class="mount text-center mb-5">
+        {{-- <div class="mount text-center mb-5">
             <h4>Have a Look!</h4>
             <h2>Our Mouthwatering Menu</h2>
             <a href="{{ route('categories.all') }}" class="btn btn-primary">View All</a>
-        </div>
+        </div> --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="row" data-aos="fade-down" data-aos-duration="1500">
@@ -97,47 +97,49 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <p class="counter">12</p>
+                <p class="counter">2</p>
                 <h2>Restaurant</h2>
             </div>
             <div class="col-md-3">
-                <p class="counter">8</p>
+                <p class="counter">5</p>
                 <h2>Years Experience</h2>
             </div>
             <div class="col-md-3">
                 <p class="counter">50</p>
-                <h2>Menu Dishes</h2>
+                <h2>Menu Items</h2>
             </div>
             <div class="col-md-3">
-                <p class="counter">200</p>
+                <p class="counter">1000</p>
                 <h2>Customers</h2>
             </div>
         </div>
     </div>
 </div>
 <div class="menu-items my-5 pt-5 bg-none" data-aos="fade-down" data-aos-duration="1500">
-    <div class="container">
+    <div class="container" style= "height: 38rem">
         <div class="row">
             <div class="col-md-4">
-                <div class="dish-menu shadow">
-                    <h2>Appertizer</h2>
-                    <p><strong>Salad <span>....................................................</span> $50</strong>
+                <div class="dish-menu shadow" style="line-height: 1.3;">
+                    <h2 >Burgers</h2>
+                    <p><strong>Cheese Burger <span>....................................................</span> £9.99</strong>
                     </p>
-                    <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
-                    <p><strong>Salad <span>....................................................</span> $50</strong>
+                    <p class="dim-para">A good old classic beef slice cheez caramelised onion <br> Tomato french lettuce pickle service with fries</p>
+                    <p><strong>Double Cheese Burger <span>.....................................</span> £10.99</strong>
                     </p>
-                    <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
-                    <p><strong>Salad <span>....................................................</span> $50</strong>
+                    <p class="dim-para">Tomato, caramelized onion, lettuce, pickle served with <br> burger sauce and fries</p>
+                    <p><strong>Halloumi Cheese Burger  <span>....................................</span>  £8.49</strong>
                     </p>
-                    <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
-                    <p><strong>Salad <span>....................................................</span> $50</strong>
+                    <p class="dim-para">Olive, tomato, lettuce & cucumber without sauce served <br> with fries</p>
+                    <p><strong>BBQ Burger  <span>.......................................................</span> £10.49</strong>
                     </p>
-                    <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
-                    <p><strong>Salad <span>....................................................</span> $50</strong>
+                    <p class="dim-para">Samoky BBQ flavour topped with BBQ mayo and Tamato, <br> French lettuce, caramelized onion, BBQ sauce served </p>
+                    <p><strong>Spicy F16 Chicken Burger<span>...................................</span> £9.99</strong>
                     </p>
-                    <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
+                    <p class="dim-para">Fried chicken breast, Hot home style coating to give an <br> special kick, cheese slice, caramelized onion hot sauce</p>
+                    <p><strong>Taka Tuka Chicken Burger<span>..................................</span> £9.99</strong>
+                    </p>
+                    <p class="dim-para">Delicious peri peri marinated grilled chicken, cheese slice, <br> lettuce, tomato, pickle, perfect stacked onion</p>
                 </div>
-
             </div>
             <div class="col-md-8" data-aos="fade-left" data-aos-duration="1500">
                 <div class=" d-grid">
@@ -150,46 +152,42 @@
 </div>
 
 <div class="any-time my-5 py-5 reserv">
-    <div class="container">
-        <div class="row py-5">
-            <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row justify-content-center text-center">
+            <div class="col-md-6 mb-5 mt-0" data-aos="fade-left" data-aos-duration="1500">
                 <div class="contact-any mt-5">
-                    <h2>Reservation</h2>
-                    <h4>Book your sweet spot at Lana!</h4>
-                    <p>Fill out the form and book a table at Lana! Reserve today for a cosy stay and ensure a
-                        delightful experience. Don't miss out on this chance for relaxation!</p>
-
+                    <h2 class="display-4">Online Order</h2>
+                    <h4 class="display-6">Placed your online order</h4>
                 </div>
+                <p class="lead" style="color: aliceblue">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest.
+                    !</p>
+                <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Oder Online</button>
             </div>
-            <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
-                <div class="contact-form text-center">
-                    <h2>Book Table</h2>
+            <!-- Uncomment and use this section if needed -->
+            <!-- <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
+                <div class="contact-form">
+                    <h2 class="display-4">Book Table</h2>
                     <form class="mt-5">
                         <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Name" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
-                        </div>
-
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Phone"
-                                id="exampleInputPassword1">
+                            <input type="text" class="form-control" placeholder="Name" id="exampleInputName" aria-describedby="nameHelp">
                         </div>
                         <div class="mb-3">
-                            <input type="select" class="form-control" placeholder="Subject"
-                                id="exampleInputPassword1">
+                            <input type="text" class="form-control" placeholder="Phone" id="exampleInputPhone">
                         </div>
                         <div class="mb-3">
-                            <input type="select" class="form-control" placeholder="Subject"
-                                id="exampleInputPassword1">
+                            <input type="text" class="form-control" placeholder="Subject" id="exampleInputSubject1">
                         </div>
-
-                        <button type="submit" class="btn mt-3">Submit</button>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" placeholder="Subject" id="exampleInputSubject2">
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-3">Submit</button>
                     </form>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
+
 
 <!-- testimonial  -->
 <div class="testimonial py-5" data-aos="fade-down" data-aos-duration="1500">

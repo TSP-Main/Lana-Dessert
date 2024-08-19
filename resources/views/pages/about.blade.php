@@ -2,14 +2,23 @@
 @section('title', 'About')
 
 <style>
-    .nav-top-svg{
+    /* .nav-top-svg{
         display: none;
-    }
+    } */
+    .gradient-text {
+    font-size: 3rem; /* Adjust the font size as needed */
+    font-weight: bold; /* Optional: Make the text bold */
+    background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-clip: text; /* Apply grnt to text for non-webkit browsers */
+    text-fill-color: transparent; /* Ensure compatibility */
+}
 </style>
 @section('content')
 <div class="about-us-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title">About us</h2>
+        <h2 class="about-title gradient-text">About us</h2>
     </div>
 </div>
 <div class="beyound py-5" data-aos="fade-down-right" data-aos-duration="1500">
@@ -128,7 +137,7 @@
                     <div class="col-md-6">
                         <div class="card">
                             <div class="card-body">
-                                {{-- <img src="/assets/theme/images/waffles-2.png" width="70px" alt=""> --}}
+                                 <img src="/assets/theme/images/waffles-2.png" width="70px" alt="">
                                 <h5 class="card-title">Waffles</h5>
                                 <p class="card-text">Lana Dessert's waffles are irresistibly delicious, featuring
                                     crispy edges, soft centres, and decadent toppings for a delightful treat
@@ -175,7 +184,7 @@
                 <div class="mount mt-5 ps-5">
                     <h4>Have a Look!</h4>
                     <h2>Our Mouthwatering <br> Menu</h2>
-                    <button class="btn">Order now</button>
+                    <button onclick="window.location.href='{{ route('menus') }}'" class="btn">Order now</button>
                 </div>
             </div>
         </div>

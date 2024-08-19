@@ -1,11 +1,21 @@
 @extends('layout.app')
 
 @section('title', 'Menu')
-
+<style>
+       .gradient-text {
+    font-size: 3rem; /* Adjust the font size as needed */
+    font-weight: bold; /* Optional: Make the text bold */
+    background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-clip: text; /* Apply grnt to text for non-webkit browsers */
+    text-fill-color: transparent; /* Ensure compatibility */
+}
+</style>
 @section('content')
 <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
     <div class="title">
-        <h2>Menu</h2>
+        <h2 class="about-title gradient-text">Menu</h2>
     </div>
 </div>
 
