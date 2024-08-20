@@ -7,8 +7,8 @@
                 </div>
             </div>
             <div class="col-md-4">
-                <div class="d-flex nav-left-svg">
-                    <span class="nav-top-svg">
+              <div class="d-flex nav-left-svg">
+                   {{--  <span class="nav-top-svg">
                         <svg class="e-font-icon-svg e-fab-facebook" viewBox="0 0 512 512"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -31,7 +31,7 @@
                                 d="M448,209.91a210.06,210.06,0,0,1-122.77-39.25V349.38A162.55,162.55,0,1,1,185,188.31V278.2a74.62,74.62,0,1,0,52.23,71.18V0l88,0a121.18,121.18,0,0,0,1.86,22.17h0A122.18,122.18,0,0,0,381,102.39a121.43,121.43,0,0,0,67,20.14Z">
                             </path>
                         </svg>
-                    </span>
+                    </span> --}}
                     <span class="nav-top-svg">
                         <a href="{{ route('cart.view') }}">
                         <svg class="e-font-icon-svg e-fab-basket" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -67,9 +67,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/contact">Contact Us</a>
                 </li>
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link" href="{{ route('cart.view') }}">Cart</a>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>

@@ -12,6 +12,7 @@ class ApiController extends Controller
         $serverUrl = env('SERVER_URL');
         $apiToken = env('API_TOKEN');
         
+        
         $response = Http::withHeaders([
             'Authorization' => $apiToken,
         ])->get($serverUrl . 'api/categories_a');

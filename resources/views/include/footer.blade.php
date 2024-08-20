@@ -21,7 +21,16 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a href="{{ route('dashboad') }}"> Home</a></li>
+                            <a onclick="window.location.href='{{ route('dashboad') }}'"> Home</a></li>
+                            <li><span>
+                                <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
+                                    viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M190.5 66.9l22.2-22.2c9.4-9.4 24.6-9.4 33.9 0L441 239c9.4 9.4 9.4 24.6 0 33.9L246.6 467.3c-9.4 9.4-24.6 9.4-33.9 0l-22.2-22.2c-9.5-9.5-9.3-25 .4-34.3L311.4 296H24c-13.3 0-24-10.7-24-24v-32c0-13.3 10.7-24 24-24h287.4L190.9 101.2c-9.8-9.3-10-24.8-.4-34.3z">
+                                    </path>
+                                </svg>
+                            </span>
+                            <a onclick="window.location.href='{{ route('menus') }}'">Order Online</a></li>
                         <li>
                             <span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
@@ -31,7 +40,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a href="{{ route('about') }}">About Us</a>
+                            <a onclick="window.location.href='{{ route('about') }}'">About Us</a>
                         </li>
                         <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
@@ -41,7 +50,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a href="{{ route('menu') }}"> Menu</li>
+                            <a onclick="window.location.href='{{ route('menus') }}'"> Menu</li>
                         <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
                                     viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
@@ -50,7 +59,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a href="{{ route('faq') }}">FAQ</a></li>
+                            <a onclick="window.location.href='{{ route('faq') }}'">FAQ</a></li>
                     </ul>
                 </div>
             </div>
@@ -64,21 +73,22 @@
                                         d="M176 216h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16c0 8.84 7.16 16 16 16zm-16 80c0 8.84 7.16 16 16 16h160c8.84 0 16-7.16 16-16v-16c0-8.84-7.16-16-16-16H176c-8.84 0-16 7.16-16 16v16zm96 121.13c-16.42 0-32.84-5.06-46.86-15.19L0 250.86V464c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V250.86L302.86 401.94c-14.02 10.12-30.44 15.19-46.86 15.19zm237.61-254.18c-8.85-6.94-17.24-13.47-29.61-22.81V96c0-26.51-21.49-48-48-48h-77.55c-3.04-2.2-5.87-4.26-9.04-6.56C312.6 29.17 279.2-.35 256 0c-23.2-.35-56.59 29.17-73.41 41.44-3.17 2.3-6 4.36-9.04 6.56H96c-26.51 0-48 21.49-48 48v44.14c-12.37 9.33-20.76 15.87-29.61 22.81A47.995 47.995 0 0 0 0 200.72v10.65l96 69.35V96h320v184.72l96-69.35v-10.65c0-14.74-6.78-28.67-18.39-37.77z">
                                     </path>
                                 </svg></span>
-                            admin@lanadessert.co.uk</li>
+                                sales@lanadessert.co.uk</li>
                         <li><span><svg aria-hidden="true" class="e-font-icon-svg e-fas-phone-alt"
                                     viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M497.39 361.8l-112-48a24 24 0 0 0-28 6.9l-49.6 60.6A370.66 370.66 0 0 1 130.6 204.11l60.6-49.6a23.94 23.94 0 0 0 6.9-28l-48-112A24.16 24.16 0 0 0 122.6.61l-104 24A24 24 0 0 0 0 48c0 256.5 207.9 464 464 464a24 24 0 0 0 23.4-18.6l24-104a24.29 24.29 0 0 0-14.01-27.6z">
                                     </path>
                                 </svg></span>
-                            +628688245124</li>
+                                +44 115 855 0583
+                            </li>
                         <li><span><svg aria-hidden="true" class="e-font-icon-svg e-fas-location-arrow"
                                     viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
                                     <path
                                         d="M444.52 3.52L28.74 195.42c-47.97 22.39-31.98 92.75 19.19 92.75h175.91v175.91c0 51.17 70.36 67.17 92.75 19.19l191.9-415.78c15.99-38.39-25.59-79.97-63.97-63.97z">
                                     </path>
                                 </svg></span>
-                            xyz london uk</li>
+                                28 Southwark St, Old Basford, Nottingham NG6 0DA, United Kingdom</li>
                     </ul>
                 </div>
             </div>
