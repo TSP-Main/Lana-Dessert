@@ -1,14 +1,23 @@
 @extends('layout.app')
 @section('title', 'Contact Us')
 <style>
-    .nav-top-svg{
+    /* .nav-top-svg{
         display: none;
-    }
+    } */
+           .gradient-text {
+    font-size: 3rem; /* Adjust the font size as needed */
+    font-weight: bold; /* Optional: Make the text bold */
+    background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-clip: text; /* Apply grnt to text for non-webkit browsers */
+    text-fill-color: transparent; /* Ensure compatibility */
+}
 </style>
 @section('content')
 <div class="contact-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title">Contact us</h2>
+        <h2 class="about-title gradient-text">Contact us</h2>
     </div>
 </div>
 <div class="any-time my-5 py-5">
@@ -20,19 +29,19 @@
                     <p>Got a question or craving? Contact us anytime for a friendly chat or to place an order. We’re
                         here to help, so reach out whenever you need!</p>
                     <ul>
-                        <li><strong>+62 868245124</strong><br>
+                        <li><strong>+44 115 855 0583</strong><br>
                             <small>Telephone</small>
                         </li>
-                        <li><strong>Admin@Lanadessert.Co.Uk</strong><br>
+                        <li><strong>sales@lanadessert.co.uk</strong><br>
                             <small>Email</small>
                         </li>
-                        <li><strong>28 Southwark ST, Nottingham, United Kingdom NG6 0DA</strong>
+                        {{-- <li><strong>28 Southwark ST, Nottingham, United Kingdom NG6 0DA</strong>
                             <small>Address</small>
-                        </li>
+                        </li> --}}
                     </ul>
                 </div>
             </div>
-            <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
+            {{-- <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
                 <div class="contact-form text-center">
                     <h2>Contact Form</h2>
                     <form class="mt-5">
@@ -53,7 +62,7 @@
                         <button type="submit" class="btn mt-3">Submit</button>
                     </form>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 </div>
@@ -101,12 +110,12 @@
                     <h2>Our Chef will Make You  <br>Satisfying</h2>
                     <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                         laudantium, totam rem aperiam, eaque ipsa quae ab illo</p>
-                        <button class="btn btn-danger">Order now</button>
+                        <button onclick="window.location.href='{{ route('menus') }}'" class="btn btn-danger">Order now</button>
                 </div>
             </div>
             <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
                 <div class="founder-img">
-                    <img src="assets/theme/images/cheif-crew.jpg" width="100%" alt="">
+                    <img src="assets/theme/images/cheif-crew.jpg" width="550px" heigth="550px" alt="">
                 </div>
             </div>
         </div>

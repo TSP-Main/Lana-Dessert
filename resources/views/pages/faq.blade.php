@@ -1,15 +1,24 @@
 @extends('layout.app')
 @section('title', 'FAQs')
-<style>
-    .nav-top-svg{
+ <style>
+    /* .nav-top-svg{
         display: none;
-    }
+    } */
+                .gradient-text {
+    font-size: 3rem; /* Adjust the font size as needed */
+    font-weight: bold; /* Optional: Make the text bold */
+    background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    background-clip: text; /* Apply grnt to text for non-webkit browsers */
+    text-fill-color: transparent; /* Ensure compatibility */
+}
 </style>
 
 @section('content')
 <div class="faq-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title">FAQ</h2>
+        <h2 class="about-title gradient-text">FAQ</h2>
     </div>
 </div>
 <div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
@@ -36,63 +45,23 @@
                 <div class="tab-content" id="v-pills-tabContent">
                     <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
                         aria-labelledby="v-pills-home-tab">
-                        <h2>What is Lezzatos ?</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-                            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
-                            odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
-                            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
-                            doming id quod mazim placerat facer possim assum</p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci</p>
+                        <h2>Do you offer dine-in, takeaway, and delivery options?  </h2>
+                        <p>Absolutely! At Lana Desserts, we believe in providing flexibility for our customers. You can enjoy our delicious burgers and desserts in-house, take them to go, or have them delivered right to your doorstep.</p>
                     </div>
                     <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
                         aria-labelledby="v-pills-profile-tab">
-                        <h2>How to order food in Lezzatos ?</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-                            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
-                            odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
-                            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
-                            doming id quod mazim placerat facer possim assum</p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci</p>
+                        <h2>How will I know when my order is ready?</h2>
+                        <p>Once your order is confirmed, we will provide you with updates about when to expect your goodies. You can count on us to keep you informed every step of the way!</p>
                     </div>
                     <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
                         aria-labelledby="v-pills-messages-tab">
-                        <h2>Which food is the most delicious ?</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-                            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
-                            odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
-                            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
-                            doming id quod mazim placerat facer possim assum</p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci</p>
+                        <h2>Are my desserts fresh? </h2>
+                        <p>Yes, indeed. We take pride in serving only the freshest desserts at Lana Desserts. Every item is made with care and attention to ensure you enjoy each delightful bite.</p>
                     </div>
                     <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
                         aria-labelledby="v-pills-settings-tab">
-                        <h2>How to book a table ?</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo
-                            consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie
-                            consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto
-                            odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait
-                            nulla facilisi. Nam liber tempor cum soluta nobis eleifend option congue nihil imperdiet
-                            doming id quod mazim placerat facer possim assum</p>
-                        <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod
-                            tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim ad minim veniam,
-                            quis nostrud exerci</p>
+                        <h2>What are your opening hours?</h2>
+                        <p>We are here to satisfy your sweet cravings every day of the week. Lana Desserts opens Monday to Sunday from 5 PM to 2 AM.</p>
                     </div>
                 </div>
             </div>
