@@ -3,8 +3,10 @@
         <div class="row">
             <div class="col-md-8">
                 <div class="lana-logo">
-                    <img src="{{ asset('assets/theme/images/lana-logo.png')}}" width="120px" alt="">
-                </div>
+                    <a href="{{ route('dashboad') }}">
+                        <img src="{{ asset('assets/theme/images/lana-logo.png') }}" width="120px" alt="Lana Logo">
+                    </a>
+                </div>                
             </div>
             <div class="col-md-4">
               <div class="d-flex nav-left-svg">
