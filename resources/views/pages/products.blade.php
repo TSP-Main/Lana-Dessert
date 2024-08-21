@@ -45,7 +45,7 @@
                             <div class="card-body">
                               <h5 class="card-title">{{ $product['title'] }}</h5>
                                 <div class="d-flex justify-content-between align-items-center">
-                                    <span class="price">${{$product['price']}}</span>
+                                    <span class="price">£{{$product['price']}}</span>
                                     <button type="button" id="openModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}">
                                         Add
                                     </button>
