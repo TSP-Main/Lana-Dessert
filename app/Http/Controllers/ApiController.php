@@ -34,20 +34,30 @@ class ApiController extends Controller
         $serverUrl = env('SERVER_URL');
         $apiToken = env('API_TOKEN');
 
-        $url = 'api/category/products/' . $request->category;
-        
-        $response = Http::withHeaders([
-            'Authorization' => $apiToken,
-        ])->get($serverUrl . $url);
+        $schedule = is_restaurant_closed();
 
-        if($response['status'] == 'success'){
-            $data['response'] = true;
-            $data['products'] = $response['data'];
-            $data['category'] = $request->category;
+        if($schedule['isClosed']){
+            $data['schedule'] = $schedule;
+            $data['isClosed'] = $schedule['isClosed'];
+
+            return redirect()->route('menus');
         }
         else{
-            $data['response'] = false;
-            // $data['category'] = $request->category;
+            $url = 'api/category/products/' . $request->category;
+        
+            $response = Http::withHeaders([
+                'Authorization' => $apiToken,
+            ])->get($serverUrl . $url);
+
+            if($response['status'] == 'success'){
+                $data['response'] = true;
+                $data['products'] = $response['data'];
+                $data['category'] = $request->category;
+            }
+            else{
+                $data['response'] = false;
+                // $data['category'] = $request->category;
+            }
         }
         
         return view('pages.products', $data);
