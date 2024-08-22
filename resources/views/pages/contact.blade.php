@@ -86,7 +86,7 @@
             </div>
             <div class="col-md-4">
                 <div class="dish-img d-grid">
-                    <img src="./images/dish-menu1.webp" class="dish-one" width="350px" alt="">
+                    <img src="assets/theme/images/dish-menu1.webp" class="dish-one" width="350px" alt="">
                     <img src="assets/theme/images/dish-menu2.webp" class="mt-4 dish-two" width="350px" alt="">
                 </div>
             </div>
