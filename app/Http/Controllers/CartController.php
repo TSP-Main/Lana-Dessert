@@ -19,7 +19,6 @@ class CartController extends Controller
     {
         $data['cartItems'] = Session::get('cart');
         $data['cartSubTotal'] = Session::get('cartSubTotal');
-        // return $data;
         return view('pages.cart', $data);
     }
 
@@ -28,6 +27,7 @@ class CartController extends Controller
         $productId      = $request->data['product_id'];
         $options        = $request->data['options'];
         $optionNames    = $request->data['optionNames'];
+        $productInstruction = $request->data['product_instruction'];
 
         // fetch product detail using api
         $response_product = $this->apiController->product($productId);
@@ -61,7 +61,8 @@ class CartController extends Controller
                 'optionNames'   => $optionNames,
                 'quantity'      => 1,
                 'rowTotal'      => $productDetail['price'] + $optionsPrice,
-                'comboTotal'    => $productDetail['price'] + $optionsPrice
+                'comboTotal'    => $productDetail['price'] + $optionsPrice,
+                'productInstruction' => $productInstruction
             ];
         }
 

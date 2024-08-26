@@ -21,6 +21,7 @@
                 <input type="hidden" id="productId" />
                 <input type="hidden" id="productDetail" data-product-detail="" />
                 <div class="options"></div>
+                <div class="instruction"></div>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-success" id="addToCartButton" data-product-detail="">Add to cart</button>
@@ -84,6 +85,7 @@ document.addEventListener('DOMContentLoaded', function() {
     $('#addToCartButton').off('click').on('click', function() {
         var productId = $('#productId').val();
         var productDetail = $('#productDetail').data('product-detail');
+        var productInstruction = $('#productInstruction').val() ?? null;
         var selectedOptions = {};
         var selectedOptionNames = [];
         var valid = true;
@@ -120,7 +122,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 product_id: productId,
                 options: selectedOptions,
                 optionNames: selectedOptionNames,
-                product_detail: productDetail
+                product_detail: productDetail,
+                product_instruction: productInstruction
             };
 
             $.ajax({
@@ -131,7 +134,6 @@ document.addEventListener('DOMContentLoaded', function() {
                     "data": cartData
                 },
                 success: function(response) {
-                    console.log(response);
                     alert('Product added to cart successfully!');
                     $('#cartModal').modal('hide');
                     updateCartCount(); // Update cart count after adding item
@@ -155,6 +157,7 @@ document.addEventListener('DOMContentLoaded', function() {
         modal.find('#productDetail').data('product-detail', productDetail);
 
         var optionsHtml = '';
+        var instructionHtml = '';
         if (productDetail.options && productDetail.options.length > 0) {
             productDetail.options.forEach(function(optionGroup) {
                 optionsHtml += '<div class="option-group" data-option-id="' + optionGroup.option.id + '">';
@@ -198,7 +201,14 @@ document.addEventListener('DOMContentLoaded', function() {
         } else {
             optionsHtml = '<p>No options available for this product.</p>';
         }
+
+        if(productDetail.ask_instruction == 1){
+            instructionHtml = '<hr><textarea name="productInstruction" id="productInstruction" class="form-control" rows="3" placeholder="Enter any special instructions here..."></textarea>';
+        } else {
+            
+        }
         modal.find('.options').html(optionsHtml);
+        modal.find('.instruction').html(instructionHtml);
     });
 });
 
