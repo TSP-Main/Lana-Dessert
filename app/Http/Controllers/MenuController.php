@@ -46,4 +46,15 @@ class MenuController extends Controller
         return view('pages.menu', $data);
     }
 
+    public function product_detail($id)
+    {
+        $apiController = new ApiController();
+        $result = $apiController->product($id);
+
+        $data['response'] = $result['response'];
+        $data['product'] = collect($result['products'])->first();
+        // return $data;
+        return view('pages.product_detail', $data);
+    }
+
 }
