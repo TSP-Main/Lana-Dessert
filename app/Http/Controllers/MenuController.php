@@ -5,36 +5,56 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Carbon;
 
 class MenuController extends Controller
 {
-public function index(Request $request)
-{
-    try {
+    public function index(Request $request)
+    {
         $serverUrl = env('SERVER_URL');
         $apiToken = env('API_TOKEN');
+        $data = [
+            'isClosed' => '',
+            'msg' => '', 
+            'opening' => '',
+            'closing' => '',
+            'code' => '',
+            'menus' => []
+        ];
 
-       
-        $response = Http::withHeaders([
-            'Authorization' => $apiToken,
-        ])->get($serverUrl . 'api/categories');
+        $schedule = is_restaurant_closed();
 
-       
-        if ($response->successful()) {       
-            
-            $responseData = $response->json();
-            $menus = $responseData['data'];
-        
-           
-        } else {
-            $menus = [];
+        if($schedule['isClosed']){
+            $data['schedule'] = $schedule;
+            $data['isClosed'] = $schedule['isClosed'];
+            $data['msg'] = $schedule['message'];
+            $data['opening'] = $schedule['todaySchedule']['opening_time'];
+            $data['closing'] = $schedule['todaySchedule']['closing_time'];
+            $data['code'] = $schedule['code'];
         }
+        else{
+            $data['isClosed'] = $schedule['isClosed'];
+            $response = Http::withHeaders([
+                'Authorization' => $apiToken,
+            ])->get($serverUrl . 'api/categories');
 
-        return view('pages.menu', ['menus' => $menus]);
-    } catch (\Exception $e) {
-        Log::error('Error fetching menu data: ' . $e->getMessage());
-        return view('pages.menu', ['menus' => []]);
+            if ($response->successful()) {       
+                $responseData = $response->json();
+                $data['menus'] = $responseData['data'];
+            }
+        }
+        return view('pages.menu', $data);
     }
-}
+
+    public function product_detail($id)
+    {
+        $apiController = new ApiController();
+        $result = $apiController->product($id);
+
+        $data['response'] = $result['response'];
+        $data['product'] = collect($result['products'])->first();
+        // return $data;
+        return view('pages.product_detail', $data);
+    }
 
 }
