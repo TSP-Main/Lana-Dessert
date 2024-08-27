@@ -41,7 +41,7 @@
             </div>
         </div>
         <div class="row single-chef">
-            <img src="/assets/theme/images/chef-about.jpg" width="100%" alt="">
+            <img src="/assets/theme/images/Shoop.webp" width="100%" alt="">
         </div>
     </div>
 </div>
@@ -75,7 +75,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="founder-img">
-                    <img src="/assets/theme/images/founder.webp" width="100%" alt="">
+                    <img src="/assets/theme/images/shop.webp" width="100%" alt="">
                 </div>
             </div>
             <div class="col-md-6">

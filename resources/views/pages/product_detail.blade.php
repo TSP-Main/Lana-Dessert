@@ -1,11 +1,11 @@
 @extends('layout.app')
 
-@section('title', ucfirst($category) )
+@section('title', $product['title'])
 
 @section('content')
     <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
         <div class="title">
-            <h2>{{ ucfirst($category) }}</h2>
+            <h2>{{ $product['title'] }}</h2>
         </div>
     </div>
 
@@ -31,22 +31,25 @@
     </div>
 
     <div class="promo text-center my-5 py-5">
-        <h2 class="special">{{ ucfirst($category) }}</h2>
-        <div class="container mt-5 pt-5">
+        <div class="container">
             <div class="row" data-aos="fade-up" data-aos-duration="1500">
                 @if ($response)
-                    @foreach ($products as $product)
-                    <div class="col-4 mb-4">
-                        <div class="card shadow p-3 bg-body rounded" style="width: 18rem;">
-                            @if (isset($product['images'][0]['path']))
-                            <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}">
-                           @else
-                            <img src="{{ asset('storage/images/default.jpg') }}" class="card-img-top" alt="No image available">
-                           @endif
-                            <div class="card-body">
-                              <h5 class="card-title"><a href="{{ route('product.detail', [$product['id']])}}">{{ $product['title'] }}</a></h5>
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <span class="price">£{{$product['price']}}</span>
+                    <div class="container mt-5">
+                        <div class="row">
+                            <!-- Product Image -->
+                            <div class="col-md-6">
+                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="img-fluid" alt="Product Image">
+                            </div>
+                            
+                            <!-- Product Details -->
+                            <div class="col-md-6">
+                                <h1>{{ $product['title'] }}</h1>
+                                <p class="text-muted">{{ $product['category']['name']}}</p>
+                                <h4>£{{ $product['price'] }}</h4>
+                                <p>{{ $product['description']}}</p>
+                    
+                                <!-- Add to Cart Section -->
+                                <div class="mt-4">
                                     <button type="button" id="openModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}">
                                         Add
                                     </button>
@@ -54,7 +57,6 @@
                             </div>
                         </div>
                     </div>
-                    @endforeach    
                 @else
                     <div class="mount text-center mb-5">
                         <h2 class="text-danger">-----Api Error-----</h2>
