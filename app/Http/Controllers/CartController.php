@@ -142,11 +142,6 @@ class CartController extends Controller
         $data['cartSubTotal']   = Session::get('cartSubTotal');
         $data['orderType']      = Session::get('orderType');
         $data['stripeKey']      = env('STRIPE_API_KEY');
-
-        $restaurantDetail = $this->restaurant_detail();
-        $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
-        $data['restaurantLat'] = json_decode($restaurantDetail['restaurantDetail']['coordinates'])->lat;
-        $data['restaurantLng'] = json_decode($restaurantDetail['restaurantDetail']['coordinates'])->lng;
         
         return view('pages.checkout', $data);
     }
@@ -165,7 +160,6 @@ class CartController extends Controller
         $postData['email']          = $request->email ?? NULL;
         $postData['phone']          = $request->phone;
         $postData['address']        = $request->address ?? NULL;
-        $postData['coordinates']    = $request->address ?? NULL;
         $postData['paymentOption']  = $request->payment_option;
         $postData['orderNote']      = $request->note;
         $postData['payment_method_id'] = $request->payment_method_id;
@@ -212,25 +206,5 @@ class CartController extends Controller
     public function destroy()
     {
         Session::flush();
-    }
-
-    public function restaurant_detail()
-    {
-        $serverUrl = env('SERVER_URL');
-        $apiToken = env('API_TOKEN');
-        
-        $response = Http::withHeaders([
-            'Authorization' => $apiToken,
-        ])->get($serverUrl . 'api/restaurant_detail');
-
-        if($response['status'] == 'success'){
-            $data['response'] = true;
-            $data['restaurantDetail'] = $response['data'];
-        }
-        else{
-            $data['response'] = false;
-        }
-        
-        return $data;
     }
 }
