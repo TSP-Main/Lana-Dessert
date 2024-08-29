@@ -195,7 +195,8 @@
                             }
 
                             // Submit the form
-                            form.submit();
+                            checkCustomerLocation();
+                            // form.submit();
                         }
                     }).catch(function(error) {
                         console.error('Error creating PaymentMethod:', error);
@@ -280,7 +281,35 @@
         <script>
             document.getElementById('place-order').addEventListener('click', function(e) {
                 e.preventDefault();
+                checkCustomerLocation();
+                // var form = document.getElementById('checkout-form');
 
+                // // Check if the form is valid
+                // if (!form.checkValidity()) {
+                //     // If the form is not valid, display a validation message
+                //     form.reportValidity();
+                //     return;
+                // }
+
+                // var customerLat = parseFloat(document.getElementById('customer-lat').value);
+                // var customerLng = parseFloat(document.getElementById('customer-lng').value);
+                
+                // var restaurantLat = {{ $restaurantLat }};
+                // var restaurantLng = {{ $restaurantLng }};
+                // var deliveryRadius = {{ $deliveryRadius }};
+
+                // // Calculate the distance using the Haversine formula
+                // var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                // if (distance <= deliveryRadius * 1000) {
+                //     // Proceed with the order
+                //     document.getElementById('checkout-form').submit();
+                // } else {
+                //     // Show error message
+                //     alert('Sorry, you are outside of our delivery radius.');
+                // }
+            });
+
+            function checkCustomerLocation(){
                 var form = document.getElementById('checkout-form');
 
                 // Check if the form is valid
@@ -297,29 +326,18 @@
                 var restaurantLng = {{ $restaurantLng }};
                 var deliveryRadius = {{ $deliveryRadius }};
 
-                console.log('radius ' + deliveryRadius * 1000);
-                console.log('my lat ' + restaurantLat);
-                console.log('my lng ' + restaurantLng);
-                console.log('c lat ' + customerLat);
-                console.log('c lng ' + customerLng);
                 // Calculate the distance using the Haversine formula
                 var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
-                console.log(distance);
                 if (distance <= deliveryRadius * 1000) {
                     // Proceed with the order
-                    document.getElementById('checkout-form').submit(); // or however your form is being submitted
+                    document.getElementById('checkout-form').submit();
                 } else {
                     // Show error message
                     alert('Sorry, you are outside of our delivery radius.');
                 }
-            });
+            }
 
             function calculateDistance(lat1, lng1, lat2, lng2) {
-                console.log('lat1 ' + lat1);
-                console.log('lng1 ' + lng1);
-                console.log('lat2 ' + lat2);
-                console.log('lng2 ' + lng2);
-
                 const R = 6371000; // Radius of the Earth in meters
                 const dLat = (lat2 - lat1) * Math.PI / 180;
                 const dLng = (lng2 - lng1) * Math.PI / 180;

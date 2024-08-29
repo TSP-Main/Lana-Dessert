@@ -152,7 +152,7 @@ class CartController extends Controller
     }
 
     public function checkout_process(Request $request)
-    {return $request;
+    {
         $request->validate([
             'name'              => 'required',
             'phone'             => 'required',
