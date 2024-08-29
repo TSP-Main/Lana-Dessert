@@ -1,38 +1,78 @@
 @extends('layout.app')
 @section('title', 'Cart')
 
+<style>
+    .nav-top-svg{
+        display: none;
+    }
+
+    <style>
+    .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-control button {
+            width: 30px;
+            height: 30px;
+            font-size: 18px;
+            border: 1px solid #ccc;
+            background-color: #f0f0f0;
+            cursor: pointer;
+        }
+        .quantity-control input {
+            width: 42px;
+            text-align: center;
+            border: 1px solid #ccc;
+            /* margin: 0 5px; */
+            border-left: 0;
+            border-right: 0;
+            text-align: end;
+            height: 30px;
+        }
+        .total {
+            font-weight: bold;
+        }
+</style>
+</style>
 @section('content')
-<div class="about-us-main" data-aos="fade-down" data-aos-duration="1500" style="text-align: center; display: flex; justify-content: center; align-items: center;">
-    <div class="container" style="text-align: center; display: flex; justify-content: center; align-items: center;">
-        <h2 class="about-title" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Cart</h2>
+<div class="about-us-main" data-aos="fade-down" data-aos-duration="1500">
+    <div class="container text-center d-flex justify-content-center align-items-center">
+        <h2 class="about-title">Cart</h2>
     </div>
 </div>
 
-<div class="cart-sec pt-3 pb-5">
+<div class="cart-sec pt-3 pb-5 ">
     <div class="container">
         @if ($cartItems)
             <div class="row">
                 <div class="col-md-8">
                     <div class="product-total">
-                        <h5>Product <span style="float: right;">Total</span></h5>
-                        <hr style="border: 1px solid #ccc;">
+                        <h5>Product <span class="text-end">Total</span></h5>
+                        <hr>
                         @foreach ($cartItems as $cartItem)
-                            <div style="display: flex;">
+                            <div class="d-flex">
                                 <div class="title-pro ms-3 w-100">
-                                    <h4 style="margin-bottom: 0;">{{ $cartItem['productTitle'] }}<span style="float: right;" id="row-total-{{ $cartItem['rowId'] }}">£ {{ $cartItem['rowTotal']}}</span></h4>
-                                    <p style="margin-top: 0; margin-bottom: 0;">£ {{ $cartItem['productPrice'] }}</p>
-                                    <p style="margin-top: 0;">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
-                                    <div class="input-group" style="margin-bottom: 15px;">
-                                        <div class="quantity-control" style="display: flex; align-items: center;">
-                                            <button type="button" onclick="updateQuantity({{ $cartItem['rowId'] }}, -1)" style="width: 30px; height: 30px; font-size: 18px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer;">-</button>
-                                            <input type="number" id="quantity-{{ $cartItem['rowId'] }}" name="quantity" min="1" value="{{ $cartItem['quantity'] }}" readonly style="width: 42px; text-align: center; border: 1px solid #ccc; border-left: 0; border-right: 0; height: 30px;">
-                                            <button type="button" onclick="updateQuantity({{ $cartItem['rowId'] }}, 1)" style="width: 30px; height: 30px; font-size: 18px; border: 1px solid #ccc; background-color: #f0f0f0; cursor: pointer;">+</button>
+                                    <h4 class="mb-0">{{ $cartItem['productTitle'] }}<span class="text-end" id="row-total-{{ $cartItem['rowId'] }}">£ {{ $cartItem['rowTotal']}}</span></h4>
+                                    <p class="mt-0 mb-0">£ {{ $cartItem['productPrice'] }}</p>
+                                    <P class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</P>
+                                    <div class="input-group">
+                                        <div class="quantity-control">
+                                            <button type="button" onclick="updateQuantity({{ $cartItem['rowId'] }}, -1)">-</button>
+                                            <input type="number" id="quantity-{{ $cartItem['rowId'] }}" name="quantity" min="1" value="{{ $cartItem['quantity'] }}" readonly>
+                                            <button type="button" onclick="updateQuantity({{ $cartItem['rowId'] }}, 1)">+</button>
                                         </div>
                                     </div>
-                                    <a href="javascript:void(0)" onclick="removeItemCart({{ $cartItem['rowId'] }})" id="remove-{{ $cartItem['rowId'] }}" style="color: #007bff; text-decoration: none;">Remove item</a>
+                                    <a href="javascript:void(0)" onclick="removeItemCart({{ $cartItem['rowId'] }})" id="remove-{{ $cartItem['rowId'] }}">Remove item</a>
                                 </div>
                             </div>
-                            <hr style="border: 1px solid #ccc;">
+                            <hr>
                         @endforeach
                     </div>
                 </div>
@@ -40,30 +80,30 @@
                     <form action="{{ route('checkout') }}" method="post">
                         @csrf
                         <div class="cart-total">
-                            <p style="text-align: right;">Cart Totals</p>
-                            <hr style="border: 1px solid #ccc;">
+                            <p class="text-end">Cart Totals</p>
+                            <hr>
                             <p>Sub Total <span id="cart-sub-total">£ {{ $cartSubTotal }}</span></p>
-                            <hr style="border: 1px solid #ccc;">
+                            <hr>
                             <div class="form-group">
-                                <label for="order_type" style="display: block; margin-bottom: 5px;">Choose order type:</label>
+                                <label for="order_type">Choose order type:</label>
                                 <div>
-                                    <label style="display: block;">
+                                    <label>
                                         <input type="radio" id="pickup" name="order_type" value="pickup" {{ session('orderType') == 'pickup' ? 'checked' : '' }} >
                                         Pickup
                                     </label>
-                                    <label class="ms-3" style="display: block;">
+                                    <label class="ms-3">
                                         <input type="radio" id="delivery" name="order_type" value="delivery" {{ session('orderType') == 'delivery' ? 'checked' : '' }} >
                                         Delivery
                                     </label>
                                     @error('order_type')
-                                        <div class="text-danger" style="color: #dc3545;">{{ $message }}</div>
+                                        <div class="text-danger">{{ $message }}</div>
                                     @enderror
                                 </div>
                             </div>
-                            <hr style="border: 1px solid #ccc;">
+                            <hr>
                             <h4>Total <span id="total">£ {{ $cartSubTotal }}</span></h4>
                         </div>
-                        <hr style="border: 1px solid #ccc;">
+                        <hr>
                         <button class="btn btn-primary" type="submit">Checkout</button>
                     </form>
                 </div>

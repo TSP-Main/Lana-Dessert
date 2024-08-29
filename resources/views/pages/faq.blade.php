@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('title', 'FAQs')
- <!-- <style>
+ <style>
     /* .nav-top-svg{
         display: none;
     } */
@@ -13,13 +13,12 @@
     background-clip: text; /* Apply grnt to text for non-webkit browsers */
     text-fill-color: transparent; /* Ensure compatibility */
 }
-</style> -->
+</style>
 
 @section('content')
 <div class="faq-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
-    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">FAQ</h2>
+        <h2 class="about-title gradient-text">FAQ</h2>
     </div>
 </div>
 <div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
@@ -76,14 +75,14 @@
         <div class="row">
             <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
                 <div class="founder-img">
-                    <img src="/assets/theme/images/Shoop.webp" width="100%" alt="">
+                    <img src="assets/theme/images/faq-sec.webp" width="100%" alt="">
                 </div>
             </div>
             <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
                 <div class="founder-msg faq-msg px-5">
                     <h5>Discover</h5>
                     <h2>Our Crew Ready to Help You</h2>
-                    <p style="text-align: justify;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
                         architecto beatae vitae dicta sunt explicabo. </p>
                         <a href="">Contact us</a>
