@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('title', 'Contact Us')
-<style>
+<!-- <style>
     /* .nav-top-svg{
         display: none;
     } */
@@ -13,59 +13,39 @@
     background-clip: text; /* Apply grnt to text for non-webkit browsers */
     text-fill-color: transparent; /* Ensure compatibility */
 }
-</style>
+</style> -->
 @section('content')
 <div class="contact-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title gradient-text">Contact us</h2>
+        <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">Contact us</h2>
     </div>
 </div>
-<div class="any-time my-5 py-5">
+<div class="any-time">
     <div class="container">
         <div class="row py-5">
             <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
                 <div class="contact-any mt-5">
                     <h2>Contact Us Anytime!</h2>
-                    <p>Got a question or craving? Contact us anytime for a friendly chat or to place an order. We’re
+                    <p style="text-align: justify;">Got a question or craving? Contact us anytime for a friendly chat or to place an order. We’re
                         here to help, so reach out whenever you need!</p>
-                    <ul>
-                        <li><strong>+44 115 855 0583</strong><br>
-                            <small>Telephone</small>
-                        </li>
-                        <li><strong>sales@lanadessert.co.uk</strong><br>
-                            <small>Email</small>
-                        </li>
-                        {{-- <li><strong>28 Southwark ST, Nottingham, United Kingdom NG6 0DA</strong>
-                            <small>Address</small>
-                        </li> --}}
-                    </ul>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-telephone-fill" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M1.885.511a1.745 1.745 0 0 1 2.61.163L6.29 2.98c.329.423.445.974.315 1.494l-.547 2.19a.68.68 0 0 0 .178.643l2.457 2.457a.68.68 0 0 0 .644.178l2.189-.547a1.75 1.75 0 0 1 1.494.315l2.306 1.794c.829.645.905 1.87.163 2.611l-1.034 1.034c-.74.74-1.846 1.065-2.877.702a18.6 18.6 0 0 1-7.01-4.42 18.6 18.6 0 0 1-4.42-7.009c-.362-1.03-.037-2.137.703-2.877z"/>
+                    </svg>
+                    <strong style="padding-left: 12px; font-size: 22px;">+44 115 855 0583</strong><br><br>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                    <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414zM0 4.697v7.104l5.803-3.558zM6.761 8.83l-6.57 4.027A2 2 0 0 0 2 14h12a2 2 0 0 0 1.808-1.144l-6.57-4.027L8 9.586zm3.436-.586L16 11.801V4.697z"/>
+                    </svg>
+                    <strong style="padding-left: 12px; font-size: 22px;">sales@lanadessert.co.uk</strong><br>
                 </div>
             </div>
-            {{-- <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
-                <div class="contact-form text-center">
-                    <h2>Contact Form</h2>
-                    <form class="mt-5">
-                        <div class="mb-3">
-                            <input type="email" class="form-control" placeholder="Name" id="exampleInputEmail1"
-                                aria-describedby="emailHelp">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Email" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Phone" id="exampleInputPassword1">
-                        </div>
-                        <div class="mb-3">
-                            <input type="password" class="form-control" placeholder="Subject" id="exampleInputPassword1">
-                        </div>
-                        <textarea name="" class="form-control" placeholder="Message...." rows="6" id=""></textarea>
-                        <button type="submit" class="btn mt-3">Submit</button>
-                    </form>
-                </div>
-            </div> --}}
+            <div class="col-md-6 d-flex justify-content-center align-items-center single-chef" data-aos="fade-left" data-aos-duration="1500">
+                <img src="/assets/theme/images/Shoop.webp" class="img-fluid" alt="Contact Image">
+            </div>
         </div>
     </div>
 </div>
+
 
 <div class="menu-items my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
     <div class="container">
@@ -82,7 +62,6 @@
                     <p><strong>Sunday </strong> <span>05:00pm-2.00am</span></p>
                      
                 </div>
-
             </div>
             <div class="col-md-4">
                 <div class="dish-img d-grid">
