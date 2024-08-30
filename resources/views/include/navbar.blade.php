@@ -3,7 +3,7 @@
         <div class="row align-items-center">
             <div class="col-md-3 col-6 d-flex align-items-center">
                 <div class="lana-logo">
-                    <a href="/">
+                <a href="{{ route('dashboad') }}">
                         <img src="{{ asset('assets/theme/images/lana-logo.png') }}" class="img-fluid logo-img" alt="Lana Logo">
                     </a>
                 </div>
@@ -79,7 +79,7 @@
 </section>
 
 
-<script src="path/to/bootstrap.bundle.js"></script>
+<!-- <script src="path/to/bootstrap.bundle.js"></script> -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const toggleButton = document.getElementById('navbarToggle');
