@@ -1115,6 +1115,48 @@ margin: 0 15px;
 
 /* FAQ area start */
 
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+.page__wrapper {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "Syne Mono";
+	flex-direction: column;
+}
+.heading {
+	color: #c36;
+	letter-spacing: 5px;
+	font-size: 3em;
+	margin-bottom: 30px;
+	padding: 0px 15px;
+}
+.accordion {
+	max-width: 1000px;
+	width: calc(100% - 20px);
+}
+details {
+	background-color: #ffffff;
+	margin-bottom: 10px;
+	filter: drop-shadow(5px 5px 0px #c36);
+}
+details > summary {
+	color: #c36;
+	padding: 5px 10px;
+	font-size: 1.3em;
+	cursor: pointer;
+}
+details > p {
+	padding: 5px 10px 10px 20px;
+	color: #000000;
+	font-size: 1.1em;
+}
 
 /* FAQ area end */
 
