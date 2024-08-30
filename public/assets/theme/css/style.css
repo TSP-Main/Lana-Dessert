@@ -591,7 +591,7 @@ p{
 padding: 10px 13px;
 background-color: #e26284;
 border-radius: 0 20px 0 0;
-margin-top: 40px !important;
+margin-top: 10px !important;
 margin: 0 15px;
 }
 .quick li{
@@ -666,7 +666,7 @@ margin: 0 15px;
 /* => CSS Styles */
 
 /* Header Area Start */
-.nav-top {
+/* .nav-top {
     background-color: #f8f9fa; 
     padding: 10px 0;
 }
@@ -733,19 +733,19 @@ margin: 0 15px;
 #navbarToggle svg {
     width: 24px;
     height: 24px;
-}
+} */
 
 /* Responsive styles for medium devices (tablets and small desktops) */
-@media (min-width: 768px) and (max-width: 992px) {
+/* @media (min-width: 768px) and (max-width: 992px) {
     .nav-left-svg {
         left: auto; 
         right: 10px;
         position: absolute;
     }
-}
+} */
 
 /* Styles for larger screens */
-.row.d-lg-none {
+/* .row.d-lg-none {
     display: flex; 
     flex-direction: row; 
     flex-wrap: nowrap; 
@@ -763,10 +763,10 @@ margin: 0 15px;
 
 .row.d-lg-none .nav-link {
     font-size: 0.775rem; 
-}
+} */
 
 /* Override styles for mobile view */
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
     .row.d-lg-none {
         display: block; 
         flex-direction: initial;
@@ -786,7 +786,7 @@ margin: 0 15px;
     .row.d-lg-none .nav-link {
         font-size: initial;
     }
-}
+} */
 
 /* Header Area End */
 
