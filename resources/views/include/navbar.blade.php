@@ -1,20 +1,3 @@
-<style>
-    .custom-underline {
-        position: relative;
-        padding-bottom: 10px; 
-    }
-    
-    .custom-underline::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px; 
-        background-color: #c36;
-    }
-</style>
-
 <section class="nav-top bg-light py-2">
     <div class="container">
         <div class="row align-items-center">
@@ -27,30 +10,30 @@
                 </div>
             </div>
             
-            <!-- Nav items centered on large devices, hidden on medium and small devices -->
-            <div class="col-lg-6 d-none d-lg-flex justify-content-center">
-                <nav class="navbar navbar-expand-lg" id="navbar">
-                    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                        <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center" style="white-space: nowrap; flex-wrap: nowrap;">
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-white text-center" aria-current="page" href="/">Home</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-white text-center" href="/about">About Us</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-white text-center" href="/menus">Online Order</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-white text-center" href="/faq">FAQ</a>
-                            </li>
-                            <li class="nav-item mx-2">
-                                <a class="nav-link text-white text-center" href="/contact">Contact Us</a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-            </div>
+         <!-- Nav items centered on large devices, hidden on medium and small devices -->
+        <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+            <nav class="navbar navbar-expand-lg" id="navbar">
+                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                    <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center" style="white-space: nowrap; flex-wrap: nowrap;">
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white text-center" aria-current="page" href="/" id="home-link">Home</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white text-center" href="/about" id="about-link">About Us</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white text-center" href="/menus" id="menus-link">Online Order</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white text-center" href="/faq" id="faq-link">FAQ</a>
+                        </li>
+                        <li class="nav-item mx-2">
+                            <a class="nav-link text-white text-center" href="/contact" id="contact-link">Contact Us</a>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
             
             <!-- Cart icon and toggle button on the right -->
             <div class="col-lg-3 col-6 d-flex align-items-center justify-content-end">
@@ -74,35 +57,34 @@
                 </div>
             </div>
         </div>
-
         <!-- Navbar for medium and small devices -->
         <div class="row d-lg-none d-block">
             <div class="col-12">
-                <nav class="navbar navbar-expand-md" id="mobileNavbar" style="margin-left: 250px;">
+                <nav class="navbar navbar-expand-md ml-sm-100 ml-md-250" id="mobileNavbar">
                     <div class="collapse show" id="mobileNavbarContent">
                         <ul class="navbar-nav d-flex flex-column align-items-center w-100 text-center" style="padding: 10px 0;">
                             <li class="nav-item py-2">
-                                <a class="nav-link text-white custom-underline" aria-current="page" href="/" style="text-decoration: none;">
+                                <a class="nav-link text-white custom-underline" aria-current="page" href="/" id="home-link" style="text-decoration: none;">
                                     Home
                                 </a>
                             </li>
                             <li class="nav-item py-2">
-                                <a class="nav-link text-white custom-underline" href="/about" style="text-decoration: none;">
+                                <a class="nav-link text-white custom-underline" href="/about" id="about-link" style="text-decoration: none;">
                                     About Us
                                 </a>
                             </li>
                             <li class="nav-item py-2">
-                                <a class="nav-link text-white custom-underline" href="/menus" style="text-decoration: none;">
+                                <a class="nav-link text-white custom-underline" href="/menus" id="menus-link" style="text-decoration: none;">
                                     Online Order
                                 </a>
                             </li>
                             <li class="nav-item py-2">
-                                <a class="nav-link text-white custom-underline" href="/faq" style="text-decoration: none;">
+                                <a class="nav-link text-white custom-underline" href="/faq" id="faq-link" style="text-decoration: none;">
                                     FAQ
                                 </a>
                             </li>
                             <li class="nav-item py-2">
-                                <a class="nav-link text-white custom-underline" href="/contact" style="text-decoration: none;">
+                                <a class="nav-link text-white custom-underline" href="/contact" id="contact-link" style="text-decoration: none;">
                                     Contact Us
                                 </a>
                             </li>
@@ -130,4 +112,19 @@
             });
         });
     </script>
+
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var currentPath = window.location.pathname;
+        var navLinks = document.querySelectorAll(".navbar-nav .nav-link");
+
+        navLinks.forEach(function(link) {
+            if (link.getAttribute("href") === currentPath) {
+                link.classList.add("active");
+            }
+        });
+    });
+
+    </script>
+
 
