@@ -1,6 +1,13 @@
 @extends('layout.app')
 @section('title', 'Checkout')
 
+<style type="text/css">
+    #map {
+            height: 400px;
+            width: 100%;
+        }
+</style>
+
 @section('content')
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
@@ -33,6 +40,13 @@
                                         <div class="col-md-12 p-0">
                                             <input type="text" placeholder="Address" name="address" class="form-control" required>
                                         </div>
+                                    </div>
+                                    <h5 class="pt-4">Select your location</h4>
+                                    <div class="row">
+                                        <input type="hidden" id="coordinates" name="coordinates" value="">
+                                        <input type="hidden" id="customer-lat" name="customer_lat">
+                                        <input type="hidden" id="customer-lng" name="customer_lng"> 
+                                        <div id="map"></div>
                                     </div>
                                 </li>
                             @endif
@@ -181,7 +195,8 @@
                             }
 
                             // Submit the form
-                            form.submit();
+                            checkCustomerLocation();
+                            // form.submit();
                         }
                     }).catch(function(error) {
                         console.error('Error creating PaymentMethod:', error);
@@ -194,4 +209,142 @@
             });
         });
     </script>
+
+    @if ($orderType == 'delivery')
+        <!-- Google Map -->
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&callback=initMap&v=weekly" defer></script>
+        <script>
+            function initMap() {
+                let map, marker;
+                if (navigator.geolocation) {
+                    navigator.geolocation.getCurrentPosition(function (position) {
+                        var pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+
+                        map = new google.maps.Map(document.getElementById('map'), {
+                            center: pos,
+                            zoom: 14
+                        });
+
+                        marker = new google.maps.Marker({
+                            position: pos,
+                            map: map,
+                            title: "You are here!",
+                            draggable: true
+                        });
+
+                        // Update hidden input fields with current position
+                        document.getElementById('customer-lat').value = pos.lat;
+                        document.getElementById('customer-lng').value = pos.lng;
+
+                        // Listen for drag events on the marker
+                        google.maps.event.addListener(marker, 'dragend', function (event) {
+                            var lat = event.latLng.lat();
+                            var lng = event.latLng.lng();
+
+                            // Update the hidden input fields with new position
+                            document.getElementById('customer-lat').value = lat;
+                            document.getElementById('customer-lng').value = lng;
+                        });
+
+                        // Listen for click events on the map
+                        google.maps.event.addListener(map, 'click', function(event) {
+                            var lat = event.latLng.lat();
+                            var lng = event.latLng.lng();
+
+                            // Move the marker to the clicked location
+                            marker.setPosition(event.latLng);
+
+                            // Update the hidden input fields with the clicked position
+                            document.getElementById('customer-lat').value = lat;
+                            document.getElementById('customer-lng').value = lng;
+                        });
+
+                    }, function () {
+                        handleLocationError(true, map.getCenter());
+                    });
+                } else {
+                    // Browser doesn't support Geolocation
+                    handleLocationError(false, map.getCenter());
+                }
+            }
+
+            function handleLocationError(browserHasGeolocation, pos) {
+                alert(browserHasGeolocation ?
+                    "Error: The Geolocation service failed." :
+                    "Error: Your browser doesn't support geolocation.");
+            }
+        </script>
+
+        <script>
+            document.getElementById('place-order').addEventListener('click', function(e) {
+                e.preventDefault();
+                checkCustomerLocation();
+                // var form = document.getElementById('checkout-form');
+
+                // // Check if the form is valid
+                // if (!form.checkValidity()) {
+                //     // If the form is not valid, display a validation message
+                //     form.reportValidity();
+                //     return;
+                // }
+
+                // var customerLat = parseFloat(document.getElementById('customer-lat').value);
+                // var customerLng = parseFloat(document.getElementById('customer-lng').value);
+                
+                // var restaurantLat = {{ $restaurantLat }};
+                // var restaurantLng = {{ $restaurantLng }};
+                // var deliveryRadius = {{ $deliveryRadius }};
+
+                // // Calculate the distance using the Haversine formula
+                // var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                // if (distance <= deliveryRadius * 1000) {
+                //     // Proceed with the order
+                //     document.getElementById('checkout-form').submit();
+                // } else {
+                //     // Show error message
+                //     alert('Sorry, you are outside of our delivery radius.');
+                // }
+            });
+
+            function checkCustomerLocation(){
+                var form = document.getElementById('checkout-form');
+
+                // Check if the form is valid
+                if (!form.checkValidity()) {
+                    // If the form is not valid, display a validation message
+                    form.reportValidity();
+                    return;
+                }
+
+                var customerLat = parseFloat(document.getElementById('customer-lat').value);
+                var customerLng = parseFloat(document.getElementById('customer-lng').value);
+                
+                var restaurantLat = {{ $restaurantLat }};
+                var restaurantLng = {{ $restaurantLng }};
+                var deliveryRadius = {{ $deliveryRadius }};
+
+                // Calculate the distance using the Haversine formula
+                var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                if (distance <= deliveryRadius * 1000) {
+                    // Proceed with the order
+                    document.getElementById('checkout-form').submit();
+                } else {
+                    // Show error message
+                    alert('Sorry, you are outside of our delivery radius.');
+                }
+            }
+
+            function calculateDistance(lat1, lng1, lat2, lng2) {
+                const R = 6371000; // Radius of the Earth in meters
+                const dLat = (lat2 - lat1) * Math.PI / 180;
+                const dLng = (lng2 - lng1) * Math.PI / 180;
+                const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
+                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+                return R * c; // Distance in meters
+            }
+        </script>
+    @endif
 @endsection
