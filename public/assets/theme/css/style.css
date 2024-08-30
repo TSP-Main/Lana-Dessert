@@ -211,13 +211,13 @@ html, body {
     font-size: 36px;
     font-weight: 700;
     color: #fff;
-    line-height: 60px;
+    line-height: 35px;
 }
 .welcome p{
     
     color: #fff;
-    line-height: 40px;
-    font-size: 20px;
+    line-height: 25px;
+    font-size: 15px;
 }
 .welcome button{
     color: #fff;
@@ -788,6 +788,38 @@ margin: 0 15px;
     }
 } */
 
+
+.ml-sm-100 {
+    margin-left: 100px !important;
+}
+
+@media (min-width: 768px) { 
+    .ml-md-250 {
+        margin-left: 250px !important;
+    }
+}
+
+.nav-link.custom-underline {
+    position: relative;
+}
+
+.nav-link.text-center {
+    position: relative;
+    display: inline-block; 
+}
+
+.nav-link.custom-underline.active::after, .nav-link.text-center.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px; 
+    background-color: #c36; 
+    padding-top: 3px; 
+}
+
+
 /* Header Area End */
 
 
@@ -902,7 +934,7 @@ margin: 0 15px;
     }
 
     .menu-items .dish-menu {
-        font-size: 0.8rem; 
+        /* font-size: 0.8rem;  */
         text-align: center;
         transform: scale(0.7);
 
@@ -942,8 +974,11 @@ margin: 0 15px;
         margin-top: 1rem;
     }
     .footer-widget .col-md-4 {
-        text-align: center; 
+        text-align: left; 
         margin-bottom: 1rem;
+    }
+    .footer-h {
+        text-align: center !important; 
     }
   
 }
@@ -1076,3 +1111,10 @@ margin: 0 15px;
 
 
 /* About us cards area end */
+
+
+/* FAQ area start */
+
+
+/* FAQ area end */
+

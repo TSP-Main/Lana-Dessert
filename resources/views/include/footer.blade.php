@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="about-lana">
-                    <img src="/assets/theme/images/lana-logo.png" width="150px" alt="">
+                    <div class="footer-h">
+                    <img src="/assets/theme/images/lana-logo.png" width="120px" alt="">
+                    </div>
                     <p style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
                         Whether you want to eat in or take out.</p> 
                         <p>We’re open every day from 5 PM to 2 AM.</p>
@@ -11,7 +13,7 @@
             </div>
             <div class="col-md-4">
                 <div class="quick">
-                    <h2>Quick links</h2>
+                <h2 class="footer-h">Quick links</h2>
                     <ul>
                         <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
@@ -65,7 +67,7 @@
             </div>
             <div class="col-md-4">
                 <div class="contact-lana">
-                    <h2>Contact Us</h2>
+                    <h2 class="footer-h">Contact Us</h2>
                     <ul>
                         <li><span><svg aria-hidden="true" class="e-font-icon-svg e-fas-envelope-open-text"
                                     viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
