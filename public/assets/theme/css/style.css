@@ -826,7 +826,7 @@ margin: 0 15px;
 /* Hero Area Start */
 
 /* Adjust image sizes for different breakpoints */
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .left-small, .right-straw {
         max-width: 100%; 
         height: auto;
@@ -839,14 +839,10 @@ margin: 0 15px;
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .double-side img {
         display: none;
     }
-}
-
-@media (min-width: 768px) {
-
 }
 
 
@@ -953,6 +949,7 @@ margin: 0 15px;
 
 
 /* Menu Area End */
+
 
 /* News latter Area Starts */
 
@@ -1115,48 +1112,39 @@ margin: 0 15px;
 
 /* FAQ area start */
 
-*,
-*::before,
-*::after {
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
-}
-.page__wrapper {
-	height: 100vh;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-family: "Syne Mono";
-	flex-direction: column;
-}
-.heading {
-	color: #c36;
-	letter-spacing: 5px;
-	font-size: 3em;
-	margin-bottom: 30px;
-	padding: 0px 15px;
-}
-.accordion {
-	max-width: 1000px;
-	width: calc(100% - 20px);
-}
-details {
-	background-color: #ffffff;
-	margin-bottom: 10px;
-	filter: drop-shadow(5px 5px 0px #c36);
-}
-details > summary {
-	color: #c36;
-	padding: 5px 10px;
-	font-size: 1.3em;
-	cursor: pointer;
-}
-details > p {
-	padding: 5px 10px 10px 20px;
-	color: #000000;
-	font-size: 1.1em;
-}
-
+.collapsible-link::before {
+    content: '';
+    width: 14px;
+    height: 2px;
+    background: #333;
+    position: absolute;
+    top: calc(50% - 1px);
+    right: 1rem;
+    display: block;
+    transition: all 0.3s;
+  }
+  
+  /* Vertical line */
+  .collapsible-link::after {
+    content: '';
+    width: 2px;
+    height: 14px;
+    background: #333;
+    position: absolute;
+    top: calc(50% - 7px);
+    right: calc(1rem + 6px);
+    display: block;
+    transition: all 0.3s;
+  }
+  
+  .collapsible-link[aria-expanded='true']::after {
+    transform: rotate(90deg) translateX(-1px);
+  }
+  
+  .collapsible-link[aria-expanded='true']::before {
+    transform: rotate(180deg);
+  }
+  
+  
 /* FAQ area end */
 
