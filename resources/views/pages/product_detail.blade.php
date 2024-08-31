@@ -38,21 +38,22 @@
                         <div class="row">
                             <!-- Product Image -->
                             <div class="col-md-6">
-                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="img-fluid" alt="Product Image">
+                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="img-fluid" alt="Product Image" style="border-top-right-radius: 0px;">
                             </div>
                             
                             <!-- Product Details -->
                             <div class="col-md-6">
-                                <h1>{{ $product['title'] }}</h1>
+                                <h1 style="color: #c36;">{{ $product['title'] }}</h1>
                                 <p class="text-muted">{{ $product['category']['name']}}</p>
-                                <h4>£{{ $product['price'] }}</h4>
+                                <h4 style="color: #c36;">£{{ $product['price'] }}</h4>
                                 <p>{{ $product['description']}}</p>
                     
                                 <!-- Add to Cart Section -->
                                 <div class="mt-4">
-                                    <button type="button" id="openModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}">
-                                        Add
-                                    </button>
+                                <button type="button" id="openModal" class="nav-top-svg text-white border-white" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}">
+                                    Add
+                                </button>
+
                                 </div>
                             </div>
                         </div>
