@@ -3,7 +3,9 @@
         <div class="row">
             <div class="col-md-4">
                 <div class="about-lana">
-                    <img src="/assets/theme/images/lana-logo.png" width="150px" alt="">
+                    <div class="footer-h">
+                    <img src="/assets/theme/images/lana-logo.png" width="120px" alt="">
+                    </div>
                     <p style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
                         Whether you want to eat in or take out.</p> 
                         <p>We’re open every day from 5 PM to 2 AM.</p>
@@ -11,7 +13,7 @@
             </div>
             <div class="col-md-4">
                 <div class="quick">
-                    <h2>Quick links</h2>
+                <h2 class="footer-h">Quick links</h2>
                     <ul>
                         <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
@@ -65,7 +67,7 @@
             </div>
             <div class="col-md-4">
                 <div class="contact-lana">
-                    <h2>Contact Us</h2>
+                    <h2 class="footer-h">Contact Us</h2>
                     <ul>
                         <li><span><svg aria-hidden="true" class="e-font-icon-svg e-fas-envelope-open-text"
                                     viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
@@ -97,7 +99,9 @@
             <div class="col-md-12 d-flex justify-content-center">
                 <div class="d-flex">
                 <div class="container copyright text-center mt-4">
-                 <p>© 2024<strong class="px-1 sitename" style="color: #e26284">Lana Dessert</strong> <span>All Rights Reserved</span></p>
+                 <p>© 2024<strong class="px-1 sitename" style="color: #e26284">Lana Dessert</strong> <span>All Rights Reserved</span> 
+                 <!-- <p>Designed by: <strong class="px-1 sitename" style="text-decuration: none; color: #e26284"><a href ="https://techsolutionspro.co.uk/">Tech Solutions Pro</a></strong></p> -->
+                </p>
                 </div>
                     <!-- use if needed -->
                     <!-- <span class="nav-top-svg">

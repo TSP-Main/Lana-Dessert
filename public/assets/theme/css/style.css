@@ -211,13 +211,13 @@ html, body {
     font-size: 36px;
     font-weight: 700;
     color: #fff;
-    line-height: 60px;
+    line-height: 35px;
 }
 .welcome p{
     
     color: #fff;
-    line-height: 40px;
-    font-size: 20px;
+    line-height: 25px;
+    font-size: 15px;
 }
 .welcome button{
     color: #fff;
@@ -591,7 +591,7 @@ p{
 padding: 10px 13px;
 background-color: #e26284;
 border-radius: 0 20px 0 0;
-margin-top: 40px !important;
+margin-top: 10px !important;
 margin: 0 15px;
 }
 .quick li{
@@ -666,7 +666,7 @@ margin: 0 15px;
 /* => CSS Styles */
 
 /* Header Area Start */
-.nav-top {
+/* .nav-top {
     background-color: #f8f9fa; 
     padding: 10px 0;
 }
@@ -733,19 +733,19 @@ margin: 0 15px;
 #navbarToggle svg {
     width: 24px;
     height: 24px;
-}
+} */
 
 /* Responsive styles for medium devices (tablets and small desktops) */
-@media (min-width: 768px) and (max-width: 992px) {
+/* @media (min-width: 768px) and (max-width: 992px) {
     .nav-left-svg {
         left: auto; 
         right: 10px;
         position: absolute;
     }
-}
+} */
 
 /* Styles for larger screens */
-.row.d-lg-none {
+/* .row.d-lg-none {
     display: flex; 
     flex-direction: row; 
     flex-wrap: nowrap; 
@@ -763,10 +763,10 @@ margin: 0 15px;
 
 .row.d-lg-none .nav-link {
     font-size: 0.775rem; 
-}
+} */
 
 /* Override styles for mobile view */
-@media (max-width: 767px) {
+/* @media (max-width: 767px) {
     .row.d-lg-none {
         display: block; 
         flex-direction: initial;
@@ -786,7 +786,39 @@ margin: 0 15px;
     .row.d-lg-none .nav-link {
         font-size: initial;
     }
+} */
+
+
+.ml-sm-100 {
+    margin-left: 100px !important;
 }
+
+@media (min-width: 768px) { 
+    .ml-md-250 {
+        margin-left: 250px !important;
+    }
+}
+
+.nav-link.custom-underline {
+    position: relative;
+}
+
+.nav-link.text-center {
+    position: relative;
+    display: inline-block; 
+}
+
+.nav-link.custom-underline.active::after, .nav-link.text-center.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 1px; 
+    background-color: #c36; 
+    padding-top: 3px; 
+}
+
 
 /* Header Area End */
 
@@ -902,7 +934,7 @@ margin: 0 15px;
     }
 
     .menu-items .dish-menu {
-        font-size: 0.8rem; 
+        /* font-size: 0.8rem;  */
         text-align: center;
         transform: scale(0.7);
 
@@ -942,8 +974,11 @@ margin: 0 15px;
         margin-top: 1rem;
     }
     .footer-widget .col-md-4 {
-        text-align: center; 
+        text-align: left; 
         margin-bottom: 1rem;
+    }
+    .footer-h {
+        text-align: center !important; 
     }
   
 }
@@ -1076,3 +1111,52 @@ margin: 0 15px;
 
 
 /* About us cards area end */
+
+
+/* FAQ area start */
+
+*,
+*::before,
+*::after {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+.page__wrapper {
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-family: "Syne Mono";
+	flex-direction: column;
+}
+.heading {
+	color: #c36;
+	letter-spacing: 5px;
+	font-size: 3em;
+	margin-bottom: 30px;
+	padding: 0px 15px;
+}
+.accordion {
+	max-width: 1000px;
+	width: calc(100% - 20px);
+}
+details {
+	background-color: #ffffff;
+	margin-bottom: 10px;
+	filter: drop-shadow(5px 5px 0px #c36);
+}
+details > summary {
+	color: #c36;
+	padding: 5px 10px;
+	font-size: 1.3em;
+	cursor: pointer;
+}
+details > p {
+	padding: 5px 10px 10px 20px;
+	color: #000000;
+	font-size: 1.1em;
+}
+
+/* FAQ area end */
+
