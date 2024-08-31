@@ -206,19 +206,19 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active text-center">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate ea qui provident, ipsa
-                        adipisci dignissimos?</p>
-                    <h2>John Doe</h2>
+                    <p>Fantastic milkshakes in satisfying portions. Very friendly staff. Haven’t been disappointed.</p>
+                    <h2>Mehmet Ali Karademir</h2>
                 </div>
                 <div class="carousel-item text-center">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate ea qui provident, ipsa
-                        adipisci dignissimos?</p>
-                    <h2>John Doe</h2>
+                    <p>Highly Recommend!!
+                    I ordered the strawberries and chocolate and I will definitely be back in the future.
+                    The strawberries were so fresh and tasty and topped with the milk and white chocolate… AMAZING !!!</p>
+                    <h2>Eley Thomas</h2>
                 </div>
                 <div class="carousel-item text-center">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate ea qui provident, ipsa
-                        adipisci dignissimos?</p>
-                    <h2>John Doe</h2>
+                    <p>Had the freddo ice cream it was so good absolutely loved it definitely getting it again and I'm definitely trying the other desserts they have
+                    Edit: I have tried the oreo ice cream it is also delicious next time I'm definitely trying the cheese cakes they have or something else they have there :)</p>
+                    <h2>Loafiethe Bread</h2>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"

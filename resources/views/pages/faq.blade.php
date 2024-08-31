@@ -22,7 +22,7 @@
     -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">FAQ</h2>
     </div>
 </div>
-<div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
+<!-- <div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
     <div class="container">
         <div class="row d-flex align-items-start py-5">
             <div class="col-md-3">
@@ -68,8 +68,28 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
+<div class="page__wrapper">
+		<div class="accordion">
+			<details>
+			  <summary><strong>Do you offer dine-in, takeaway, and delivery options?</strong></summary>
+			  <p>Absolutely! At Lana Desserts, we believe in providing flexibility for our customers. You can enjoy our delicious burgers and desserts in-house, take them to go, or have them delivered right to your doorstep.</p>
+			</details>
+			<details>
+			  <summary><strong>How will I know when my order is ready?</strong></summary>
+			  <p>Once your order is confirmed, we will provide you with updates about when to expect your goodies. You can count on us to keep you informed every step of the way!</p>
+			</details>
+			<details>
+			  <summary><strong>Are my desserts fresh?</strong></summary>
+			  <p>Yes, indeed. We take pride in serving only the freshest desserts at Lana Desserts. Every item is made with care and attention to ensure you enjoy each delightful bite.</p>
+			</details>
+			<details>
+			  <summary><strong>What are your opening hours?</strong></summary>
+			  <p>We are here to satisfy your sweet cravings every day of the week. Lana Desserts opens Monday to Sunday from 5 PM to 2 AM.</p>
+			</details>
+		</div>
+	</div>
 
 <div class="founder-about">
     <div class="container">
