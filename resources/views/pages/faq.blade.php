@@ -22,54 +22,65 @@
     -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">FAQ</h2>
     </div>
 </div>
-<div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
-    <div class="container">
-        <div class="row d-flex align-items-start py-5">
-            <div class="col-md-3">
-                <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist"
-                    aria-orientation="vertical">
-                    <button class="nav-link active" id="v-pills-home-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home"
-                        aria-selected="true">What is Lezzatos?</button>
-                    <button class="nav-link" id="v-pills-profile-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile"
-                        aria-selected="false">How to order food in Lezzatos ?</button>
-                    <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages"
-                        aria-selected="false">Which food is the most delicious ?</button>
-                    <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill"
-                        data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings"
-                        aria-selected="false">How to book a table ?</button>
-                </div>
-            </div>
-            <div class="col-md-9">
-                <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show active" id="v-pills-home" role="tabpanel"
-                        aria-labelledby="v-pills-home-tab">
-                        <h2>Do you offer dine-in, takeaway, and delivery options?  </h2>
-                        <p>Absolutely! At Lana Desserts, we believe in providing flexibility for our customers. You can enjoy our delicious burgers and desserts in-house, take them to go, or have them delivered right to your doorstep.</p>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-profile" role="tabpanel"
-                        aria-labelledby="v-pills-profile-tab">
-                        <h2>How will I know when my order is ready?</h2>
-                        <p>Once your order is confirmed, we will provide you with updates about when to expect your goodies. You can count on us to keep you informed every step of the way!</p>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-messages" role="tabpanel"
-                        aria-labelledby="v-pills-messages-tab">
-                        <h2>Are my desserts fresh? </h2>
-                        <p>Yes, indeed. We take pride in serving only the freshest desserts at Lana Desserts. Every item is made with care and attention to ensure you enjoy each delightful bite.</p>
-                    </div>
-                    <div class="tab-pane fade" id="v-pills-settings" role="tabpanel"
-                        aria-labelledby="v-pills-settings-tab">
-                        <h2>What are your opening hours?</h2>
-                        <p>We are here to satisfy your sweet cravings every day of the week. Lana Desserts opens Monday to Sunday from 5 PM to 2 AM.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
+    <div class="container mt-5 mb-5">
+  <div class="row">
+    <div class="col-lg-9 mx-auto">
+      <!-- Accordion -->
+      <div id="accordionExample" class="accordion ">
+
+        <!-- Accordion item 1 -->
+        <div class="card">
+          <div id="headingOne" class="card-header bg-white border-0">
+            <h6 class="mb-0 font-weight-bold"><p data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne" class="d-block position-relative text-dark text-uppercase collapsible-link py-2">Do you offer dine-in, takeaway, and delivery options?</p></h6>
+          </div>
+          <div id="collapseOne" aria-labelledby="headingOne" data-parent="#accordionExample" class="collapse show">
+            <div class="card-body p-5">
+              <p class="font-weight-light m-0">Absolutely! At Lana Desserts, we believe in providing flexibility for our customers. You can enjoy our delicious burgers and desserts in-house, take them to go, or have them delivered right to your doorstep.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion item 2 -->
+        <div class="card">
+          <div id="headingTwo" class="card-header bg-white border-0">
+            <h6 class="mb-0 font-weight-bold"><p data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">How will I know when my order is ready?</p></h6>
+          </div>
+          <div id="collapseTwo" aria-labelledby="headingTwo" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-5">
+              <p class="font-weight-light m-0">Once your order is confirmed, we will provide you with updates about when to expect your goodies. You can count on us to keep you informed every step of the way!</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion item 3 -->
+        <div class="card">
+          <div id="headingThree" class="card-header bg-white border-0">
+            <h6 class="mb-0 font-weight-bold"><p data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">Are my desserts fresh?</p></h6>
+          </div>
+          <div id="collapseThree" aria-labelledby="headingThree" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-5">
+              <p class="font-weight-light m-0">Yes, indeed. We take pride in serving only the freshest desserts at Lana Desserts. Every item is made with care and attention to ensure you enjoy each delightful bite.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Accordion item 4 -->
+        <div class="card">
+          <div id="headingFour" class="card-header bg-white border-0">
+            <h6 class="mb-0 font-weight-bold"><p data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" class="d-block position-relative collapsed text-dark text-uppercase collapsible-link py-2">What are your opening hours?</p></h6>
+          </div>
+          <div id="collapseFour" aria-labelledby="headingFour" data-parent="#accordionExample" class="collapse">
+            <div class="card-body p-5">
+              <p class="font-weight-light m-0">We are here to satisfy your sweet cravings every day of the week. Lana Desserts opens Monday to Sunday from 5 PM to 2 AM.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
 
 <div class="founder-about">
     <div class="container">
@@ -92,4 +103,32 @@
         </div>
     </div>
 </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const accordionItems = document.querySelectorAll('#accordion .card');
+
+            accordionItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const collapseElement = item.querySelector('.collapse');
+                    if (collapseElement.classList.contains('show')) {
+                        return;
+                    }
+
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item) {
+                            const otherCollapseElement = otherItem.querySelector('.collapse');
+                            if (otherCollapseElement.classList.contains('show')) {
+                                $(otherCollapseElement).collapse('hide');
+                            }
+                        }
+                    });
+                });
+            });
+        });
+    </script>
 @endsection
+
+    
