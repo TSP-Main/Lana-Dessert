@@ -5,26 +5,27 @@
 <div class="home-main">
     <div class="container">
         <div class="row py-5">
-            <div class="col-md-6">
+            <div class="col-md-6 col-12 text-center text-md-start">
                 <div class="welcome my-5" data-aos="fade-right">
                     <h4>Welcome To Lana Dessert</h4>
                     <h2>
                         Bite into Blissful Moments <br>Where Flavor Knows No Limits
                     </h2>
-                    <p>We are a bakery that creatively combines desserts and fast food, emphasising unique flavours
-                        and inventive culinary presentations for enjoyment</p>
-                        <button onclick="window.location.href='{{ route('menus') }}'" class="btn px-5 py-3">Online Order</button>
+                    <p style="text-align: justify;">We are a bakery that creatively combines desserts and fast food, emphasizing unique flavors
+                        and inventive culinary presentations for enjoyment.</p>
+                    <button onclick="window.location.href='{{ route('menus') }}'" class="btn px-5 py-3">Online Order</button>
                 </div>
             </div>
-            <div class="col-md-6 text-end">
+            <div class="col-md-6 col-12 text-center text-md-end">
                 <div class="double-side my-4" data-aos="fade-down-left" data-aos-duration="1500">
-                    <img src="{{ asset('assets/theme/images/home-lana.webp')}}" width="250" class="left-small" alt="">
-                    <img src="{{ asset('assets/theme/images/home-lana-left.webp')}}" width="320" class="right-straw" alt="">
+                    <img src="{{ asset('assets/theme/images/home-lana.webp')}}" class="img-fluid left-small" alt="Dessert Image">
+                    <img src="{{ asset('assets/theme/images/home-lana-left.webp')}}" class="img-fluid right-straw" alt="Dessert Image">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 <div class="have-look my-5 pt-5" data-aos="fade-down" data-aos-duration="1500">
     <div class="container">
         {{-- <div class="mount text-center mb-5">
@@ -37,7 +38,7 @@
                 <div class="row" data-aos="fade-down" data-aos-duration="1500">
                     @if ($response)
                         @foreach ($menus as $menu)
-                            <div class="col-md-3">
+                            <div class="col-12 col-md-6 col-lg-3 mb-4">
                                 <div class="card">
                                     <div class="card-body">
                                         <img src="./images/waffles-2.png" width="70px" alt="">
@@ -60,28 +61,28 @@
                     @endif
                 </div>
             </div>
-
         </div>
     </div>
 </div>
+
 <div class="founder-about" data-aos="fade-right" data-aos-duration="1000">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
+            <div class="col-md-3 colmd3">
                 <div class="founder-img">
                     <img src="assets/theme/images/home-lana-left.webp" class="custom-margin-img" width="100%" alt="">
                 </div>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 colmd4">
                 <div class="founder-img">
                     <img src="assets/theme/images/home-lana-msg.webp" width="100%" alt="">
                 </div>
             </div>
-            <div class="col-md-5">
+            <div class="col-md-5 colmd5">
                 <div class="founder-msg home-msg">
                     <h2>About Us</h2>
                     <h4>Our Story!</h4>
-                    <p>Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
+                    <p  style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
                         Whether you want to eat in or take out, we’re open every day from 5 PM to 2 AM. You can even
                         customise your order to suit your taste because we love making things just how you like
                         them. So, come on over and enjoy our yummy treats with a side of fun! </p>
@@ -91,7 +92,6 @@
         </div>
     </div>
 </div>
-
 
 <div class="counter-about" data-aos="fade-down" data-aos-duration="1500">
     <div class="container">
@@ -115,6 +115,7 @@
         </div>
     </div>
 </div>
+
 <div class="menu-items my-5 pt-5 bg-none" data-aos="fade-down" data-aos-duration="1500">
     <div class="container" style= "height: 38rem">
         <div class="row">
@@ -146,7 +147,6 @@
                     <img src="/assets/theme/images/home-burger.webp" class="dish-one" width="100%" alt="">
                 </div>
             </div>
-
         </div>
     </div>
 </div>
@@ -159,7 +159,7 @@
                     <h2 class="display-4">Online Order</h2>
                     <h4 class="display-6">Placed your online order</h4>
                 </div>
-                <p class="lead" style="color: aliceblue">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest.
+                <p class="lead" style="color: aliceblue; text-align: justify;">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest.
                     !</p>
                 <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Oder Online</button>
             </div>
@@ -206,19 +206,19 @@
             </div>
             <div class="carousel-inner">
                 <div class="carousel-item active text-center">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate ea qui provident, ipsa
-                        adipisci dignissimos?</p>
-                    <h2>John Doe</h2>
+                    <p>Fantastic milkshakes in satisfying portions. Very friendly staff. Haven’t been disappointed.</p>
+                    <h2>Mehmet Ali Karademir</h2>
                 </div>
                 <div class="carousel-item text-center">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate ea qui provident, ipsa
-                        adipisci dignissimos?</p>
-                    <h2>John Doe</h2>
+                    <p>Highly Recommend!!
+                    I ordered the strawberries and chocolate and I will definitely be back in the future.
+                    The strawberries were so fresh and tasty and topped with the milk and white chocolate… AMAZING !!!</p>
+                    <h2>Eley Thomas</h2>
                 </div>
                 <div class="carousel-item text-center">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cupiditate ea qui provident, ipsa
-                        adipisci dignissimos?</p>
-                    <h2>John Doe</h2>
+                    <p>Had the freddo ice cream it was so good absolutely loved it definitely getting it again and I'm definitely trying the other desserts they have
+                    Edit: I have tried the oreo ice cream it is also delicious next time I'm definitely trying the cheese cakes they have or something else they have there :)</p>
+                    <h2>Loafiethe Bread</h2>
                 </div>
             </div>
             <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators"

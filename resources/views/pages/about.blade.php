@@ -1,7 +1,7 @@
 @extends('layout.app')
 @section('title', 'About')
 
-<style>
+<!-- <style>
     /* .nav-top-svg{
         display: none;
     } */
@@ -14,11 +14,12 @@
     background-clip: text; /* Apply grnt to text for non-webkit browsers */
     text-fill-color: transparent; /* Ensure compatibility */
 }
-</style>
+</style> -->
 @section('content')
 <div class="about-us-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title gradient-text">About us</h2>
+        <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">About us</h2>
     </div>
 </div>
 <div class="beyound py-5" data-aos="fade-down-right" data-aos-duration="1500">
@@ -31,7 +32,7 @@
                 </div>
             </div>
             <div class="col-md-6 my-5 py5">
-                <p>Lana Dessert – where Nottingham indulges in a symphony of sweet delights. Nestled in the heart of
+                <p style="text-align: justify;">Lana Dessert – where Nottingham indulges in a symphony of sweet delights. Nestled in the heart of
                     the city, Lana Dessert tempts taste buds with a fusion of creative desserts and fast food, each
                     bite bursting with flavour. Whether you’re craving a midnight treat or a post-dinner dessert,
                     we’re here to satisfy your cravings. Our doors are open from Monday to Sunday, 5 pm to 2 am,
@@ -41,7 +42,7 @@
             </div>
         </div>
         <div class="row single-chef">
-            <img src="/assets/theme/images/chef-about.jpg" width="100%" alt="">
+            <img src="/assets/theme/images/Shoop.webp" width="100%" alt="">
         </div>
     </div>
 </div>
@@ -75,13 +76,13 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="founder-img">
-                    <img src="/assets/theme/images/founder.webp" width="100%" alt="">
+                    <img src="/assets/theme/images/shop.webp" width="100%" alt="">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="founder-msg" data-aos="fade-left" data-aos-duration="1000">
-                    <h2>Message from Founder!</h2>
-                    <p>At Lana Dessert, we’re all about sweet satisfaction! Our bakery in Nottingham serves up
+                    <h2>Message from Lana Dessert!</h2>
+                    <p style="text-align: justify;">At Lana Dessert, we’re all about sweet satisfaction! Our bakery in Nottingham serves up
                         delicious desserts and fast food with a creative twist. We mix passion with flavour in every
                         bite. I founded this place to blend creativity with tradition. Each treat is made with care
                         and innovation. Come join us on a delicious journey where taste knows no limits. </p>
@@ -91,11 +92,11 @@
     </div>
 </div>
 
-<div class="vision py-5" data-aos="zoom-in-up" data-aos-duration="1500">
+<div class="vision" data-aos="zoom-in-up" data-aos-duration="1500">
     <div class="container">
         <div class="row">
             <div class="col-md-12 mt-5">
-                <h2>Our Vision & Mission</h2>
+                <h2 style="text-align: center">Our Vision & Mission</h2>
                 <div class="innovate d-flex">
                     <div class="vision-img me-2">
                         <img src="/assets/theme/images/innovate.png" width="50px" alt="">
@@ -129,15 +130,22 @@
     </div>
 </div>
 
-<div class="have-look my-5 py-5">
+<div class="have-look">
     <div class="container">
         <div class="row py-5">
-            <div class="col-md-6">
-                <div class="row" data-aos="fade-up" data-aos-duration="1500">
-                    <div class="col-md-6">
+            <div class="col-md-12 mt-5" data-aos="fade-left" data-aos-duration="1500">
+                <div class="mount text-center mt-5">
+                    <h4>Have a Look!</h4>
+                    <h2>Our Mouthwatering <br> Menu</h2>
+                    <button onclick="window.location.href='{{ route('menus') }}'" class="btn">Order now</button>
+                </div>
+            </div>
+            <div class="col-md-12" style="margin-top: 50px;">
+                <div class="row d-flex justify-content-between" data-aos="fade-up" data-aos-duration="1500">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
-                                 <img src="/assets/theme/images/waffles-2.png" width="70px" alt="">
+                                <img src="/assets/theme/images/waffles-2.png" width="70px" alt="">
                                 <h5 class="card-title">Waffles</h5>
                                 <p class="card-text">Lana Dessert's waffles are irresistibly delicious, featuring
                                     crispy edges, soft centres, and decadent toppings for a delightful treat
@@ -145,7 +153,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <img src="/assets/theme/images/shakes-1.png" width="70px" alt="">
@@ -156,9 +164,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row" data-aos="fade-down" data-aos-duration="1500">
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <img src="/assets/theme/images/croffle-1.png" width="70px" alt="">
@@ -168,7 +174,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <div class="card">
                             <div class="card-body">
                                 <img src="/assets/theme/images/mini-doughnut.png" width="70px" alt="">
@@ -180,14 +186,8 @@
                     </div>
                 </div>
             </div>
-            <div class="col-md-6 mt-5" data-aos="fade-left" data-aos-duration="1500">
-                <div class="mount mt-5 ps-5">
-                    <h4>Have a Look!</h4>
-                    <h2>Our Mouthwatering <br> Menu</h2>
-                    <button onclick="window.location.href='{{ route('menus') }}'" class="btn">Order now</button>
-                </div>
-            </div>
         </div>
     </div>
 </div>
+
 @endsection

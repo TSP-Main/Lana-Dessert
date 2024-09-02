@@ -1,6 +1,6 @@
 @extends('layout.app')
 @section('title', 'FAQs')
- <style>
+ <!-- <style>
     /* .nav-top-svg{
         display: none;
     } */
@@ -13,15 +13,16 @@
     background-clip: text; /* Apply grnt to text for non-webkit browsers */
     text-fill-color: transparent; /* Ensure compatibility */
 }
-</style>
+</style> -->
 
 @section('content')
 <div class="faq-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title gradient-text">FAQ</h2>
+        <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">FAQ</h2>
     </div>
 </div>
-<div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
+<!-- <div class="vertical-tab-menu  my-5 py-5" data-aos="fade-down-right" data-aos-duration="1500">
     <div class="container">
         <div class="row d-flex align-items-start py-5">
             <div class="col-md-3">
@@ -67,22 +68,42 @@
             </div>
         </div>
     </div>
-</div>
+</div> -->
 
+<div class="page__wrapper">
+		<div class="accordion">
+			<details>
+			  <summary><strong>Do you offer dine-in, takeaway, and delivery options?</strong></summary>
+			  <p>Absolutely! At Lana Desserts, we believe in providing flexibility for our customers. You can enjoy our delicious burgers and desserts in-house, take them to go, or have them delivered right to your doorstep.</p>
+			</details>
+			<details>
+			  <summary><strong>How will I know when my order is ready?</strong></summary>
+			  <p>Once your order is confirmed, we will provide you with updates about when to expect your goodies. You can count on us to keep you informed every step of the way!</p>
+			</details>
+			<details>
+			  <summary><strong>Are my desserts fresh?</strong></summary>
+			  <p>Yes, indeed. We take pride in serving only the freshest desserts at Lana Desserts. Every item is made with care and attention to ensure you enjoy each delightful bite.</p>
+			</details>
+			<details>
+			  <summary><strong>What are your opening hours?</strong></summary>
+			  <p>We are here to satisfy your sweet cravings every day of the week. Lana Desserts opens Monday to Sunday from 5 PM to 2 AM.</p>
+			</details>
+		</div>
+	</div>
 
 <div class="founder-about">
     <div class="container">
         <div class="row">
             <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
                 <div class="founder-img">
-                    <img src="assets/theme/images/faq-sec.webp" width="100%" alt="">
+                    <img src="/assets/theme/images/Shoop.webp" width="100%" alt="">
                 </div>
             </div>
             <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
                 <div class="founder-msg faq-msg px-5">
                     <h5>Discover</h5>
                     <h2>Our Crew Ready to Help You</h2>
-                    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
+                    <p style="text-align: justify;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque
                         laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi
                         architecto beatae vitae dicta sunt explicabo. </p>
                         <a href="">Contact us</a>
