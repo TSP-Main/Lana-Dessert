@@ -13,8 +13,13 @@ function is_restaurant_closed()
         'Authorization' => $apiToken,
     ])->get($serverUrl . 'api/schedule');
 
-    $today = Carbon::now()->format('l');
-    $todaySchedule = collect($scheduleData['data'])->firstWhere('day', $today);
+    $scheduleData = $sresponseData['data']['schedule'];
+    $timezone = $sresponseData['data']['timezone'][0];
+
+    
+    $today = Carbon::now($timezone)->format('l');
+    $todaySchedule = collect($scheduleData)->firstWhere('day', $today);
+
 
     if ($todaySchedule['is_closed'] || !$todaySchedule['opening_time'] || !$todaySchedule['closing_time']) {
         $data['isClosed'] = true;
