@@ -195,13 +195,8 @@
                             }
 
                             // Submit the form
-                            var orderType = @json($orderType);
-                            if(orderType === 'pickup'){
-                                form.submit();
-                            }
-                            else{
-                                checkCustomerLocation();
-                            }
+                            checkCustomerLocation();
+                            // form.submit();
                         }
                     }).catch(function(error) {
                         console.error('Error creating PaymentMethod:', error);
@@ -287,6 +282,31 @@
             document.getElementById('place-order').addEventListener('click', function(e) {
                 e.preventDefault();
                 checkCustomerLocation();
+                // var form = document.getElementById('checkout-form');
+
+                // // Check if the form is valid
+                // if (!form.checkValidity()) {
+                //     // If the form is not valid, display a validation message
+                //     form.reportValidity();
+                //     return;
+                // }
+
+                // var customerLat = parseFloat(document.getElementById('customer-lat').value);
+                // var customerLng = parseFloat(document.getElementById('customer-lng').value);
+                
+                // var restaurantLat = {{ $restaurantLat }};
+                // var restaurantLng = {{ $restaurantLng }};
+                // var deliveryRadius = {{ $deliveryRadius }};
+
+                // // Calculate the distance using the Haversine formula
+                // var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                // if (distance <= deliveryRadius * 1000) {
+                //     // Proceed with the order
+                //     document.getElementById('checkout-form').submit();
+                // } else {
+                //     // Show error message
+                //     alert('Sorry, you are outside of our delivery radius.');
+                // }
             });
 
             function checkCustomerLocation(){
