@@ -1,11 +1,12 @@
 @extends('layout.app')
 
-@section('title', ucfirst($category) )
+{{-- @section('title', ucfirst($category) ) --}}
+@section('title', isset($category) ? ucfirst($category) : '')
 
 @section('content')
     <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
         <div class="title">
-            <h2>{{ ucfirst($category) }}</h2>
+            <h2>{{ isset($category) ? ucfirst($category) : '' }}</h2>
         </div>
     </div>
 
@@ -31,7 +32,8 @@
     </div>
 
     <div class="promo text-center my-5 py-5">
-        <h2 class="special">{{ ucfirst($category) }}</h2>
+
+        <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2>
         <div class="container mt-5 pt-5">
             <div class="row" data-aos="fade-up" data-aos-duration="1500">
                 @if ($response)
@@ -57,11 +59,13 @@
                     @endforeach    
                 @else
                     <div class="mount text-center mb-5">
-                        <h2 class="text-danger">-----Api Error-----</h2>
-                        <p>Configure APi Token</p>
+                        <h2 class="text-danger">-----No Data Found-----</h2>
+                        {{-- <p>Configure APi Token</p> --}}
                     </div>
                 @endif
             </div>
+
+
         </div>
     </div>
 @endsection
