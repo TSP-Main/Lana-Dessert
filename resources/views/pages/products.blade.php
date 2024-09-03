@@ -69,7 +69,6 @@
 
 @section('script')
 
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     function updateCartCount() {
@@ -79,21 +78,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('cart-count').textContent = data.count;
             })
             .catch(error => console.error('Error fetching cart count:', error));
-    }
-
-    function showAlert(message, isSuccess) {
-        // Create an alert element
-        var alertDiv = document.createElement('div');
-        alertDiv.className = 'alert ' + (isSuccess ? 'alert-success' : 'alert-danger');
-        alertDiv.textContent = message;
-        
-        // Append the alert to the body
-        document.body.appendChild(alertDiv);
-        
-        // Remove the alert after 2 seconds
-        setTimeout(function() {
-            alertDiv.remove();
-        }, 2000);
     }
 
     updateCartCount();
@@ -144,24 +128,35 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             $.ajax({
-                url: '{{ route("cart.add") }}',
-                type: 'POST',
-                data: {
-                    "_token": "{{ csrf_token() }}",
-                    "data": cartData
-                },
-                success: function(response) {
-                    showAlert('Product added to cart successfully!', true);
-                    $('#cartModal').modal('hide');
-                    updateCartCount(); // Update cart count after adding item
-                },
-                error: function(xhr, status, error) {
-                    console.error(error);
-                    showAlert('There was an error adding the product to the cart.', false);
-                }
-            });
+    url: '{{ route("cart.add") }}',
+    type: 'POST',
+    data: {
+        "_token": "{{ csrf_token() }}",
+        "data": cartData
+    },
+    success: function(response) {
+        var alertHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
+                        'Product added to cart successfully!' +
+                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                        '</div>';
+        $('#cartModal').append(alertHtml);
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 5000); 
+        $('#cartModal').modal('hide');
+        // Update cart count after adding item
+        updateCartCount();
+    },
+
+    error: function(xhr, status, error) {
+        console.error(error);
+        alert('There was an error adding the product to the cart.');
+    }
+});
+
         }
     });
+
 
     $('#cartModal').on('show.bs.modal', function (e) {
         var button = $(e.relatedTarget);
@@ -221,11 +216,13 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(productDetail.ask_instruction == 1){
             instructionHtml = '<hr><textarea name="productInstruction" id="productInstruction" class="form-control" rows="3" placeholder="Enter any special instructions here..."></textarea>';
+        } else {
+            
         }
         modal.find('.options').html(optionsHtml);
         modal.find('.instruction').html(instructionHtml);
     });
 });
-</script>
 
+</script>
 @endsection
