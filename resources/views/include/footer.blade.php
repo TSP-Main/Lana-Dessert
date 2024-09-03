@@ -96,13 +96,12 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 d-flex justify-content-center">
-                <div class="d-flex">
-                <div class="container copyright text-center mt-4">
-                 <p>© 2024<strong class="px-1 sitename" style="color: #e26284">Lana Dessert</strong> <span>All Rights Reserved</span> 
-                 <!-- <p>Designed by: <strong class="px-1 sitename" style="text-decuration: none; color: #e26284"><a href ="https://techsolutionspro.co.uk/">Tech Solutions Pro</a></strong></p> -->
-                </p>
-                </div>
+            <div class="col-md-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
+                <p class="left-text mb-0">© 2024 <strong class="px-1 sitename" style="color: #e26284">Lana Dessert</strong> <span>All Rights Reserved</span></p>
+                <p class="right-text mb-0">Designed by <a href="https://techsolutionspro.co.uk" class="px-1 sitename" style="color: #e26284">Tech Solutions Pro</a></p>
+            </div>
+        </div>
+
                     <!-- use if needed -->
                     <!-- <span class="nav-top-svg">
                         <svg class="e-font-icon-svg e-fab-facebook" viewBox="0 0 512 512"

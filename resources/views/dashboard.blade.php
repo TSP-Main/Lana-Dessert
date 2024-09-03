@@ -40,7 +40,7 @@
                         @foreach ($menus as $menu)
                             <div class="col-12 col-md-6 col-lg-3 mb-4">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <a href="/menus" class="card-body" style="text-decoration: none;">
                                         <img src="./images/waffles-2.png" width="70px" alt="">
                                         <h5 class="card-title">{{ $menu }}</h5>
                                         <p class="card-text">
@@ -49,7 +49,7 @@
                                             everyone will love.
                                         </p>
                                         {{-- <a href="{{route('menu', ['category' => $menu['slug']])}}" class="btn btn-primary">View</a> --}}
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
@@ -82,11 +82,11 @@
                 <div class="founder-msg home-msg">
                     <h2>About Us</h2>
                     <h4>Our Story!</h4>
-                    <p  style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
+                    <p style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
                         Whether you want to eat in or take out, we’re open every day from 5 PM to 2 AM. You can even
                         customise your order to suit your taste because we love making things just how you like
                         them. So, come on over and enjoy our yummy treats with a side of fun! </p>
-                    <a href="">Read More</a>
+                    <a href="/about">Read More</a>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@
                 </div>
                 <p class="lead" style="color: aliceblue; text-align: justify;">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest.
                     !</p>
-                <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Oder Online</button>
+                <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Order Online</button>
             </div>
             <!-- Uncomment and use this section if needed -->
             <!-- <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
