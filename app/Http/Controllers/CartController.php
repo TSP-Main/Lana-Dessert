@@ -176,8 +176,7 @@ class CartController extends Controller
 
         $serverUrl  = env('SERVER_URL');
         $apiToken   = env('API_TOKEN');
-        // $url        = 'api/temporary_orders/process';
-        $url        = 'api/order/store';
+        $url        = 'api/temporary_orders/process';
     
         // Make the API request
         $response = Http::withHeaders([
