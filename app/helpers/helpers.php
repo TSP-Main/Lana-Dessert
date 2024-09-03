@@ -9,7 +9,7 @@ function is_restaurant_closed()
     $serverUrl = env('SERVER_URL');
     $apiToken = env('API_TOKEN');
 
-    $sresponseData = Http::withHeaders([
+    $scheduleData = Http::withHeaders([
         'Authorization' => $apiToken,
     ])->get($serverUrl . 'api/schedule');
 
@@ -20,41 +20,26 @@ function is_restaurant_closed()
     $today = Carbon::now($timezone)->format('l');
     $todaySchedule = collect($scheduleData)->firstWhere('day', $today);
 
+
     if ($todaySchedule['is_closed'] || !$todaySchedule['opening_time'] || !$todaySchedule['closing_time']) {
         $data['isClosed'] = true;
         $data['message'] = 'Restaurant Is Closed Today';
         $data['code'] = '001';
     }
     else{
-        $currentTime = Carbon::now($timezone);
-        // $currentTime = $currentTime->toDateTimeString();
+        $currentTime = Carbon::now();
 
-        // $openingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['opening_time']);
-        // $closingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['closing_time']);
-        // if ($currentTime->between($openingTime, $closingTime)) {
-        //     $data['isClosed'] = false;
-        // }
-        // else{
-        //     $data['isClosed'] = true;
-        //     $data['message'] = 'Restaurant Timing is this';
-        //     $data['code'] = '002';
-        // }
+        $openingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['opening_time']);
+        $closingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['closing_time']);
 
-        // Parse the opening and closing times in the same time zone and on the same date as the current time
-        $openingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['opening_time'], $timezone)
-        ->setDate($currentTime->year, $currentTime->month, $currentTime->day);
-        $closingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['closing_time'], $timezone)
-        ->setDate($currentTime->year, $currentTime->month, $currentTime->day);
-
-        // Check if the current time is within the opening and closing times
         if ($currentTime->between($openingTime, $closingTime)) {
-        $data['isClosed'] = false;
-        } else {
-        $data['isClosed'] = true;
-        $data['message'] = 'Restaurant Timing is this';
-        $data['code'] = '002';
+            $data['isClosed'] = false;
         }
-
+        else{
+            $data['isClosed'] = true;
+            $data['message'] = 'Restaurant Timing is this';
+            $data['code'] = '002';
+        }
     }
     $data['todaySchedule'] = $todaySchedule;
 
