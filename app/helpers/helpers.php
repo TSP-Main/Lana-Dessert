@@ -39,6 +39,7 @@ function is_restaurant_closed()
         //     $data['message'] = 'Restaurant Timing is this';
         //     $data['code'] = '002';
         // }
+        
 
         // Parse the opening and closing times in the same time zone and on the same date as the current time
         $openingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['opening_time'], $timezone)
