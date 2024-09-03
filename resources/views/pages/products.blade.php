@@ -15,7 +15,7 @@
         <div class="modal-dialog">
         <div class=" w-75 modal-content">
             <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Product title</h5>
+            <!-- <h5 class="modal-title" id="exampleModalLabel">Product title</h5> -->
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -25,7 +25,7 @@
                 <div class="instruction"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="addToCartButton" data-product-detail="">Add to cart</button>
+                <button type="button" class="nav-top-svg" id="addToCartButton" data-product-detail=""  style="border-color: white; color: white; text-decoration: none;">Add to cart</button>
             </div>
         </div>
         </div>
@@ -38,17 +38,17 @@
                 @if ($response)
                     @foreach ($products as $product)
                     <div class="col-4 mb-4">
-                        <div class="card shadow p-3 bg-body rounded" style="width: 18rem;">
+                        <div class="card bg-body" style="width: 18rem; border-radius: 0 60px 0 0;">
                             @if (isset($product['images'][0]['path']))
-                            <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}">
+                            <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}" style="border-top-right-radius: 60px;">
                            @else
                             <img src="{{ asset('storage/images/default.jpg') }}" class="card-img-top" alt="No image available">
                            @endif
                             <div class="card-body">
-                              <h5 class="card-title"><a href="{{ route('product.detail', [$product['id']])}}">{{ $product['title'] }}</a></h5>
+                              <h5 class="card-title"><a href="{{ route('product.detail', [$product['id']])}}" style="color: #c36; text-decoration: none;">{{ $product['title'] }}</a></h5>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <span class="price">£{{$product['price']}}</span>
-                                    <button type="button" id="openModal" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}">
+                                    <button type="button" id="openModal" class="nav-top-svg" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}" style="border-color: white; color: white; text-decoration: none;">
                                         Add
                                     </button>
                                 </div>
@@ -69,6 +69,7 @@
 
 @section('script')
 
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     function updateCartCount() {
@@ -78,6 +79,21 @@ document.addEventListener('DOMContentLoaded', function() {
                 document.getElementById('cart-count').textContent = data.count;
             })
             .catch(error => console.error('Error fetching cart count:', error));
+    }
+
+    function showAlert(message, isSuccess) {
+        // Create an alert element
+        var alertDiv = document.createElement('div');
+        alertDiv.className = 'alert ' + (isSuccess ? 'alert-success' : 'alert-danger');
+        alertDiv.textContent = message;
+        
+        // Append the alert to the body
+        document.body.appendChild(alertDiv);
+        
+        // Remove the alert after 2 seconds
+        setTimeout(function() {
+            alertDiv.remove();
+        }, 2000);
     }
 
     updateCartCount();
@@ -135,13 +151,13 @@ document.addEventListener('DOMContentLoaded', function() {
                     "data": cartData
                 },
                 success: function(response) {
-                    alert('Product added to cart successfully!');
+                    showAlert('Product added to cart successfully!', true);
                     $('#cartModal').modal('hide');
                     updateCartCount(); // Update cart count after adding item
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
-                    alert('There was an error adding the product to the cart.');
+                    showAlert('There was an error adding the product to the cart.', false);
                 }
             });
         }
@@ -205,13 +221,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
         if(productDetail.ask_instruction == 1){
             instructionHtml = '<hr><textarea name="productInstruction" id="productInstruction" class="form-control" rows="3" placeholder="Enter any special instructions here..."></textarea>';
-        } else {
-            
         }
         modal.find('.options').html(optionsHtml);
         modal.find('.instruction').html(instructionHtml);
     });
 });
-
 </script>
+
 @endsection
