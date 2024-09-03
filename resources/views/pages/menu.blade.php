@@ -74,9 +74,11 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="dish-menu">
-                        <h2>Appertizer</h2>
-                        <p><strong>Salad <span>....................................................</span> $50</strong></p>
+                        <h2>Lana Meal Deal</h2>
+                        <p><strong>Lana Meal Deal <span>................................................</span> £13.99</strong></p>
                         <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
+                        <p><strong>larg chips <span>........................................................</span> £3.49</strong></p>
+                        <p class="dim-para">Served with ketchup and mayo</p>
                         <!-- Add more dish menu items here -->
                     </div>
 
@@ -114,10 +116,23 @@
                 </div>
                 <div class="col-md-4">
                     <div class="dish-more">
-                        <h2>Main Course</h2>
-                        <p><strong>Sirloin Steak <span>....................................................</span>
-                                $50</strong></p>
-                        <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
+                        <h2>Chicken</h2>
+                        <p><strong>spicy chicken wings(6pc) <span>....................................................</span>
+                        £6.49</strong></p>
+                        <p class="dim-para">Created in a spicy homestyle served with ketchup & mayo.</p>
+                        <p><strong>spicy chicken strips(6pc) <span>....................................................</span>
+                        £6.99</strong></p>
+                        <p class="dim-para">Created in a spicy homestyle served with ketchup & mayo.</p>
+
+                        <p><strong>large Chips <span>...........................................................................</span>
+                        £3.49</strong></p>
+                        <p class="dim-para">served with ketchup & mayo.</p>
+                        <p><strong>spicy chicken strips(4pc) <span>....................................................</span>
+                        £5.99</strong></p>
+                        <p class="dim-para">Created  in a spicy homestyle served with ketchup &mayo.</p>
+                        <p><strong>spicy chicken wings(4pc) <span>....................................................</span>
+                        £5.49</strong></p>
+                        <p class="dim-para">Created in a spicy homestyle served with ketchup & mayo.</p>
                         <!-- Add more main course items here -->
                     </div>
 
@@ -131,9 +146,15 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="dish-menu">
-                        <h2>Dessert</h2>
-                        <p><strong>Pancake<span>....................................................</span> $50</strong></p>
-                        <p class="dim-para">Sed ut perspiciatis unde omnis iste natus ero</p>
+                        <h2>Croffles</h2>
+                        <p><strong>croffle The One and only<span>..............................................</span> £8.50</strong></p>
+                        <p class="dim-para">kinder chocolate bar,crushed lotus,dairy milk,fresh<br>strawberries and banana served with vanilla ice cream.</p>
+                        <p><strong>croffle Tutti Frutti<span>..........................................................</span> £7.49</strong></p>
+                        <p class="dim-para">Fresh bananas and strawberries,nutella and white<br>chocolate sauce served with vanilla ice cream.</p>
+                        <p><strong>croffle oreo<span>...................................................................</span> £7.49</strong></p>
+                        <p class="dim-para">oreo biscuits,nutella white chocolate sauce served<br>with vanilla ice cream.</p>
+                        <p><strong>croffle ferrero<span>...............................................................</span> £7.49</strong></p>
+                        <p class="dim-para">ferrero rocher,nutella white chocolate sauce served<br>with vanilla ice cream.</p>
                         <!-- Add more dessert items here -->
                     </div>
 

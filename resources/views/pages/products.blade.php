@@ -25,13 +25,14 @@
                 <div class="instruction"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="addToCartButton" data-product-detail="">Add to cart</button>
+                <button type="button" class="nav-top-svg text-white border-white" id="addToCartButton" data-product-detail="">Add to cart</button>
             </div>
         </div>
         </div>
     </div>
 
     <div class="promo text-center my-5 py-5">
+
         <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2>
         <div class="container mt-5 pt-5">
             <div class="row" data-aos="fade-up" data-aos-duration="1500">
@@ -63,8 +64,10 @@
                     </div>
                 @endif
             </div>
+
         </div>
     </div>
+</div>
 @endsection
 
 @section('script')

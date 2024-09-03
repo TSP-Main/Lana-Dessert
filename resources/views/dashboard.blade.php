@@ -40,7 +40,7 @@
                         @foreach ($menus as $menu)
                             <div class="col-12 col-md-6 col-lg-3 mb-4">
                                 <div class="card">
-                                    <div class="card-body">
+                                    <a href="/menus" class="card-body" style="text-decoration: none;">
                                         <img src="./images/waffles-2.png" width="70px" alt="">
                                         <h5 class="card-title">{{ $menu }}</h5>
                                         <p class="card-text">
@@ -49,7 +49,7 @@
                                             everyone will love.
                                         </p>
                                         {{-- <a href="{{route('menu', ['category' => $menu['slug']])}}" class="btn btn-primary">View</a> --}}
-                                    </div>
+                                    </a>
                                 </div>
                             </div>
                         @endforeach
