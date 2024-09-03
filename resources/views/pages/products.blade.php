@@ -128,32 +128,23 @@ document.addEventListener('DOMContentLoaded', function() {
             };
 
             $.ajax({
-    url: '{{ route("cart.add") }}',
-    type: 'POST',
-    data: {
-        "_token": "{{ csrf_token() }}",
-        "data": cartData
-    },
-    success: function(response) {
-        var alertHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert">' +
-                        'Product added to cart successfully!' +
-                        '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
-                        '</div>';
-        $('#cartModal').append(alertHtml);
-        setTimeout(function() {
-            $('.alert').alert('close');
-        }, 5000); 
-        $('#cartModal').modal('hide');
-        // Update cart count after adding item
-        updateCartCount();
-    },
+                url: '{{ route("cart.add") }}',
+                type: 'POST',
+                data: {
+                    "_token": "{{ csrf_token() }}",
+                    "data": cartData
+                },
+                success: function(response) {
+                    alert('Product added to cart successfully!');
+                    $('#cartModal').modal('hide');
+                    updateCartCount(); // Update cart count after adding item
+                },
 
-    error: function(xhr, status, error) {
-        console.error(error);
-        alert('There was an error adding the product to the cart.');
-    }
-});
-
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    alert('There was an error adding the product to the cart.');
+                }
+            });
         }
     });
 
