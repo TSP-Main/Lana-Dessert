@@ -16,6 +16,7 @@ function is_restaurant_closed()
     $scheduleData = $sresponseData['data']['schedule'];
     $timezone = $sresponseData['data']['timezone'][0];
 
+    
     $today = Carbon::now($timezone)->format('l');
     $todaySchedule = collect($scheduleData)->firstWhere('day', $today);
 
