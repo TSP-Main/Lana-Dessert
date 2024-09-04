@@ -13,9 +13,9 @@
     <!-- Modal -->
     <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
-        <div class=" w-75 modal-content">
+        <div class=" w-100 modal-content">
             <div class="modal-header">
-            <!-- <h5 class="modal-title" id="exampleModalLabel">Product title</h5> -->
+            <h5 class="modal-title" id="exampleModalLabel">Product title</h5>
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -32,7 +32,7 @@
     </div>
 
     <div class="promo text-center my-5 py-5">
-        <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2>
+        <!-- <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2> -->
         <div class="container mt-5 pt-5">
             <div class="row" data-aos="fade-up" data-aos-duration="1500">
                 @if ($response)
@@ -135,14 +135,29 @@ document.addEventListener('DOMContentLoaded', function() {
                     "data": cartData
                 },
                 success: function(response) {
-                    alert('Product added to cart successfully!');
+                    var alertHtml = '<div class="alert alert-success alert-dismissible fade show" role="alert" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;">' +
+                                    'Product added to cart successfully!' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                                    '</div>';
+                    $('body').append(alertHtml);
+                    setTimeout(function() {
+                        $('.alert').alert('close');
+                    }, 2000); 
                     $('#cartModal').modal('hide');
-                    updateCartCount(); // Update cart count after adding item
+                    // Update cart count after adding item
+                    updateCartCount();
                 },
-
+                // error: function(xhr, status, error) {
+                //     console.error(error);
+                //     alert('There was an error adding the product to the cart.');
+                // }
                 error: function(xhr, status, error) {
                     console.error(error);
-                    alert('There was an error adding the product to the cart.');
+                    var alertHtml = '<div class="alert alert-danger alert-dismissible fade show" role="alert" style="position: fixed; top: 0; left: 0; width: 100%; z-index: 1050;">' +
+                                    'There was an error adding the product to the cart. Please try again later.' +
+                                    '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>' +
+                                    '</div>';
+
                 }
             });
         }
@@ -181,7 +196,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                 if (optionGroup.option.option_values && optionGroup.option.option_values.length > 0) {
                     optionGroup.option.option_values.forEach(function(optionValue) {
-                        optionsHtml += '<div class=" p-0 form-check d-flex bd-highlight mb-3  align-items-center">';
+                        optionsHtml += '<div class=" p-0 form-check d-flex bd-highlight mb-3  align-items-center border border-1">';
                         
                         // Use radio buttons for option type 1
                         if (optionGroup.option.option_type == 1) {

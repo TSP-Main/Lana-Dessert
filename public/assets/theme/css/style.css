@@ -1146,3 +1146,12 @@ margin: 0 15px;
   
 /* FAQ area end */
 
+.fixed-alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1050; /* Bootstrap's z-index for alerts */
+    margin: 0;
+}
+

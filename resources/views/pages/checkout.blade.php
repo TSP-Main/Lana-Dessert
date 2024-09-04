@@ -17,7 +17,7 @@
                     <input type="hidden" id="stripe_key" value="{{ $stripeKey }}">
                     <form id="checkout-form" action="{{ route('checkout.process') }}" method="post">
                         @csrf
-                        <ol>
+                        <!-- <ol>
                             <li>
                                 <h4>Contact information</h4>
                                 <div class="row">
@@ -61,9 +61,114 @@
                                     <label for="online"> ONLINE </label>
                                 </div>
                             </li>
-                        </ol>
+                        </ol> -->
+
+
+                          <!-- Checkout -->
+        <div class="card shadow-0 border">
+          <div class="p-4">
+            <h5 class="card-title mb-3">Contact Information</h5>
+            <div class="row">
+              <div class="col-6 mb-3">
+                <p class="mb-0">First name</p>
+                <div class="form-outline">
+                  <input type="text" id="typeText" placeholder="Type here" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-6">
+                <p class="mb-0">Last name</p>
+                <div class="form-outline">
+                  <input type="text" id="typeText" placeholder="Type here" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <p class="mb-0">Phone</p>
+                <div class="form-outline">
+                  <input type="tel" id="typePhone" value="+48 " class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-6 mb-3">
+                <p class="mb-0">Email</p>
+                <div class="form-outline">
+                  <input type="email" id="typeEmail" placeholder="example@gmail.com" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <hr class="my-4" />
+
+            <h5 class="card-title mb-3">Payment Option</h5>
+
+            <div class="row mb-3">
+              <div class="col-lg-4 mb-3">
+                <div class="form-check h-100 border rounded-3">
+                  <div class="p-3">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" checked />
+                    <label class="form-check-label" for="flexRadioDefault1">
+                      Cash <br />
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-4 mb-3">
+                <div class="form-check h-100 border rounded-3">
+                  <div class="p-3">
+                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" />
+                    <label class="form-check-label" for="flexRadioDefault3">
+                      Online <br />
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-sm-8 mb-3">
+                <p class="mb-0">Address</p>
+                <div class="form-outline">
+                  <input type="text" id="typeText" placeholder="Type here" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-sm-4 col-6 mb-3">
+                <p class="mb-0">Postal code</p>
+                <div class="form-outline">
+                  <input type="text" id="typeText" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-sm-4 mb-3">
+                <p class="mb-0">City</p>
+                <select class="form-select">
+                  <option value="1">New York</option>
+                  <option value="2">Moscow</option>
+                  <option value="3">Samarqand</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <p class="mb-0">Message to seller</p>
+              <div class="form-outline">
+                <textarea class="form-control" id="textAreaExample1" rows="2"></textarea>
+              </div>
+            </div>
+
+            <div class="float-end">
+              <button class="" style="background-color: transparent; padding: 10px 13px; border: 2px solid #e26284; border-radius: 0 20px 0 0; margin: 10px 15px; color: #e26284;">Cancel</button>
+              <button class="nav-top-svg  text-white shadow-0 border-white">Continue</button>
+            </div>
+          </div>
+        </div>
+        <!-- Checkout -->
+
+
+
                         <!-- Stripe Payment Form -->
-                        <div id="stripe-form" class="container mt-4 d-none">
+                        <!-- <div id="stripe-form" class="container mt-4 d-none">
                             <h4 class="mb-4">Stripe Payment</h4>
                             <div class="form-group mb-3">
                                 <label for="card-element" class="form-label">Credit Card Information</label>
@@ -82,7 +187,7 @@
                         <div class="return mt-4">
                             <a href="{{ route('cart.view') }}">Return to cart</a>
                             <button id="place-order" type="submit" class="btn">Place order</button>
-                        </div>
+                        </div> -->
                     </form>
                 </div>
             </div>
