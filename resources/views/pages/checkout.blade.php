@@ -126,28 +126,36 @@
             </div>
 
             <div class="row">
-              <div class="col-sm-8 mb-3">
+              <div class="col-sm-12 mb-3">
                 <p class="mb-0">Address</p>
                 <div class="form-outline">
-                  <input type="text" id="typeText" placeholder="Type here" class="form-control" />
+                  <input type="text" id="address" name="address" placeholder="Type here" class="form-control" required />
                 </div>
               </div>
 
-              <div class="col-sm-4 col-6 mb-3">
+              <div class="col-sm-12 mb-3">
+                <p class="mb-0">Apartment, Suite, etc. (Optional)</p>
+                <div class="form-outline">
+                  <input type="text" id="apartment" name="apartment" placeholder="Type here" class="form-control" />
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-6 mb-3">
+                <p class="mb-0">City</p>
+                <div class="form-outline">
+                  <input type="text" id="city" name="city" class="form-control" required />
+                </div>
+              </div>
+
+              <div class="col-sm-6 col-6 mb-3">
                 <p class="mb-0">Postal code</p>
                 <div class="form-outline">
-                  <input type="text" id="typeText" class="form-control" />
+                  <input type="text" id="postcode" name="postcode" class="form-control" required/>
                 </div>
               </div>
 
-              <div class="col-sm-4 mb-3">
-                <p class="mb-0">City</p>
-                <select class="form-select">
-                  <option value="1">New York</option>
-                  <option value="2">Moscow</option>
-                  <option value="3">Samarqand</option>
-                </select>
-              </div>
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longitude" name="longitude">
             </div>
 
             <div class="mb-3">
@@ -159,7 +167,7 @@
 
             <div class="float-end">
               <button class="" style="background-color: transparent; padding: 10px 13px; border: 2px solid #e26284; border-radius: 0 20px 0 0; margin: 10px 15px; color: #e26284;">Cancel</button>
-              <button class="nav-top-svg  text-white shadow-0 border-white">Continue</button>
+              <button id="place-order" class="nav-top-svg text-white shadow-0 border-white">Place Order</button>
             </div>
           </div>
         </div>
@@ -322,72 +330,84 @@
 
     @if ($orderType == 'delivery')
         <!-- Google Map -->
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&callback=initMap&v=weekly" defer></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places" async defer></script>
+        
         <script>
-            function initMap() {
-                let map, marker;
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-                        var pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: pos,
-                            zoom: 14
-                        });
-
-                        marker = new google.maps.Marker({
-                            position: pos,
-                            map: map,
-                            title: "You are here!",
-                            draggable: true
-                        });
-
-                        // Update hidden input fields with current position
-                        document.getElementById('customer-lat').value = pos.lat;
-                        document.getElementById('customer-lng').value = pos.lng;
-
-                        // Listen for drag events on the marker
-                        google.maps.event.addListener(marker, 'dragend', function (event) {
-                            var lat = event.latLng.lat();
-                            var lng = event.latLng.lng();
-
-                            // Update the hidden input fields with new position
-                            document.getElementById('customer-lat').value = lat;
-                            document.getElementById('customer-lng').value = lng;
-                        });
-
-                        // Listen for click events on the map
-                        google.maps.event.addListener(map, 'click', function(event) {
-                            var lat = event.latLng.lat();
-                            var lng = event.latLng.lng();
-
-                            // Move the marker to the clicked location
-                            marker.setPosition(event.latLng);
-
-                            // Update the hidden input fields with the clicked position
-                            document.getElementById('customer-lat').value = lat;
-                            document.getElementById('customer-lng').value = lng;
-                        });
-
-                    }, function () {
-                        handleLocationError(true, map.getCenter());
-                    });
-                } else {
-                    // Browser doesn't support Geolocation
-                    handleLocationError(false, map.getCenter());
-                }
+            let autocomplete;
+        
+            function initAutocomplete() {
+                // Initialize autocomplete
+                autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'));
+                autocomplete.setFields(['address_component', 'geometry']);
+        
+                autocomplete.addListener('place_changed', function() {
+                    let place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        alert("No details available for the input: '" + place.name + "'");
+                        return;
+                    }
+        
+                    // Set latitude and longitude in hidden fields
+                    document.getElementById('latitude').value = place.geometry.location.lat();
+                    document.getElementById('longitude').value = place.geometry.location.lng();
+        
+                    // Autofill the city, postcode, and apartment
+                    fillInAddress(place);
+                });
+        
+                // Handle manual postcode entry
+                document.getElementById('postcode').addEventListener('blur', function() {
+                    let postcode = this.value;
+                    if (postcode) {
+                        geocodePostcode(postcode);
+                    }
+                });
             }
-
-            function handleLocationError(browserHasGeolocation, pos) {
-                alert(browserHasGeolocation ?
-                    "Error: The Geolocation service failed." :
-                    "Error: Your browser doesn't support geolocation.");
+        
+            function fillInAddress(place) {
+                let addressComponents = place.address_components;
+                let city = '';
+                let postcode = '';
+                let apartment = '';
+        
+                addressComponents.forEach(component => {
+                    let types = component.types;
+        
+                    if (types.includes('postal_code')) {
+                        postcode = component.long_name;
+                    }
+                });
+        
+                // Autofill fields
+                document.getElementById('postcode').value = postcode;
             }
+        
+            function geocodePostcode(postcode) {
+                let geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'address': postcode }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            let location = results[0].geometry.location;
+        
+                            // Update latitude and longitude
+                            document.getElementById('latitude').value = location.lat();
+                            document.getElementById('longitude').value = location.lng();
+        
+                            // Autofill other address fields based on geocoded result
+                            fillInAddress(results[0]);
+                        }
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+        
+            document.addEventListener('DOMContentLoaded', function() {
+                initAutocomplete();
+            });
         </script>
 
+        <!-- Check Delivery Radius -->
         <script>
             document.getElementById('place-order').addEventListener('click', function(e) {
                 e.preventDefault();
@@ -397,22 +417,26 @@
             function checkCustomerLocation(){
                 var form = document.getElementById('checkout-form');
 
-                // Check if the form is valid
+                // If the form is not valid, display a validation message
                 if (!form.checkValidity()) {
-                    // If the form is not valid, display a validation message
                     form.reportValidity();
                     return;
                 }
 
-                var customerLat = parseFloat(document.getElementById('customer-lat').value);
-                var customerLng = parseFloat(document.getElementById('customer-lng').value);
+                var customerLat = parseFloat(document.getElementById('latitude').value);
+                var customerLng = parseFloat(document.getElementById('longitude').value);
                 
                 var restaurantLat = {{ $restaurantLat }};
                 var restaurantLng = {{ $restaurantLng }};
                 var deliveryRadius = {{ $deliveryRadius }};
-
+console.log(customerLat);
+console.log(customerLng);
+console.log(restaurantLat);
+console.log(restaurantLng);
+console.log(deliveryRadius);
                 // Calculate the distance using the Haversine formula
                 var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                console.log('d ' + distance);
                 if (distance <= deliveryRadius * 1000) {
                     // Proceed with the order
                     document.getElementById('checkout-form').submit();

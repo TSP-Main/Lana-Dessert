@@ -145,8 +145,8 @@ class CartController extends Controller
 
         $restaurantDetail = $this->restaurant_detail();
         $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
-        $data['restaurantLat'] = json_decode($restaurantDetail['restaurantDetail']['coordinates'])->lat;
-        $data['restaurantLng'] = json_decode($restaurantDetail['restaurantDetail']['coordinates'])->lng;
+        $data['restaurantLat'] = $restaurantDetail['restaurantDetail']['latitude'];
+        $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
         
         return view('pages.checkout', $data);
     }
