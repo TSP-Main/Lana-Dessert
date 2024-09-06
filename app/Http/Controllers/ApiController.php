@@ -25,7 +25,7 @@ class ApiController extends Controller
             $data['response'] = false;
         }
         
-        return view('pages.categories', $data);
+        return view('dashboard', $data);
 
     }
 

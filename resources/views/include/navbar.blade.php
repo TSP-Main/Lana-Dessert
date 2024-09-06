@@ -43,11 +43,9 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-cart3" style="width: 24px; height: 24px;" viewBox="0 0 16 16">
                             <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .49.598l-1 5a.5.5 0 0 1-.465.401l-9.397.472L4.415 11H13a.5.5 0 0 1 0 1H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l.84 4.479 9.144-.459L13.89 4zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
                         </svg>
-                    
                 </div>
-                <span id="cart-count" class="badge bg-primary" style="font-size: 0.60rem;"></span>
-
                 </a>
+                <span id="cart-count" class="badge bg-primary" style="font-size: 0.60rem; margin-left: -15px; margin-right: 10px; margin-top: -30px;"></span>
                 <!-- Toggle button visible on medium and small devices -->
                 <div class="d-lg-none">
                     <button class="btn btn-light order-2 text-danger mt-3" id="navbarToggle" style="background: white;">
@@ -58,11 +56,14 @@
                 </div>
             </div>
         </div>
-        <!-- Navbar for medium and small devices -->
+       <!-- Navbar for medium and small devices -->
         <div class="row d-lg-none d-block">
             <div class="col-12">
                 <nav class="navbar navbar-expand-md ml-sm-100 ml-md-250" id="mobileNavbar">
-                    <div class="collapse show" id="mobileNavbarContent">
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNavbarContent" aria-controls="mobileNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                    <div class="collapse" id="mobileNavbarContent">
                         <ul class="navbar-nav d-flex flex-column align-items-center w-100 text-center" style="padding: 10px 0;">
                             <li class="nav-item py-2">
                                 <a class="nav-link text-white custom-underline" aria-current="page" href="/" id="home-link" style="text-decoration: none;">

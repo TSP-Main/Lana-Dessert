@@ -31,28 +31,24 @@
         {{-- <div class="mount text-center mb-5">
             <h4>Have a Look!</h4>
             <h2>Our Mouthwatering Menu</h2>
-            <a href="{{ route('categories.all') }}" class="btn btn-primary">View All</a>
         </div> --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="row" data-aos="fade-down" data-aos-duration="1500">
                     @if ($response)
-                        @foreach ($menus as $menu)
-                            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                           @foreach ($categories->take(4) as $category)
+                           <div class="col-12 col-md-6 col-lg-3 mb-4">
                                 <div class="card">
-                                    <a href="/menus" class="card-body" style="text-decoration: none;">
-                                        <img src="./images/waffles-2.png" width="70px" alt="">
-                                        <h5 class="card-title">{{ $menu }}</h5>
-                                        <p class="card-text">
-                                            Lana Dessert's waffles are irresistibly delicious, featuring
-                                            crispy edges, soft centres, and decadent toppings for a delightful treat
-                                            everyone will love.
-                                        </p>
-                                        {{-- <a href="{{route('menu', ['category' => $menu['slug']])}}" class="btn btn-primary">View</a> --}}
+                                    <a href="{{ route('menu', ['category' => $category['slug']]) }}">
                                     </a>
+                                    <h5 class="card-title">{{ $category['name'] }}</h5>
+                                    <p> {{ $category['desc']}}</p>
                                 </div>
-                            </div>
-                        @endforeach
+                            </div> 
+                            @endforeach
+                        @if (count($categories) > 0)
+                            <div class="mount text-center mb-5"> <a href="{{ route('menus') }}" class="btn btn-outline-danger px-3 py-3 mt-3">View All</a> </div>
+                        @endif
                     @else
                         <div class="mount text-center mb-5">
                             <h2 class="text-danger">-----Api Error-----</h2>
