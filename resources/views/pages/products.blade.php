@@ -32,38 +32,42 @@
     </div>
 
     <div class="promo text-center my-5 py-5">
-        <!-- <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2> -->
-        <div class="container mt-5 pt-5">
-            <div class="row" data-aos="fade-up" data-aos-duration="1500">
-                @if ($response)
-                    @foreach ($products as $product)
-                        <div class="col-4 mb-4">
-                            <div class="card bg-body" style="width: 18rem; border-radius: 0 60px 0 0;">
-                                @if (isset($product['images'][0]['path']))
-                                    <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}" style="border-top-right-radius: 60px;">
-                                @else
-                                    <img src="{{ asset('storage/images/default.jpg') }}" class="card-img-top" alt="No image available">
-                                @endif
-                                <div class="card-body">
-                                    <h5 class="card-title"><a href="{{ route('product.detail', [$product['id']])}}" style="color: #c36; text-decoration: none;">{{ $product['title'] }}</a></h5>
-                                    <div class="d-flex justify-content-between align-items-center">
-                                        <span class="price">£{{$product['price']}}</span>
-                                        <button type="button" id="openModal" class="nav-top-svg" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}" style="border-color: white; color: white; text-decoration: none;">
-                                            Add
-                                        </button>
-                                    </div>
+    <!-- <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2> -->
+    <div class="container mt-5 pt-5">
+        <div class="row" data-aos="fade-up" data-aos-duration="1500">
+            @if ($response)
+                @foreach ($products as $product)
+                    <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
+                        <div class="card bg-body" style="width: 18rem; border-radius: 0 60px 0 0;">
+                            @if (isset($product['images'][0]['path']))
+                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}" style="border-top-right-radius: 60px;">
+                            @else
+                                <img src="{{ asset('storage/images/default.jpg') }}" class="card-img-top" alt="No image available">
+                            @endif
+                            <div class="card-body">
+                                <h5 class="card-title">
+                                    <a href="{{ route('product.detail', [$product['id']])}}" style="color: #c36; text-decoration: none;">
+                                        {{ $product['title'] }}
+                                    </a>
+                                </h5>
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <span class="price">£{{$product['price']}}</span>
+                                    <button type="button" id="openModal" class="nav-top-svg" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}" style="border-color: white; color: white; text-decoration: none;">
+                                        Add
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    @endforeach    
-                @else
-                    <div class="mount text-center mb-5">
-                        <h2 class="text-danger">-----No Data Found-----</h2>
-                        {{-- <p>Configure APi Token</p> --}}
                     </div>
-                @endif
-            </div>
+                @endforeach    
+            @else
+                <div class="mount text-center mb-5">
+                    <h2 class="text-danger">-----No Data Found-----</h2>
+                    {{-- <p>Configure APi Token</p> --}}
+                </div>
+            @endif
         </div>
+    </div>
     </div>
 @endsection
 

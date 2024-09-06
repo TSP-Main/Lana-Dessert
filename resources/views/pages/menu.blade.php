@@ -47,28 +47,31 @@
     <!-- Modal ENd -->
 
     <div class="promo text-center my-5 py-5">
-        <h5 class="hot">Hot Promo</h5>
-        <h2 class="special">Special offer on Sunday</h2>
-        @if (! $isClosed)
-            <div class="container mt-5 pt-5">
-                @php
-                    $chunks = array_chunk($menus, 4);
-                @endphp
-                @foreach ($chunks as $chunk)
-                    <div class="row" data-aos="fade-up" data-aos-duration="1500">
-                        @foreach ($chunk as $menu)
-                            <div class="col-md-3">
-                                <a href="{{ route('menu', ['category' => $menu['attributes']['slug']]) }}"><img
-                                        src="{{ env('SERVER_URL') }}storage/{{ $menu['attributes']['background_image'] }}"
-                                        width="100%" alt=""></a>
-                                <h2>{{ $menu['attributes']['name'] }}</h2>
-                            </div>
-                        @endforeach
-                    </div>
-                @endforeach
-            </div>
-        @endif
+    <h5 class="hot">Hot Promo</h5>
+    <h2 class="special">Special offer on Sunday</h2>
+    @if (! $isClosed)
+        <div class="container mt-5 pt-5">
+            @php
+                $chunks = array_chunk($menus, 4);
+            @endphp
+            @foreach ($chunks as $chunk)
+                <div class="row" data-aos="fade-up" data-aos-duration="1500">
+                    @foreach ($chunk as $menu)
+                        <div class="col-12 col-sm-6 col-md-3 mb-4 d-flex justify-content-center">
+                            <a href="{{ route('menu', ['category' => $menu['attributes']['slug']]) }}" class="text-decoration-none mx-4 mx-sm-0">
+                                <img
+                                    src="{{ env('SERVER_URL') }}storage/{{ $menu['attributes']['background_image'] }}"
+                                    class="img-fluid" alt="{{ $menu['attributes']['name'] }}">
+                                <h2 class="mt-2">{{ $menu['attributes']['name'] }}</h2>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            @endforeach
+        </div>
+    @endif
     </div>
+
     <div class="menu-items my-5 pt-5" data-aos="fade-down-right" data-aos-duration="1500">
         <div class="container">
             <div class="row">
@@ -104,13 +107,13 @@
             <div class="row">
                 <div class="col-md-4">
                     <div class="dish-more-img d-grid">
-                        <img src="assets/theme/images/more-dish1.webp" class="dish-one" width="350px" alt="">
-                        <img src="assets/theme/images/menu-more3.webp" class="mt-4 dish-two" width="350px" alt="">
+                    <img src="assets/theme/images/more-dish1.webp" class="dish-one d-none d-md-block" width="350px" alt="">
+                    <img src="assets/theme/images/menu-more3.webp" class="mt-2 mb-4 dish-two" width="350px" alt="">
                     </div>
                 </div>
                 <div class="col-md-4">
                     <div class="right-more-dish d-grid">
-                        <img src="assets/theme/images/menu-more2.webp" class="dish-three" width="500px" alt="">
+                        <img src="assets/theme/images/menu-more2.webp" class="dish-three d-none d-md-block" width="500px" alt="">
 
                     </div>
                 </div>
@@ -145,7 +148,7 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="dish-menu">
+                    <div class="dish-menu dish-men">
                         <h2>Croffles</h2>
                         <p><strong>croffle The One and only<span>..............................................</span> £8.50</strong></p>
                         <p class="dim-para">kinder chocolate bar,crushed lotus,dairy milk,fresh<br>strawberries and banana served with vanilla ice cream.</p>
@@ -157,7 +160,6 @@
                         <p class="dim-para">ferrero rocher,nutella white chocolate sauce served<br>with vanilla ice cream.</p>
                         <!-- Add more dessert items here -->
                     </div>
-
                 </div>
                 <div class="col-md-4">
                     <div class="dish-img d-grid">
