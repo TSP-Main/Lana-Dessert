@@ -25,8 +25,8 @@ class CartController extends Controller
     public function add(Request $request)
     {
         $productId      = $request->data['product_id'];
-        $options        = $request->data['options'];
-        $optionNames    = $request->data['optionNames'];
+        $options        = $request->data['options'] ?? NULL;
+        $optionNames    = $request->data['optionNames'] ?? NULL;
         $productInstruction = $request->data['product_instruction'];
 
         // fetch product detail using api
@@ -34,8 +34,11 @@ class CartController extends Controller
         $productDetail =  collect($response_product['products'])->first();
 
         // fetch product sides/options detail for total price
-        $responseOptions = collect($this->apiController->options_detail(array_values($options))['options']);
-        $optionsPrice = $responseOptions->sum('price');
+        $optionsPrice = 0;
+        if($options){
+            $responseOptions = collect($this->apiController->options_detail(array_values($options))['options']);
+            $optionsPrice = $responseOptions->sum('price');
+        }
 
         $cart = Session::get('cart', []);
 
@@ -176,7 +179,6 @@ class CartController extends Controller
 
         $serverUrl  = env('SERVER_URL');
         $apiToken   = env('API_TOKEN');
-        // $url        = 'api/temporary_orders/process';
         $url        = 'api/order/store';
     
         // Make the API request
