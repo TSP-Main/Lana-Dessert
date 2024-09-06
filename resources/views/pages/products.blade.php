@@ -4,7 +4,11 @@
 @section('title', isset($category) ? ucfirst($category) : '')
 
 @section('content')
-    <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
+    @php
+        $bannerUrl = $categoryDetail['banner_image'] ? env('SERVER_URL') . 'storage/' . $categoryDetail['banner_image'] : env('SERVER_URL') .'assets/theme/images/banners/default_banner.jpg';
+    @endphp
+
+    <div class="main-content" data-aos="fade-down" data-aos-duration="1500" style="background: url({{ $bannerUrl }} )">
         <div class="title">
             <h2>{{ isset($category) ? ucfirst($category) : '' }}</h2>
         </div>
@@ -42,7 +46,7 @@
                             @if (isset($product['images'][0]['path']))
                                 <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}" style="border-top-right-radius: 60px;">
                             @else
-                                <img src="{{ asset('storage/images/default.jpg') }}" class="card-img-top" alt="No image available">
+                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available">
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">

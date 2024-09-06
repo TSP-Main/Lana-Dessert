@@ -38,7 +38,11 @@
                         <div class="row">
                             <!-- Product Image -->
                             <div class="col-md-6">
-                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="img-fluid" alt="Product Image" style="border-top-right-radius: 0px;">
+                                @if ($product['images'])
+                                    <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="img-fluid" alt="Product Image" style="border-top-right-radius: 0px;">
+                                @else
+                                    <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="img-fluid" alt="Product Image" style="border-top-right-radius: 0px;">
+                                @endif
                             </div>
                             
                             <!-- Product Details -->
