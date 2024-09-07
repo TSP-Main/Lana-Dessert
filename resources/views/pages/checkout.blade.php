@@ -123,13 +123,33 @@
                                     </div>
 
                                     <!-- Stripe Card Fields -->
-                                    <div id="stripe-form" class="container mt-4 d-none">
+                                    {{-- <div id="stripe-form" class="container mt-4 d-none">
                                         <h4 class="mb-4">Stripe Payment</h4>
                                         <div class="form-group mb-3">
                                             <label for="card-element" class="form-label">Credit Card Information</label>
                                             <div id="card-element" class="form-control"></div>
                                             <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                                         </div>
+                                        <div class="form-group">
+                                            <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36">Confirm the Payment and Place Order</button>
+                                        </div>
+                                    </div> --}}
+
+                                    <div id="stripe-form" class="container mt-4 d-none">
+                                        <h4 class="mb-4">Stripe Payment</h4>
+                                        <div class="form-group mb-3">
+                                            <label for="card-number-element" class="form-label">Card Number</label>
+                                            <div id="card-number-element" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="card-expiry-element" class="form-label">Expiry Date</label>
+                                            <div id="card-expiry-element" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="card-cvc-element" class="form-label">CVC</label>
+                                            <div id="card-cvc-element" class="form-control"></div>
+                                        </div>
+                                        <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                                         <div class="form-group">
                                             <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36">Confirm the Payment and Place Order</button>
                                         </div>
@@ -186,7 +206,94 @@
 
 @section('script')
     <script src="https://js.stripe.com/v3/"></script>
+
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const stripe = Stripe(document.getElementById('stripe_key').value);
+            const elements = stripe.elements();
+    
+            // Create individual elements for card number, expiry, and CVC
+            const cardNumber = elements.create('cardNumber');
+            const cardExpiry = elements.create('cardExpiry');
+            const cardCvc = elements.create('cardCvc');
+    
+            // Mount elements to the corresponding divs
+            cardNumber.mount('#card-number-element');
+            cardExpiry.mount('#card-expiry-element');
+            cardCvc.mount('#card-cvc-element');
+    
+            function updatePaymentForm() {
+                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
+                const stripeForm = document.getElementById('stripe-form');
+                const placeOrderButton = document.getElementById('place-order');
+    
+                if (paymentOption === 'online') {
+                    stripeForm.classList.remove('d-none');
+                    placeOrderButton.classList.add('d-none');
+                } else {
+                    stripeForm.classList.add('d-none');
+                    placeOrderButton.classList.remove('d-none');
+                }
+            }
+    
+            updatePaymentForm();
+    
+            document.querySelectorAll('input[name="payment_option"]').forEach(function(element) {
+                element.addEventListener('change', updatePaymentForm);
+            });
+    
+            document.getElementById('submit-payment').addEventListener('click', function(event) {
+                event.preventDefault();
+    
+                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
+    
+                if (paymentOption === 'online') {
+                    stripe.createPaymentMethod({
+                        type: 'card',
+                        card: cardNumber, // Attach the card number element
+                        billing_details: {
+                            name: document.querySelector('input[name="name"]').value,
+                            email: document.querySelector('input[name="email"]').value,
+                            phone: document.querySelector('input[name="phone"]').value
+                        }
+                    }).then(function(result) {
+                        if (result.error) {
+                            const displayError = document.getElementById('card-errors');
+                            displayError.textContent = result.error.message;
+                        } else {
+                            const form = document.getElementById('checkout-form');
+                            let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
+    
+                            if (hiddenTokenInput) {
+                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
+                            } else {
+                                hiddenTokenInput = document.createElement('input');
+                                hiddenTokenInput.setAttribute('type', 'hidden');
+                                hiddenTokenInput.setAttribute('name', 'payment_method_id');
+                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
+                                form.appendChild(hiddenTokenInput);
+                            }
+    
+                            var orderType = @json($orderType);
+                            if(orderType === 'pickup'){
+                                form.submit();
+                            }
+                            else{
+                                checkCustomerLocation();
+                            }
+                        }
+                    }).catch(function(error) {
+                        console.error('Error creating PaymentMethod:', error);
+                    });
+                } else {
+                    const form = document.getElementById('checkout-form');
+                    form.submit();
+                }
+            });
+        });
+    </script>
+    
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Initialize Stripe with your public key
             const stripe = Stripe(document.getElementById('stripe_key').value);
@@ -271,7 +378,7 @@
                 }
             });
         });
-    </script>
+    </script> --}}
 
     @if ($orderType == 'delivery')
         <!-- Google Map -->

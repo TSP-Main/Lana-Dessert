@@ -53,6 +53,7 @@ class ApiController extends Controller
                 $data['response'] = true;
                 $data['products'] = $response['data'];
                 $data['category'] = $request->category;
+                $data['categoryDetail'] = $response['categoryDetail'];
             }
             else{
                 $data['response'] = false;
