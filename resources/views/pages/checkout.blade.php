@@ -25,7 +25,7 @@
                                     <div class="col-12 mb-3">
                                         <p class="mb-0">Name</p>
                                         <div class="form-outline">
-                                            <input type="text" name="name" id="name" placeholder="Type here" class="form-control" required/>
+                                            <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required/>
                                         </div>
                                     </div>
                     
@@ -39,7 +39,7 @@
                                     <div class="col-6 mb-3">
                                         <p class="mb-0">Phone</p>
                                         <div class="form-outline">
-                                            <input type="tel" name="phone" id="phone" class="form-control" required/>
+                                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number"  required/>
                                         </div>
                                     </div>
                     
@@ -91,7 +91,7 @@
 
                                 <hr class="my-4" />
                                 <div class="mb-3">
-                                    <p class="mb-0">Add a note to your order</p>
+                                    <p class="mb-0">Add a note to your order (Optional)</p>
                                     <div class="form-outline">
                                         <textarea class="form-control" id="note" name="note" rows="2"></textarea>
                                     </div>
@@ -180,7 +180,12 @@
                                     @foreach ($cartItems as $cartItem)
                                         <div class="d-flex">
                                             <div class="img-sec">
-                                                <img src="/images/brownies.jpg" width="40px" alt="">
+                                                <!-- <img src="/images/brownies.jpg" width="40px" alt=""> -->
+                                                @if (isset($cartItem))
+                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['image'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}">
+                                            @else
+                                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @endif
                                             </div>
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
