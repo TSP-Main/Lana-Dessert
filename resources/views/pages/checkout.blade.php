@@ -1,13 +1,6 @@
 @extends('layout.app')
 @section('title', 'Checkout')
 
-<style type="text/css">
-    #map {
-            height: 400px;
-            width: 100%;
-        }
-</style>
-
 @section('content')
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
@@ -124,7 +117,7 @@
 
                                     <!-- Stripe Card Fields -->
                                     {{-- <div id="stripe-form" class="container mt-4 d-none">
-                                        <h4 class="mb-4">Stripe Payment</h4>
+                                        <h4 class="mb-4">Online Payment</h4>
                                         <div class="form-group mb-3">
                                             <label for="card-element" class="form-label">Credit Card Information</label>
                                             <div id="card-element" class="form-control"></div>
@@ -136,7 +129,7 @@
                                     </div> --}}
 
                                     <div id="stripe-form" class="container mt-4 d-none">
-                                        <h4 class="mb-4">Stripe Payment</h4>
+                                        <h4 class="mb-4">Online Payment</h4>
                                         <div class="form-group mb-3">
                                             <label for="card-number-element" class="form-label">Card Number</label>
                                             <div id="card-number-element" class="form-control"></div>
@@ -179,14 +172,13 @@
                                 <div class="accordion-body">
                                     @foreach ($cartItems as $cartItem)
                                         <div class="d-flex">
-                                            <div class="img-sec">
-                                                <!-- <img src="/images/brownies.jpg" width="40px" alt=""> -->
-                                                @if (isset($cartItem))
-                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['image'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}">
+                                        <div class="img-sec">
+                                            @if (isset($cartItem['productImage'][0]['path']))
+                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['productImage'][0]['path'] }}" class="card-img-top" alt="No image available" style="width: 40px;">
                                             @else
                                                 <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
                                             @endif
-                                            </div>
+                                        </div>
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
                                                     {{ $cartItem['productTitle'] }}

@@ -22,6 +22,7 @@ Route::get('categories', [ApiController::class, 'categories'])->name('categories
 Route::get('menu', [ApiController::class, 'products'])->name('menu');
 Route::get('product/{id}', [ApiController::class, 'product'])->name('product');
 Route::get('product_detail/{id}', [MenuController::class, 'product_detail'])->name('product.detail');
+Route::get('checkout/{id}', [MenuController::class, 'checkout'])->name('product.image');
 
 Route::post('cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('cart', [CartController::class, 'view'])->name('cart.view');

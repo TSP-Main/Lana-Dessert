@@ -96,7 +96,7 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12 d-flex flex-column flex-md-row justify-content-between align-items-center">
+            <div class="col-md-12 d-flex flex-column flex-md-row justify-content-between align-items-center" style="margin-bottom: 20px;">
                 <p class="left-text mb-0">© 2024 <strong class="px-1 sitename" style="color: #e26284">Lana Dessert</strong> <span>All Rights Reserved</span></p>
                 <p class="right-text mb-0">Designed by <a href="https://techsolutionspro.co.uk" class="px-1 sitename" style="color: #e26284">Tech Solutions Pro</a></p>
             </div>

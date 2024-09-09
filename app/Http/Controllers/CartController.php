@@ -59,6 +59,7 @@ class CartController extends Controller
                 'rowId'         => $rowId,
                 'productId'     => $productId,
                 'productTitle'  => $productDetail['title'],
+                'productImage'  => $productDetail['images'],
                 'productPrice'  => $productDetail['price'],
                 'options'       => $options,
                 'optionNames'   => $optionNames,
@@ -145,6 +146,8 @@ class CartController extends Controller
         $data['cartSubTotal']   = Session::get('cartSubTotal');
         $data['orderType']      = Session::get('orderType');
         $data['stripeKey']      = env('STRIPE_API_KEY');
+
+        // dd($data);
 
         $restaurantDetail = $this->restaurant_detail();
         $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
