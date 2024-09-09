@@ -5,7 +5,7 @@
 
 @section('content')
     @php
-        $bannerUrl = $categoryDetail['banner_image'] ? env('SERVER_URL') . 'storage/' . $categoryDetail['banner_image'] : env('SERVER_URL') .'assets/theme/images/banners/default_banner.jpg';
+        $bannerUrl = $categoryDetail['banner_image'] ? env('SERVER_URL') . 'storage/' . $categoryDetail['banner_image'] : env('SERVER_URL') .'assets/theme/images/banners/default_banner.webp';
     @endphp
 
     <div class="main-content" data-aos="fade-down" data-aos-duration="1500" style="background: url({{ $bannerUrl }} )">
@@ -217,7 +217,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         optionsHtml += '<label class=" ms-2 form-check-label" for="option_' + optionValue.id + '">' + optionValue.name + '</label>';
                         if (optionValue.price) {
-                            optionsHtml += '<span class="ms-auto p-2 bd-highlight" >$' + optionValue.price + '</span>';
+                            optionsHtml += '<span class="ms-auto p-2 bd-highlight" >£ ' + optionValue.price + '</span>';
                         }
                         optionsHtml += '</div>';
                     });
