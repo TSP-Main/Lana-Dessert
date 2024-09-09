@@ -15,7 +15,7 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="cartModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
         <div class=" w-100 modal-content">
             <div class="modal-header">
@@ -34,6 +34,7 @@
         </div>
         </div>
     </div>
+
 
     <div class="promo text-center my-5 py-5">
     <!-- <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2> -->
@@ -173,70 +174,82 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
     $('#cartModal').on('show.bs.modal', function (e) {
-        var button = $(e.relatedTarget);
-        var productTitle = button.data('product-title');
-        var productDetail = button.data('product-detail');
+    var button = $(e.relatedTarget);
+    var productTitle = button.data('product-title');
+    var productDetail = button.data('product-detail');
 
-        var modal = $(this);
-        modal.find('.modal-title').text(productTitle);
-        modal.find('#productId').val(productDetail.id);
-        modal.find('#productDetail').data('product-detail', productDetail);
+    var modal = $(this);
+    modal.find('.modal-title').text(productTitle);
+    modal.find('#productId').val(productDetail.id);
+    modal.find('#productDetail').data('product-detail', productDetail);
 
-        var optionsHtml = '';
-        var instructionHtml = '';
-        if (productDetail.options && productDetail.options.length > 0) {
-            productDetail.options.forEach(function(optionGroup) {
-                optionsHtml += '<div class="option-group" data-option-id="' + optionGroup.option.id + '">';
-                optionsHtml += '<h6>' + optionGroup.option.name;
-                
-                // Show required or optional based on option type
-                if (optionGroup.option.option_type == 1) {
-                    optionsHtml += ' (Required)';
-                } else if (optionGroup.option.option_type == 2) {
-                    optionsHtml += ' (Optional)';
-                }
-                optionsHtml += '</h6>';
-                
-                // Add warning message for required options
-                if (optionGroup.option.option_type == 1) {
-                    optionsHtml += '<p class="text-danger d-none required-warning" data-option-id="' + optionGroup.option.id + '">Please select one option.</p>';
-                }
+    var optionsHtml = '';
+    var instructionHtml = '';
+    if (productDetail.options && productDetail.options.length > 0) {
+        optionsHtml += '<div class="accordion" id="optionsAccordion">';
 
-                if (optionGroup.option.option_values && optionGroup.option.option_values.length > 0) {
-                    optionGroup.option.option_values.forEach(function(optionValue) {
-                        optionsHtml += '<div class=" p-0 form-check d-flex bd-highlight mb-3  align-items-center border border-1">';
-                        
-                        // Use radio buttons for option type 1
-                        if (optionGroup.option.option_type == 1) {
-                            optionsHtml += '<input class=" ms-2 p-2 bd-highlight" type="radio" name="option_' + optionGroup.option.id + '" id="option_' + optionValue.id + '" value="' + optionValue.id + '" data-option-name="' + optionValue.name +'">';
-                        } 
-                        // Use checkboxes for option type 2
-                        else if (optionGroup.option.option_type == 2) {
-                            optionsHtml += '<input class=" ms-2 p-2 bd-highlight" type="checkbox" name="option_' + optionGroup.option.id + '[]" id="option_' + optionValue.id + '" value="' + optionValue.id + '" data-option-name="' + optionValue.name +'">';
-                        }
+        productDetail.options.forEach(function(optionGroup, index) {
+            optionsHtml += '<div class="accordion-item">';
+            optionsHtml += '<h2 class="accordion-header" id="heading' + index + '">';
+            optionsHtml += '<button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse' + index + '" aria-expanded="true" aria-controls="collapse' + index + '">';
+            optionsHtml += optionGroup.option.name;
 
-                        optionsHtml += '<label class=" ms-2 form-check-label" for="option_' + optionValue.id + '">' + optionValue.name + '</label>';
-                        if (optionValue.price) {
-                            optionsHtml += '<span class="ms-auto p-2 bd-highlight" >£ ' + optionValue.price + '</span>';
-                        }
-                        optionsHtml += '</div>';
-                    });
-                }
-                optionsHtml += '</div>';
-            });
-        } else {
-            optionsHtml = '';
-        }
+            if (optionGroup.option.option_type == 1) {
+                optionsHtml += ' (Required)';
+            } else if (optionGroup.option.option_type == 2) {
+                optionsHtml += ' (Optional)';
+            }
 
-        if(productDetail.ask_instruction == 1){
-            instructionHtml = '<hr><textarea name="productInstruction" id="productInstruction" class="form-control" rows="3" placeholder="Enter any special instructions here..."></textarea>';
-        } else {
-            
-        }
-        modal.find('.options').html(optionsHtml);
-        modal.find('.instruction').html(instructionHtml);
-    });
+            optionsHtml += '</button></h2>';
+            optionsHtml += '<div id="collapse' + index + '" class="accordion-collapse collapse show" aria-labelledby="heading' + index + '" data-bs-parent="#optionsAccordion">';
+            optionsHtml += '<div class="accordion-body">';
+
+            // Add warning message for required options
+            if (optionGroup.option.option_type == 1) {
+                optionsHtml += '<p class="text-danger d-none required-warning" data-option-id="' + optionGroup.option.id + '">Please select one option.</p>';
+            }
+
+            if (optionGroup.option.option_values && optionGroup.option.option_values.length > 0) {
+                optionGroup.option.option_values.forEach(function(optionValue) {
+                    optionsHtml += '<div class="p-0 form-check d-flex bd-highlight mb-3 align-items-center border border-1">';
+                    
+                    // Use radio buttons for option type 1
+                    if (optionGroup.option.option_type == 1) {
+                        optionsHtml += '<input class="ms-2 p-2 bd-highlight" type="radio" name="option_' + optionGroup.option.id + '" id="option_' + optionValue.id + '" value="' + optionValue.id + '" data-option-name="' + optionValue.name +'">';
+                    } 
+                    // Use checkboxes for option type 2
+                    else if (optionGroup.option.option_type == 2) {
+                        optionsHtml += '<input class="ms-2 p-2 bd-highlight" type="checkbox" name="option_' + optionGroup.option.id + '[]" id="option_' + optionValue.id + '" value="' + optionValue.id + '" data-option-name="' + optionValue.name +'">';
+                    }
+
+                    optionsHtml += '<label class="ms-2 form-check-label" for="option_' + optionValue.id + '">' + optionValue.name + '</label>';
+                    if (optionValue.price) {
+                        optionsHtml += '<span class="ms-auto p-2 bd-highlight">£ ' + optionValue.price + '</span>';
+                    }
+                    optionsHtml += '</div>';
+                });
+            }
+            optionsHtml += '</div></div></div>';
+        });
+
+        optionsHtml += '</div>'; // End of accordion
+    } else {
+        optionsHtml = '';
+    }
+
+    if (productDetail.ask_instruction == 1) {
+        instructionHtml = '<hr><textarea name="productInstruction" id="productInstruction" class="form-control" rows="3" placeholder="Enter any special instructions here..."></textarea>';
+    } else {
+        instructionHtml = '';
+    }
+
+    modal.find('.options').html(optionsHtml);
+    modal.find('.instruction').html(instructionHtml);
+});
+
 });
 
 </script>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 @endsection

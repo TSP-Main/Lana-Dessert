@@ -190,4 +190,26 @@
     </div>
 </div>
 
+<script>
+        // Function to update cart count
+        function updateCartCount() {
+            fetch('{{ route('cart.count') }}')
+                .then(response => response.json())
+                .then(data => {
+                    const cartCountElement = document.getElementById('cart-count');
+                    if (data.count > 0) {
+                        cartCountElement.textContent = data.count;
+                        cartCountElement.style.display = 'inline'; // Show badge if count > 0
+                    } else {
+                        cartCountElement.textContent = ''; // Hide badge if count is 0
+                        cartCountElement.style.display = 'none'; // Optionally, you can also hide the badge
+                    }
+                })
+                .catch(error => console.error('Error fetching cart count:', error));
+        }
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
 @endsection
+

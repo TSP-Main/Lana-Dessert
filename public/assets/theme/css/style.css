@@ -24,7 +24,12 @@ html, body {
 }
 @media (max-width: 768px) {
     .main-content{
+        background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #00000080 65%), url('/assets/theme/images/default_banner.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
         height: 50vh;
+        background-position: left;
     }
 }
 .reserv{
@@ -205,6 +210,16 @@ html, body {
     height: 60vh;
     background-position: center;
 }
+@media (max-width: 767px) {
+    .about-us-main{
+        background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #00000099 0%), url('/assets/theme/images/default_banner.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 65vh;
+        background-position: left;
+    }
+}
 .left-small{
     position: absolute;
     top: 15rem;
@@ -372,6 +387,16 @@ font-weight: 600;
     height: 60vh;
     background-position: center;
 } 
+@media (max-width: 767px) {
+    .faq-main{
+        background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #00000099 0%), url('/assets/theme/images/default_banner.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 65vh;
+        background-position: left;
+    }
+}
 .testimonial{
     background: #0D1518;
     color: #fff;
@@ -445,6 +470,16 @@ font-weight: 600;
     height: 60vh;
     background-position: center;
 }   
+@media (max-width: 767px) {
+    .contact-main{
+        background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #00000099 0%), url('/assets/theme/images/default_banner.webp');
+        background-size: cover;
+        background-repeat: no-repeat;
+        width: 100%;
+        height: 65vh;
+        background-position: left;
+    }
+}
 .contact-main .about-title{
     display: flex;
     align-items: center;
@@ -989,8 +1024,23 @@ margin: 0 15px;
     .footer-h {
         text-align: center !important; 
     }
-  
 }
+@media (min-width: 768px) {
+    .nav-top-svg {
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+}
+
+@media (min-width: 768px) {
+    .nav-top-svg {
+        display: inline-block;
+    }
+    .icons-container {
+        text-align: center;
+    }
+}
+
 
 /* Footer Area End */
 
