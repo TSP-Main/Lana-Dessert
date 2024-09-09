@@ -38,12 +38,12 @@
                     @if ($response)
                            @foreach ($categories->take(4) as $category)
                            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                           <a href="{{ route('menu', ['category' => $category['slug']]) }}" style="text-decoration: none;">
                                 <div class="card">
-                                    <a href="{{ route('menu', ['category' => $category['slug']]) }}">
-                                    </a>
                                     <h5 class="card-title">{{ $category['name'] }}</h5>
-                                    <p> {{ $category['desc']}}</p>
+                                    <p>{{ $category['desc'] }}</p>
                                 </div>
+                            </a>
                             </div> 
                             @endforeach
                         @if (count($categories) > 0)
@@ -82,7 +82,7 @@
                         Whether you want to eat in or take out, we’re open every day from 5 PM to 2 AM. You can even
                         customise your order to suit your taste because we love making things just how you like
                         them. So, come on over and enjoy our yummy treats with a side of fun! </p>
-                    <a href="/about">Read More</a>
+                    <a href="/about" style="text-decoration: none;">Read More</a>
                 </div>
             </div>
         </div>
