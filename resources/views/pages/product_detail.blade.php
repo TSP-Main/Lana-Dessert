@@ -51,7 +51,7 @@
                                 <p class="text-muted">{{ $product['category']['name']}}</p>
                                 <h4 style="color: #c36;">£{{ $product['price'] }}</h4>
                                 <p>{{ $product['description']}}</p>
-                                <img>{{ $product['images']}}</img>
+                                <!-- <img>{{ $product['images']}}</img> -->
                     
                                 <!-- Add to Cart Section -->
                                 <div class="mt-4">
