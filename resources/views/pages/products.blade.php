@@ -10,7 +10,7 @@
 
     <div class="main-content" data-aos="fade-down" data-aos-duration="1500" style="background: url({{ $bannerUrl }} )">
         <div class="title">
-            <h2>{{ isset($category) ? ucfirst($category) : '' }}</h2>
+            <h2 style="font-weight: bold; font-size: 3rem;">{{ isset($category) ? ucfirst($category) : '' }}</h2>
         </div>
     </div>
 
