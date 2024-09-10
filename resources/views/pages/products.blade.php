@@ -8,7 +8,8 @@
         $bannerUrl = $categoryDetail['banner_image'] ? env('SERVER_URL') . 'storage/' . $categoryDetail['banner_image'] : env('SERVER_URL') .'assets/theme/images/banners/default_banner.webp';
     @endphp
 
-    <div class="main-content" data-aos="fade-down" data-aos-duration="1500" style="background: url({{ $bannerUrl }} )">
+    <!-- style="background: url({{ $bannerUrl }} )" -->
+    <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
         <div class="title">
             <h2 style="font-weight: bold; font-size: 3rem;">{{ isset($category) ? ucfirst($category) : '' }}</h2>
         </div>
@@ -45,9 +46,18 @@
                     <div class="col-12 col-md-6 col-lg-4 mb-4 d-flex justify-content-center">
                         <div class="card bg-body" style="width: 18rem; border-radius: 0 60px 0 0;">
                             @if (isset($product['images'][0]['path']))
-                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" class="card-img-top" alt="{{ $product['title'] }}" style="border-top-right-radius: 60px;">
+                            <a href="{{ route('product.detail', [$product['id']]) }}">
+                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $product['images'][0]['path'] }}" 
+                                    class="card-img-top" 
+                                    alt="{{ $product['title'] }}" 
+                                    style="border-top-right-radius: 60px;">
+                            </a>
                             @else
-                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available">
+                            <a href="{{ route('product.detail', [$product['id']]) }}">
+                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" 
+                                    class="card-img-top" 
+                                    alt="No image available">
+                            </a>
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">

@@ -33,7 +33,7 @@ html, body {
     }
 }
 .reserv{
-    background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #131212d6 65%), url('/assets/theme/images/reserv.webp');
+  background:linear-gradient(180deg, rgba(0, 0, 0, 0) 0%, #131212d6 65%), url('/assets/theme/images/reserv.webp');
   background-size: cover;
   background-repeat: no-repeat;
   width: 100%;
@@ -633,6 +633,7 @@ p{
 }
 .nav-left-svg {
     float: right;
+    z-index: 10;
 }
 .nav-top-svg {
 padding: 10px 13px;
@@ -1225,4 +1226,110 @@ margin: 0 15px;
 #map {
     height: 400px;
     width: 100%;
+}
+
+/* restaurant popup card design */
+
+#closedModal .modal-content {
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    border: none;
+}
+
+#closedModal .modal-header {
+    background-color: #dc3545;
+    color: white;
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
+}
+
+#closedModal .modal-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#closedModal .btn-close {
+    color: white;
+    opacity: 1;
+    font-size: 18px;
+}
+
+#closedModal .modal-body {
+    padding: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#closedModal .modal-footer {
+    border-top: none;
+    justify-content: center;
+}
+
+#closedModal .btn-danger {
+    background-color: #dc3545;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+#closedModal .btn-danger:hover {
+    background-color: #c82333;
+}
+
+
+/* Categories title navigation bar */
+
+#category-nav {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0 10px;
+}
+
+
+#category-nav .category-nav-link {
+    white-space: nowrap;
+}
+
+#scroll-left {
+    left: 0;
+    background: none;
+    border: none;
+    color: black;
+}
+
+#scroll-right {
+    right: 0;
+    background: none;
+    border: none;
+    color: black;
+}
+
+#category-nav::-webkit-scrollbar {
+    display: none;
+}
+
+#category-nav {
+    -ms-overflow-style: none; 
+    scrollbar-width: none;
+}
+
+#category-nav {
+    overflow-x: auto;
+    overflow-y: hidden;
+}
+
+ .scrollable-nav::-webkit-scrollbar {
+    display: none;
+}
+
+.scrollable-nav {
+    scrollbar-width: none;
+}
+
+.scroll-btn {
+    z-index: 1;
 }
