@@ -89,7 +89,7 @@
     </div>
 </div>
 
-<div class="counter-about" data-aos="fade-down" data-aos-duration="1500">
+<div class="counter-about" data-aos-duration="1500">  <!-- data-aos="fade-down" -->
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -111,6 +111,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="menu-items my-5 pt-5 bg-none" data-aos="fade-down" data-aos-duration="1500">
     <div class="container" style= "height: 38rem">
