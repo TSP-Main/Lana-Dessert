@@ -1025,6 +1025,7 @@ margin: 0 15px;
     .footer-h {
         text-align: center !important; 
     }
+
 }
 @media (min-width: 768px) {
     .nav-top-svg {
@@ -1032,6 +1033,16 @@ margin: 0 15px;
         margin-right: 10px;
     }
 }
+
+@media (min-width: 768px) {
+    .nav-top-svg {
+        display: inline-block;
+    }
+    .icons-container {
+        text-align: center;
+    }
+}
+
 
 @media (min-width: 768px) {
     .nav-top-svg {
@@ -1228,6 +1239,7 @@ margin: 0 15px;
     width: 100%;
 }
 
+
 /* restaurant popup card design */
 
 #closedModal .modal-content {
@@ -1333,3 +1345,4 @@ margin: 0 15px;
 .scroll-btn {
     z-index: 1;
 }
+
