@@ -55,7 +55,7 @@
     <div class="container mt-5 pt-5">
 
         <!-- Navigation Row with Scroll Arrows -->
-        <div class="position-relative">
+        <div class="position-relative" style="background-color: #f5f5f5">
             <div class="row mb-4">
                 <div class="col-12">
                     <!-- Navigation Container -->
