@@ -1157,6 +1157,7 @@ margin: 0 15px;
 }
 
 
+
 /* Categories title navigation bar */
 
 #category-nav {
@@ -1167,6 +1168,14 @@ margin: 0 15px;
     padding: 0 10px;
 }
 
+.scrollable-nav {
+    transition: color 0.3s ease; 
+    color: black; 
+}
+
+.scrollable-nav a:hover{
+    color: #c36 !important; 
+}
 
 #category-nav .category-nav-link {
     white-space: nowrap;
@@ -1212,36 +1221,15 @@ margin: 0 15px;
     z-index: 1;
 }
 
-/* Category card size in Mobile view */
-
 @media (max-width: 576px) {
-    .col-sm-6 {
-        flex: 0 0 50%; 
-        max-width: 50%; 
-    }
-    .col-12 {
-        max-width: 100%;
+    .row > .col-6 {
+        padding-left: 0;
+        padding-right: 0; 
     }
 
-    .col-md-3 {
-        flex: 0 0 100%; 
-        max-width: 100%;
-        margin-top: 0px; 
-        margin-bottom: 0px; 
+    .row > .col-6 a {
+        margin: 0;
     }
 
-    .img-fluid {
-        width: 80%; 
-        margin: 0 auto; 
-    }
-
-    h2 {
-        font-size: 1.2rem; 
-        margin-left: 30px; 
-    }
-
-    .d-flex {
-        margin-top: 5px; 
-        margin-bottom: 5px;
-    }
 }
+
