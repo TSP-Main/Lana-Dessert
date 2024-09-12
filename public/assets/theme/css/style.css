@@ -714,128 +714,6 @@ margin: 0 15px;
 /* => CSS Styles */
 
 /* Header Area Start */
-/* .nav-top {
-    background-color: #f8f9fa; 
-    padding: 10px 0;
-}
-
-.lana-logo {
-    text-align: left;
-}
-
-.navbar {
-    padding: 0;
-}
-
-.navbar-nav {
-    display: flex;
-    justify-content: center;
-    width: 100%;
-}
-
-.nav-left-svg {
-    text-align: right;
-}
-
-.nav-left-svg svg {
-    width: 24px;
-    height: 24px;
-}
-
-#cart-count {
-    margin-left: 5px;
-    font-size: 0.75rem;
-}
-
-.navbar-nav .nav-link {
-    color: white !important;
-    white-space: nowrap;
-    text-align: center;
-}
-
-.nav-item {
-    margin: 0 10px;
-}
-
-.lana-logo img {
-    max-width: 80px;
-}
-
-
-#mobileNavbarContent {
-    display: none;
-}
-
-#mobileNavbarContent.show {
-    display: block;
-}
-
-#navbarToggle {
-    border: 2px solid#e26284;
-    background: none;
-    cursor: pointer;
-    color: #e26284;
-    margin-top: 40px;
-}
-
-#navbarToggle svg {
-    width: 24px;
-    height: 24px;
-} */
-
-/* Responsive styles for medium devices (tablets and small desktops) */
-/* @media (min-width: 768px) and (max-width: 992px) {
-    .nav-left-svg {
-        left: auto; 
-        right: 10px;
-        position: absolute;
-    }
-} */
-
-/* Styles for larger screens */
-/* .row.d-lg-none {
-    display: flex; 
-    flex-direction: row; 
-    flex-wrap: nowrap; 
-    align-items: center; 
-    justify-content: center; 
-    margin-left: 60px;
-    margin-top: -110px;
-}
-
-.row.d-lg-none .nav-item {
-    padding-left: 0;
-    padding-right: 0; 
-    margin-top: 45px;
-}
-
-.row.d-lg-none .nav-link {
-    font-size: 0.775rem; 
-} */
-
-/* Override styles for mobile view */
-/* @media (max-width: 767px) {
-    .row.d-lg-none {
-        display: block; 
-        flex-direction: initial;
-        flex-wrap: initial;
-        align-items: initial;
-        justify-content: initial;
-        margin-left: 0;
-        margin-top: 0;
-    }
-
-    .row.d-lg-none .nav-item {
-        padding-left: initial;
-        padding-right: initial;
-        margin-top: initial;
-    }
-
-    .row.d-lg-none .nav-link {
-        font-size: initial;
-    }
-} */
-
 
 .ml-sm-100 {
     margin-right: 90px !important;
@@ -1025,7 +903,6 @@ margin: 0 15px;
     .footer-h {
         text-align: center !important; 
     }
-
 }
 @media (min-width: 768px) {
     .nav-top-svg {
@@ -1033,16 +910,6 @@ margin: 0 15px;
         margin-right: 10px;
     }
 }
-
-@media (min-width: 768px) {
-    .nav-top-svg {
-        display: inline-block;
-    }
-    .icons-container {
-        text-align: center;
-    }
-}
-
 
 @media (min-width: 768px) {
     .nav-top-svg {
@@ -1239,7 +1106,6 @@ margin: 0 15px;
     width: 100%;
 }
 
-
 /* restaurant popup card design */
 
 #closedModal .modal-content {
@@ -1346,3 +1212,36 @@ margin: 0 15px;
     z-index: 1;
 }
 
+/* Category card size in Mobile view */
+
+@media (max-width: 576px) {
+    .col-sm-6 {
+        flex: 0 0 50%; 
+        max-width: 50%; 
+    }
+    .col-12 {
+        max-width: 100%;
+    }
+
+    .col-md-3 {
+        flex: 0 0 100%; 
+        max-width: 100%;
+        margin-top: 0px; 
+        margin-bottom: 0px; 
+    }
+
+    .img-fluid {
+        width: 80%; 
+        margin: 0 auto; 
+    }
+
+    h2 {
+        font-size: 1.2rem; 
+        margin-left: 30px; 
+    }
+
+    .d-flex {
+        margin-top: 5px; 
+        margin-bottom: 5px;
+    }
+}

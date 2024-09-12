@@ -30,11 +30,12 @@
                                     </div> --}}
                     
                                     <div class="col-6 mb-3">
-                                        <p class="mb-0">Phone</p>
-                                        <div class="form-outline">
-                                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number"  required/>
-                                        </div>
+                                    <p class="mb-0">Phone</p>
+                                    <div class="form-outline">
+                                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required />
                                     </div>
+                                    </div>
+
                     
                                     <div class="col-6 mb-3">
                                         <p class="mb-0">Email</p>
