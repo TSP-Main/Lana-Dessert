@@ -47,7 +47,7 @@ class CartController extends Controller
         foreach ($cart as &$item) {
             if ($item['productId'] == $productId && $item['options'] == $options) {
                 $item['quantity']++;
-                $item['rowTotal'] = $item['comboTotal'] * $item['quantity'];
+                $item['rowTotal'] = number_format($item['comboTotal'] * $item['quantity'], 2);
                 $productExists = true;
                 break;
             }
@@ -60,12 +60,12 @@ class CartController extends Controller
                 'productId'     => $productId,
                 'productTitle'  => $productDetail['title'],
                 'productImage'  => $productDetail['images'],
-                'productPrice'  => $productDetail['price'],
+                'productPrice'  => number_format($productDetail['price'], 2),
                 'options'       => $options,
                 'optionNames'   => $optionNames,
                 'quantity'      => 1,
-                'rowTotal'      => $productDetail['price'] + $optionsPrice,
-                'comboTotal'    => $productDetail['price'] + $optionsPrice,
+                'rowTotal'      => number_format($productDetail['price'] + $optionsPrice, 2),
+                'comboTotal'    => number_format($productDetail['price'] + $optionsPrice, 2),
                 'productInstruction' => $productInstruction
             ];
         }
@@ -75,9 +75,10 @@ class CartController extends Controller
         foreach ($cart as $product) {
             $subTotal += $product['rowTotal'];
         }
+        $formattedSubTotal = number_format($subTotal, 2);
 
         Session::put('cart', $cart);
-        Session::put('cartSubTotal', $subTotal);
+        Session::put('cartSubTotal', $formattedSubTotal);
 
         return response()->json(['success' => true, 'message' => 'Product added to cart']);
     }

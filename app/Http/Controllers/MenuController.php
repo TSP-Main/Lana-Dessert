@@ -28,8 +28,11 @@ class MenuController extends Controller
             $data['schedule'] = $schedule;
             $data['isClosed'] = $schedule['isClosed'];
             $data['msg'] = $schedule['message'];
-            $data['opening'] = $schedule['todaySchedule']['opening_time'];
-            $data['closing'] = $schedule['todaySchedule']['closing_time'];
+            // $data['opening'] = $schedule['todaySchedule']['opening_time'];
+            // $data['closing'] = $schedule['todaySchedule']['closing_time'];
+            $data['opening'] = Carbon::createFromFormat('H:i:s', $schedule['todaySchedule']['opening_time'])->format('g:i A');
+            $data['closing'] = Carbon::createFromFormat('H:i:s', $schedule['todaySchedule']['closing_time'])->format('g:i A');
+        
             $data['code'] = $schedule['code'];
         }
         else{
@@ -43,6 +46,7 @@ class MenuController extends Controller
                 $data['menus'] = $responseData['data'];
             }
         }
+        
         return view('pages.menu', $data);
     }
 
