@@ -82,7 +82,6 @@
 <div class="founder-about cheif-about">
     <div class="container">
         <div class="row">
-
             <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
                 <div class="cheif-crew mt-4">
                     <h5>Discover</h5>
@@ -94,12 +93,13 @@
             </div>
             <div class="col-md-6" data-aos="fade-left" data-aos-duration="1500">
                 <div class="founder-img">
-                    <img src="assets/theme/images/cheif-crew.jpg" width="550px" heigth="550px" alt="">
+                    <img src="assets/theme/images/discover/1.png" class="responsive-img" alt="">
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <script>
         // Function to update cart count
