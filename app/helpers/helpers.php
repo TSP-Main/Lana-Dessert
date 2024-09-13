@@ -26,32 +26,27 @@ function is_restaurant_closed()
     }
     else{
         $currentTime = Carbon::now($timezone);
-        // $currentTime = $currentTime->toDateTimeString();
-
-        // $openingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['opening_time']);
-        // $closingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['closing_time']);
-        // if ($currentTime->between($openingTime, $closingTime)) {
-        //     $data['isClosed'] = false;
-        // }
-        // else{
-        //     $data['isClosed'] = true;
-        //     $data['message'] = 'Restaurant Timing is this';
-        //     $data['code'] = '002';
-        // }
 
         // Parse the opening and closing times in the same time zone and on the same date as the current time
         $openingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['opening_time'], $timezone)
         ->setDate($currentTime->year, $currentTime->month, $currentTime->day);
+        
         $closingTime = Carbon::createFromFormat('H:i:s', $todaySchedule['closing_time'], $timezone)
         ->setDate($currentTime->year, $currentTime->month, $currentTime->day);
 
+        // if closing time is after 12
+        if ($closingTime->lessThan($openingTime)) {
+            $closingTime->addDay();
+        }
+
         // Check if the current time is within the opening and closing times
         if ($currentTime->between($openingTime, $closingTime)) {
-        $data['isClosed'] = false;
-        } else {
-        $data['isClosed'] = true;
-        $data['message'] = 'Restaurant Timing is this';
-        $data['code'] = '002';
+            $data['isClosed'] = false;
+        }
+        else {
+            $data['isClosed'] = true;
+            $data['message'] = 'Restaurant Timing is this';
+            $data['code'] = '002';
         }
 
     }
