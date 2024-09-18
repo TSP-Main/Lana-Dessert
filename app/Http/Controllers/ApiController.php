@@ -49,6 +49,11 @@ class ApiController extends Controller
                 'Authorization' => $apiToken,
             ])->get($serverUrl . $url);
 
+            $categories = Http::withHeaders([
+                'Authorization' => $apiToken,
+            ])->get($serverUrl . 'api/categories');
+            $data['menus'] = $categories['data'];
+
             if($response['status'] == 'success'){
                 $data['response'] = true;
                 $data['products'] = $response['data'];

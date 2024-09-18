@@ -64,7 +64,7 @@
                         @foreach ($menus as $menu)
                         <a 
                             class="nav-link mr-3 mr-sm-n3 fw-bold text-dark"
-                            href="#{{ $menu['attributes']['slug'] }}"
+                            href="{{ route('menu', ['category' => $menu['attributes']['slug']]) }}"
                             data-scroll-to="{{ $menu['attributes']['slug'] }}" 
                             style="font-size: 20px; text-decoration: none;">
                             {{ $menu['attributes']['name'] }}

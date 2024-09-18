@@ -230,39 +230,48 @@
                 <div class="row">
                     <div class="col-7">
                         <span id="heading">Date</span><br>
-                        <span id="details">10 October 2018</span>
+                        <span id="details">{{ \Carbon\Carbon::parse($orderData['created_at'])->format('Y-m-d H:i:s') }}</span>
                     </div>
                     <div class="col-5 pull-right">
                         <span id="heading">Order No.</span><br>
-                        <span id="details">012j1gvs356c</span>
+                        <span id="details">{{ $orderData['id'] }}</span>
                     </div>
                 </div>      
             </div>      
             <div class="pricing">
                 <div class="row">
-                    <div class="col-9">
-                        <span id="name">BEATS Solo 3 Wireless Headphones</span>  
+                    <div class="col-6">
+                        <span id="name">Name</span>  
                     </div>
                     <div class="col-3">
-                        <span id="price">&pound;299.99</span>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-9">
-                        <span id="name">Shipping</span>
+                        <span id="name">Quantity</span>  
                     </div>
                     <div class="col-3">
-                        <span id="price">&pound;33.00</span>
+                        <span id="price">Price</span>
                     </div>
                 </div>
+                <hr>
+                @foreach ($orderData['details'] as $item)
+                    <div class="row">
+                        <div class="col-6">
+                            <span id="name">{{ $item['product_title'] }}</span>  
+                        </div>
+                        <div class="col-3">
+                            <span id="name">{{ $item['quantity'] }}</span>  
+                        </div>
+                        <div class="col-3">
+                            <span id="price">&pound;{{ $item['sub_total'] }}</span>
+                        </div>
+                    </div>
+                @endforeach
             </div>
             <div class="total">
                 <div class="row">
                     <div class="col-9"></div>
-                    <div class="col-3"><big>&pound;262.99</big></div>
+                    <div class="col-3"><big>&pound;{{ $orderData['total'] }}</big></div>
                 </div>
             </div>
-            <div class="tracking">
+            {{-- <div class="tracking">
                 <div class="title">Tracking Order</div>
             </div>
             <div class="progress-track">
@@ -272,15 +281,13 @@
                     <li class="step0 active text-right" id="step3">On the way</li>
                     <li class="step0 text-right" id="step4">Delivered</li>
                 </ul>
-            </div>
+            </div> --}}
 
-            <div class="footer">
+            {{-- <div class="footer">
                 <div class="row">
                     <div class="col-2"><img class="img-fluid" src="https://i.imgur.com/YBWc55P.png"></div>
                     <div class="col-10">Want any help? Please &nbsp;<a> contact us</a></div>
                 </div>
-                
-               
-            </div>
+            </div> --}}
         </div>
 @endsection

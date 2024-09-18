@@ -198,9 +198,10 @@ class CartController extends Controller
 
         // Flash the response message to the session
         Session::flash('response', $response->json('message'));
-    
+
+        $data['orderData'] = $response->json('orderDetails');
         // Redirect to the order page
-        return redirect()->route('order');
+        return view('pages.order', $data);
     }
     
     public function getCartCount()
