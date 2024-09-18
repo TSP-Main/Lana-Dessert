@@ -110,7 +110,7 @@
                                             <div class="p-3">
                                                 <input class="form-check-input" type="radio" name="payment_option" id="online" value="online" required/>
                                                 <label class="form-check-label" for="online">
-                                                    Online <br />
+                                                    Online Payment <br />
                                                 </label>
                                             </div>
                                         </div>
@@ -130,7 +130,7 @@
                                     </div> --}}
 
                                     <div id="stripe-form" class="container mt-4 d-none">
-                                        <h4 class="mb-4">Online Payment</h4>
+                                        {{-- <h4 class="mb-4">Online Payment</h4> --}}
                                         <div class="form-group mb-3">
                                             <label for="card-number-element" class="form-label">Card Number</label>
                                             <div id="card-number-element" class="form-control"></div>
