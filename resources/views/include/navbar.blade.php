@@ -57,11 +57,13 @@
             </div>
         </div>
        <!-- Navbar for medium and small devices -->
-        <div class="row d-lg-none d-block">
+        <div class="row d-lg-none d-block mt-12">
             <div class="col-12">
                 <nav class="navbar navbar-expand-md ml-sm-100 ml-md-250" id="mobileNavbar">
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobileNavbarContent" aria-controls="mobileNavbarContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <a href="{{ route('dashboad') }}">
                         <span class="navbar-toggler-icon"></span>
+                        </a>
                     </button>
                     <div class="collapse" id="mobileNavbarContent">
                         <ul class="navbar-nav d-flex flex-column align-items-center w-100 text-center" style="padding: 10px 0;">
