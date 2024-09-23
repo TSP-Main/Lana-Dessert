@@ -233,22 +233,26 @@
 </div>
 <div class="news-letter py-5" data-aos="fade-up" data-aos-duration="1500">
     <div class="container">
-        <div class="row mt-5 py-5">
-            <div class="col-md-4">
-                <div class="news-title">
-                    <h5>Newsletter</h5>
-                    <h2>Subscribe Now !</h2>
+        <form action="{{ route('newsletter.subscribe') }}" method="POST">
+            @csrf
+            <div class="row mt-5 py-5">
+                <div class="col-md-4">
+                    <div class="news-title">
+                        <h5>Newsletter</h5>
+                        <h2>Subscribe Now !</h2>
+                    </div>
+                </div>
+                <div class="col-md-5">
+                    <input type="text" name="email" placeholder="Your Email" class="form-control">
+                </div>
+                <div class="col-md-3">
+                    <button class="btn px-5 py-2 text-center mt-2">Subscribe</button>
                 </div>
             </div>
-            <div class="col-md-5">
-                <input type="text" placeholder="Your Email" class="form-control">
-            </div>
-            <div class="col-md-3">
-                <button class="btn px-5 py-2 text-center mt-2">Subscribe</button>
-            </div>
-        </div>
+        </form>
     </div>
 </div>
+
 @yield('script')
 <script>
     // Function to update cart count

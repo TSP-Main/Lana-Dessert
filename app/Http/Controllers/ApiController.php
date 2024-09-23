@@ -112,5 +112,21 @@ class ApiController extends Controller
 
         return $data;
     }
+
+    public function newsletter_subscribe(Request $request)
+    {
+        $postData['email'] = $request->email;
+
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/newsletter/subscribe';
+    
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->post($serverUrl . $url, $postData);
+        
+        return redirect()->back()->with('subscribed', true);
+    }
     
 }

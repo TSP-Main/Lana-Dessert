@@ -141,12 +141,22 @@ class CartController extends Controller
             'order_type' => 'required|in:pickup,delivery'
         ]);
 
+        // Get Stripe Key
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/stripe/config';
+    
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->get($serverUrl . $url);
+
         Session::put('orderType', $request->order_type);
 
         $data['cartItems']      = Session::get('cart');
         $data['cartSubTotal']   = Session::get('cartSubTotal');
         $data['orderType']      = Session::get('orderType');
-        $data['stripeKey']      = env('STRIPE_API_KEY');
+        $data['stripeKey']      = $response['data']['stripeKey'];
 
         // dd($data);
 
