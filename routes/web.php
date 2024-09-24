@@ -35,6 +35,8 @@ Route::get('destroy', [CartController::class, 'destroy']);
 
 Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
 
+Route::post('newsletter/subscribe', [ApiController::class, 'newsletter_subscribe'])->name('newsletter.subscribe');
+
 
 
 
