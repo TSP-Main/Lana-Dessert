@@ -43,4 +43,38 @@
             }
         });
 
+        $(document).ready(function(){
+            $('#btn_newsletter').on('click', function () {
+                var email = $('#email').val();
+                $.ajax({
+                    url: '{{ route("newsletter.subscribe") }}',
+                    method: 'POST',
+                    data: {
+                        _token: '{{ csrf_token() }}',
+                        email: email,
+                    },
+                    success: function(response) {
+                        if(response.status == 'success'){
+                            $('.sub-email').val('');
+                            $('.subscription_msg').text('Thank You for Subscription!').show();
+                            setTimeout(function() {
+                                $('.subscription_msg').fadeOut();
+                            }, 4000);
+                        }
+                    },
+                    error: function(xhr) {
+                        if (xhr.status === 422) {
+                            var errors = xhr.responseJSON.errors;
+                            if (errors.email) {
+                                $('.subscription_msg').text(errors.email[0]).show();
+                                setTimeout(function() {
+                                    $('.subscription_msg').fadeOut();
+                                }, 4000);
+                            }
+                        }
+                    }
+                });
+            });
+        });
+
     </script>

@@ -1,3 +1,22 @@
+<div class="news-letter py-5" data-aos="fade-up" data-aos-duration="1500">
+    <div class="container">
+        <div class="row mt-5 py-5">
+            <div class="col-md-4">
+                <div class="news-title">
+                    <h5>Newsletter</h5>
+                    <h2>Subscribe Now !</h2>
+                </div>
+            </div>
+            <div class="col-md-5">
+                <input type="email" name="email" id="email" placeholder="Your Email" class="sub-email form-control">
+                <span class="subscription_msg"></span>
+            </div>
+            <div class="col-md-3">
+                <button class="btn px-5 py-2 text-center mt-2" id="btn_newsletter">Subscribe</button>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="footer-widget">
     <div class="container">
         <div class="row">

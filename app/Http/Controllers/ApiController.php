@@ -115,6 +115,10 @@ class ApiController extends Controller
 
     public function newsletter_subscribe(Request $request)
     {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
         $postData['email'] = $request->email;
 
         $serverUrl  = env('SERVER_URL');
@@ -126,7 +130,12 @@ class ApiController extends Controller
             'Authorization' => $apiToken,
         ])->post($serverUrl . $url, $postData);
         
-        return redirect()->back()->with('subscribed', true);
+        if($response['status'] == 'success'){
+            return response()->json(['status' => 'success']);
+        }
+        else{
+            return response()->json(['status' => 'error']);
+        }
     }
     
 }
