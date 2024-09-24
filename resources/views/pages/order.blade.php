@@ -268,7 +268,13 @@
             <div class="total">
                 <div class="row">
                     <div class="col-9"></div>
-                    <div class="col-3"><big>&pound;{{ $orderData['total'] }}</big></div>
+                    <!-- temporary delivery charges -->
+                    @if ($orderData['order_type'] == 'delivery')
+                        <div class="col-12">Delivery Charges: &pound;2.00</div>
+                        <div class="col-12">Total: <big>&pound;{{ $orderData['total'] }}</big></div>
+                    @else
+                        <div class="col-12">Total: <big>&pound;{{ $orderData['total'] }}</big></div>
+                    @endif
                 </div>
             </div>
             {{-- <div class="tracking">

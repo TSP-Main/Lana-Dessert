@@ -183,7 +183,7 @@
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
                                                     {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">£ {{ $cartItem['rowTotal'] }}</span>
+                                                    <span class="text-end">£ {{ number_format($cartItem['rowTotal'], 2) }}</span>
                                                 </p>
                                                 <p class="mt-0 mb-0">£ {{ $cartItem['productPrice'] }}</p>
                                                 <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
@@ -194,7 +194,13 @@
                             </div>
                         </div>
                     </div>
-                    <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
+                    <!-- temporary delivery charges -->
+                    @if ($orderType == 'delivery')
+                        <h6>Delivery Charges <span> £2.00</span></h6>
+                        <h4>Total <span> £ {{ number_format($cartSubTotal + 2, 2) }}</span></h4>
+                    @else
+                        <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
+                    @endif
                 </div>
             </div>
         </div>
