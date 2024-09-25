@@ -24,7 +24,7 @@
                 <div class="instruction"></div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-success" id="addToCartButton" data-product-detail="">Add to cart</button>
+                <button type="button" class="nav-top-svg" id="addToCartButton" data-product-detail="" style="border-color: white; color: white; text-decoration: none;">Add to cart</button>
             </div>
         </div>
         </div>
@@ -206,7 +206,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 optionsHtml += '</div>';
             });
         } else {
-            optionsHtml = '<p>No options available for this product.</p>';
+            optionsHtml = '';
         }
 
         if(productDetail.ask_instruction == 1){

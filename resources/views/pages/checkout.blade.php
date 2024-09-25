@@ -183,7 +183,7 @@
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
                                                     {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">£ {{ $cartItem['rowTotal'] }}</span>
+                                                    <span class="text-end">£ {{ number_format($cartItem['rowTotal'], 2) }}</span>
                                                 </p>
                                                 <p class="mt-0 mb-0">£ {{ $cartItem['productPrice'] }}</p>
                                                 <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
@@ -194,7 +194,13 @@
                             </div>
                         </div>
                     </div>
-                    <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
+                    <!-- temporary delivery charges -->
+                    @if ($orderType == 'delivery')
+                        <h6>Delivery Charges <span> £2.00</span></h6>
+                        <h4>Total <span> £ {{ number_format($cartSubTotal + 2, 2) }}</span></h4>
+                    @else
+                        <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
+                    @endif
                 </div>
             </div>
         </div>
@@ -290,93 +296,6 @@
             });
         });
     </script>
-    
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Stripe with your public key
-            const stripe = Stripe(document.getElementById('stripe_key').value);
-            
-            const elements = stripe.elements();
-            
-            // Create an instance of the card Element
-            const card = elements.create('card');
-            card.mount('#card-element');
-
-            // Function to toggle visibility based on payment option
-            function updatePaymentForm() {
-                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-                const stripeForm = document.getElementById('stripe-form');
-                const placeOrderButton = document.getElementById('place-order');
-
-                if (paymentOption === 'online') {
-                    stripeForm.classList.remove('d-none');
-                    placeOrderButton.classList.add('d-none');
-                } else {
-                    stripeForm.classList.add('d-none');
-                    placeOrderButton.classList.remove('d-none');
-                }
-            }
-
-            // Run on page load
-            updatePaymentForm();
-
-            // Add event listeners to radio buttons to update form visibility
-            document.querySelectorAll('input[name="payment_option"]').forEach(function(element) {
-                element.addEventListener('change', updatePaymentForm);
-            });
-
-            document.getElementById('submit-payment').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default form submission
-
-                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-
-                if (paymentOption === 'online') {
-                    stripe.createPaymentMethod({
-                        type: 'card',
-                        card: card,
-                        billing_details: {
-                            name: document.querySelector('input[name="name"]').value,
-                            email: document.querySelector('input[name="email"]').value,
-                            phone: document.querySelector('input[name="phone"]').value
-                        }
-                    }).then(function(result) {
-                        if (result.error) {
-                            const displayError = document.getElementById('card-errors');
-                            displayError.textContent = result.error.message;
-                        } else {
-                            const form = document.getElementById('checkout-form');
-                            let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
-
-                            if (hiddenTokenInput) {
-                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
-                            } else {
-                                hiddenTokenInput = document.createElement('input');
-                                hiddenTokenInput.setAttribute('type', 'hidden');
-                                hiddenTokenInput.setAttribute('name', 'payment_method_id');
-                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
-                                form.appendChild(hiddenTokenInput);
-                            }
-
-                            // Submit the form
-                            var orderType = @json($orderType);
-                            if(orderType === 'pickup'){
-                                form.submit();
-                            }
-                            else{
-                                checkCustomerLocation();
-                            }
-                        }
-                    }).catch(function(error) {
-                        console.error('Error creating PaymentMethod:', error);
-                    });
-                } else {
-                    // For cash payment or any other type
-                    const form = document.getElementById('checkout-form');
-                    form.submit(); // Simply submit the form without Stripe handling
-                }
-            });
-        });
-    </script> --}}
 
     @if ($orderType == 'delivery')
         <!-- Google Map -->
