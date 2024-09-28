@@ -52,12 +52,20 @@ class MenuController extends Controller
 
     public function product_detail($id)
     {
+        $serverUrl = env('SERVER_URL');
+        $apiToken = env('API_TOKEN');
+
         $apiController = new ApiController();
         $result = $apiController->product($id);
 
+        $categories = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->get($serverUrl . 'api/categories');
+        $data['menus'] = $categories['data'];
+
         $data['response'] = $result['response'];
         $data['product'] = collect($result['products'])->first();
-        // return $data;
+
         return view('pages.product_detail', $data);
     }
 

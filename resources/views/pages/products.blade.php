@@ -39,11 +39,9 @@
     <div class="promo text-center my-5 py-5">
     <!-- <h2 class="special">{{ isset($category) ? ucfirst($category) : '' }}</h2> -->
     <div class="container mt-5 pt-5">
-    <div class="row" data-aos="fade-up" data-aos-duration="1500">
-
         <!-- Navigation Row with Scroll Arrows -->
         <div class="position-relative">
-            <div class="row mb-5">
+            <div class="row mb-4">
                 <div class="col-12">
                     <!-- Navigation Container -->
                     <div style="display: flex; justify-content: center; padding-left: 20px; padding-right: 20px;">
@@ -74,7 +72,7 @@
                 </div>
             </div>
         </div>
-
+    <div class="row" data-aos="fade-up" data-aos-duration="1500">
         @if ($response)
             @foreach ($products as $product)
                 <!-- Adjusting column classes for different screen sizes and adding margin on mobile -->
@@ -296,6 +294,29 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 </script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+                const scrollableNav = document.querySelector('.scrollable-nav');
+                const scrollLeftButton = document.getElementById('scroll-left');
+                const scrollRightButton = document.getElementById('scroll-right');
+    
+                scrollLeftButton.addEventListener('click', () => {
+                    scrollableNav.scrollBy({
+                        left: -200, // Adjust scroll amount as needed
+                        behavior: 'smooth'
+                    });
+                });
+    
+                scrollRightButton.addEventListener('click', () => {
+                    scrollableNav.scrollBy({
+                        left: 200, // Adjust scroll amount as needed
+                        behavior: 'smooth'
+                    });
+                });
+            });
+    </script>
+     
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
 @endsection
