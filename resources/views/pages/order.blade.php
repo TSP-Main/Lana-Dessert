@@ -269,8 +269,11 @@
                 <div class="row">
                     <div class="col-9"></div>
                     <!-- temporary delivery charges -->
-                    @if ($orderData['order_type'] == 'delivery')
+                    @if ($orderData['order_type'] == 'delivery' && ($orderData['total'] < $freeShippingAmount))
                         <div class="col-12">Delivery Charges: &pound;2.00</div>
+                        <div class="col-12">Total: <big>&pound;{{ $orderData['total'] }}</big></div>
+                    @elseif ($orderData['order_type'] == 'delivery' && ($orderData['total'] > $freeShippingAmount))
+                        <div class="col-12">Delivery Charges: <del>&pound;2.00</del></div>
                         <div class="col-12">Total: <big>&pound;{{ $orderData['total'] }}</big></div>
                     @else
                         <div class="col-12">Total: <big>&pound;{{ $orderData['total'] }}</big></div>

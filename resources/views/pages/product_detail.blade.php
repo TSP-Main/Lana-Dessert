@@ -32,6 +32,40 @@
 
     <div class="promo text-center my-5 py-5">
         <div class="container">
+            <!-- Navigation Row with Scroll Arrows -->
+            <div class="position-relative">
+                <div class="row mb-4">
+                    <div class="col-12">
+                        <!-- Navigation Container -->
+                        <div style="display: flex; justify-content: center; padding-left: 20px; padding-right: 20px;">
+                            <div class="scrollable-nav" style="display: flex; overflow: auto; width: 95%; white-space: nowrap; scroll-behavior: smooth;">
+                                @foreach ($menus as $menu)
+                                <a 
+                                    class="nav-link mr-3 mr-sm-n3 fw-bold text-dark"
+                                    href="{{ route('menu', ['category' => $menu['attributes']['slug']]) }}"
+                                    data-scroll-to="{{ $menu['attributes']['slug'] }}" 
+                                    style="font-size: 20px; text-decoration: none;">
+                                    {{ $menu['attributes']['name'] }}
+                                </a>
+                                @endforeach
+                            </div>
+                        </div>
+                        
+                        <button class="position-absolute top-50 start-0 translate-middle-y scroll-btn" id="scroll-left">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0"/>
+                            </svg>
+                        </button>
+                    
+                        <button class="position-absolute top-50 end-0 translate-middle-y scroll-btn" id="scroll-right">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-chevron-right" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
             <div class="row" data-aos="fade-up" data-aos-duration="1500">
                 @if ($response)
                     <div class="container mt-5">
@@ -219,5 +253,27 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+</script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+            const scrollableNav = document.querySelector('.scrollable-nav');
+            const scrollLeftButton = document.getElementById('scroll-left');
+            const scrollRightButton = document.getElementById('scroll-right');
+
+            scrollLeftButton.addEventListener('click', () => {
+                scrollableNav.scrollBy({
+                    left: -200, // Adjust scroll amount as needed
+                    behavior: 'smooth'
+                });
+            });
+
+            scrollRightButton.addEventListener('click', () => {
+                scrollableNav.scrollBy({
+                    left: 200, // Adjust scroll amount as needed
+                    behavior: 'smooth'
+                });
+            });
+        });
 </script>
 @endsection

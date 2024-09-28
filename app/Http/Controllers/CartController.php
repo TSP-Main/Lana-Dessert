@@ -164,6 +164,7 @@ class CartController extends Controller
         $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
         $data['restaurantLat'] = $restaurantDetail['restaurantDetail']['latitude'];
         $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
+        $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
         
         return view('pages.checkout', $data);
     }
@@ -210,6 +211,9 @@ class CartController extends Controller
         Session::flash('response', $response->json('message'));
 
         $data['orderData'] = $response->json('orderDetails');
+        $restaurantDetail = $this->restaurant_detail();
+        $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
+
         // Redirect to the order page
         return view('pages.order', $data);
     }

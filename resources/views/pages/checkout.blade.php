@@ -195,9 +195,14 @@
                         </div>
                     </div>
                     <!-- temporary delivery charges -->
-                    @if ($orderType == 'delivery')
+                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
                         <h6>Delivery Charges <span> £2.00</span></h6>
+                        <p>(free over £{{ $freeShippingAmount }})</p>
                         <h4>Total <span> £ {{ number_format($cartSubTotal + 2, 2) }}</span></h4>
+                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
+                        <h6>Delivery Charges <span><del> £2.00 </del></span></h6>
+                        <p>(free over £{{ $freeShippingAmount }})</p>
+                        <h4>Total <span> £ {{ number_format($cartSubTotal, 2) }}</span></h4>
                     @else
                         <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
                     @endif
