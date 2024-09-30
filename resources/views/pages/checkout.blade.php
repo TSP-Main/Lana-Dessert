@@ -183,9 +183,9 @@
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
                                                     {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">£ {{ number_format($cartItem['rowTotal'], 2) }}</span>
+                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
                                                 </p>
-                                                <p class="mt-0 mb-0">£ {{ $cartItem['productPrice'] }}</p>
+                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
                                                 <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
                                             </div>
                                         </div>
@@ -196,15 +196,15 @@
                     </div>
                     <!-- temporary delivery charges -->
                     @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
-                        <h6>Delivery Charges <span> £2.00</span></h6>
-                        <p>(free over £{{ $freeShippingAmount }})</p>
-                        <h4>Total <span> £ {{ number_format($cartSubTotal + 2, 2) }}</span></h4>
+                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol . number_format($cartSubTotal + 2, 2) }}</span></h4>
                     @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
-                        <h6>Delivery Charges <span><del> £2.00 </del></span></h6>
-                        <p>(free over £{{ $freeShippingAmount }})</p>
-                        <h4>Total <span> £ {{ number_format($cartSubTotal, 2) }}</span></h4>
+                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol . number_format($cartSubTotal, 2) }}</span></h4>
                     @else
-                        <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
+                        <h4>Total <span>{{ $currencySymbol . $cartSubTotal }}</span></h4>
                     @endif
                 </div>
             </div>

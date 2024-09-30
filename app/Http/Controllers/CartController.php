@@ -19,6 +19,8 @@ class CartController extends Controller
     {
         $data['cartItems'] = Session::get('cart');
         $data['cartSubTotal'] = Session::get('cartSubTotal');
+        $data['currencySymbol'] = restaurant_detail()['restaurantDetail']['currency_symbol'];
+
         return view('pages.cart', $data);
     }
 
@@ -165,6 +167,7 @@ class CartController extends Controller
         $data['restaurantLat'] = $restaurantDetail['restaurantDetail']['latitude'];
         $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
         $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
+        $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
         
         return view('pages.checkout', $data);
     }
@@ -213,6 +216,7 @@ class CartController extends Controller
         $data['orderData'] = $response->json('orderDetails');
         $restaurantDetail = $this->restaurant_detail();
         $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
+        $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
 
         // Redirect to the order page
         return view('pages.order', $data);

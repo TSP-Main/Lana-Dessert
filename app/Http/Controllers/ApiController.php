@@ -65,7 +65,8 @@ class ApiController extends Controller
                 // $data['category'] = $request->category;
             }
         }
-        
+
+        $data['currencySymbol'] = restaurant_detail()['restaurantDetail']['currency_symbol'];
         return view('pages.products', $data);
     }
 

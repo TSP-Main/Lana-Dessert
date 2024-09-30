@@ -66,6 +66,8 @@ class MenuController extends Controller
         $data['response'] = $result['response'];
         $data['product'] = collect($result['products'])->first();
 
+        $data['currencySymbol'] = restaurant_detail()['restaurantDetail']['currency_symbol'];
+        
         return view('pages.product_detail', $data);
     }
 
