@@ -54,3 +54,23 @@ function is_restaurant_closed()
 
     return $data;
 }
+
+function restaurant_detail()
+{
+    $serverUrl = env('SERVER_URL');
+    $apiToken = env('API_TOKEN');
+    
+    $response = Http::withHeaders([
+        'Authorization' => $apiToken,
+    ])->get($serverUrl . 'api/restaurant_detail');
+
+    if($response['status'] == 'success'){
+        $data['response'] = true;
+        $data['restaurantDetail'] = $response['data'];
+    }
+    else{
+        $data['response'] = false;
+    }
+    
+    return $data;
+}

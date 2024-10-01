@@ -99,7 +99,7 @@
                                 </a>
                             </h5>
                             <div class="d-flex justify-content-between align-items-center">
-                                <span class="price">£{{$product['price']}}</span>
+                                <span class="price">{{$currencySymbol}}{{$product['price']}}</span>
                                 <button type="button" id="openModal" class="nav-top-svg" data-bs-toggle="modal" data-bs-target="#cartModal" data-product-detail="{{ json_encode($product) }}" data-product-title="{{ $product['title'] }}" style="border-color: white; color: white; text-decoration: none;">
                                     Add
                                 </button>
@@ -221,6 +221,7 @@ document.addEventListener('DOMContentLoaded', function() {
     var button = $(e.relatedTarget);
     var productTitle = button.data('product-title');
     var productDetail = button.data('product-detail');
+    var currencySymbol = @json($currencySymbol);
 
     var modal = $(this);
     modal.find('.modal-title').text(productTitle);
@@ -268,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                     optionsHtml += '<label class="ms-2 form-check-label" for="option_' + optionValue.id + '">' + optionValue.name + '</label>';
                     if (optionValue.price) {
-                        optionsHtml += '<span class="ms-auto p-2 bd-highlight">£ ' + optionValue.price + '</span>';
+                        optionsHtml += '<span class="ms-auto p-2 bd-highlight">' + currencySymbol + optionValue.price + '</span>';
                     }
                     optionsHtml += '</div>';
                 });

@@ -25,7 +25,8 @@
                                     <h4 class="mb-0">{{ $cartItem['productTitle'] }}</h4>
 
                                     <!-- Total Price -->
-                                    <span class="fw-bold fs-5" id="row-total-{{ $cartItem['rowId'] }}">£ {{ $cartItem['rowTotal']}}</span>
+                                    <span class="fw-bold fs-5">{{ $currencySymbol }}<span class="fw-bold fs-5" id="row-total-{{ $cartItem['rowId'] }}">{{$cartItem['rowTotal']}}</span></span>
+
                                 </div>
 
                                 <!-- Counter Row -->
@@ -40,7 +41,7 @@
                                 <!-- Delete Button and Product Price Row -->
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Product Price -->
-                                    <p class="mb-0">£ {{ $cartItem['productPrice'] }}</p>
+                                    <p class="mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
 
                                     <!-- Delete button -->
                                     <a href="javascript:void(0)" onclick="removeItemCart({{ $cartItem['rowId'] }})" id="remove-{{ $cartItem['rowId'] }}" class="d-flex align-items-center text-danger ms-2">
@@ -65,7 +66,11 @@
                         <div class="cart-total">
                             <h5 style="text-align: center;">Order Summary</h5>
                             <hr style="border: 1px solid #ccc;">
-                            <p>Sub Total <span id="cart-sub-total">£ {{ $cartSubTotal }}</span></p>
+                            {{-- <p>Sub Total <span id="cart-sub-total">{{ $currencySymbol . $cartSubTotal }}</span></p> --}}
+                            <div style="display: flex; justify-content: space-between;">
+                                <h4>Sub Total</h4>
+                                <h4>{{ $currencySymbol }} <span id="cart-sub-total">{{ $cartSubTotal }}</span></h4> 
+                            </div>
                             <hr style="border: 1px solid #ccc;">
                             <div class="form-group">
                                 <label for="order_type" style="display: block; margin-bottom: 5px;">Choose order type:</label>
@@ -85,7 +90,11 @@
                             </div>
 
                                                         <hr style="border: 1px solid #ccc;">
-                            <h4>Total <span id="total">£ {{ $cartSubTotal }}</span></h4>
+                            {{-- <h4>Total <span id="total">{{ $currencySymbol . $cartSubTotal }}</span></h4> --}}
+                            <div style="display: flex; justify-content: space-between;">
+                                <h4>Total</h4>
+                                <h4>{{ $currencySymbol }} <span id="total">{{ $cartSubTotal }}</span></h4> 
+                            </div>
                         </div>
                         <hr style="border: 1px solid #ccc;">
                         <button class="nav-top-svg text-white border-white" type="submit" style="width: 90%;">Checkout</button>
@@ -120,9 +129,9 @@
                 },
                 success: function(response) {
                     if (response.success) {
-                        $('#row-total-'+rowId).text('£ ' + response.rowTotal.toFixed(2));
-                        $('#cart-sub-total').text('£ ' + response.cartSubTotal.toFixed(2));
-                        $('#total').text('£ ' + response.cartSubTotal.toFixed(2));
+                        $('#row-total-'+rowId).text(response.rowTotal.toFixed(2));
+                        $('#cart-sub-total').text(response.cartSubTotal.toFixed(2));
+                        $('#total').text(response.cartSubTotal.toFixed(2));
                     }
                 }
             });

@@ -83,7 +83,7 @@
                             <div class="col-md-6">
                                 <h1 style="color: #c36;">{{ $product['title'] }}</h1>
                                 <p class="text-muted">{{ $product['category']['name']}}</p>
-                                <h4 style="color: #c36;">£{{ $product['price'] }}</h4>
+                                <h4 style="color: #c36;">{{ $currencySymbol . $product['price'] }}</h4>
                                 <p>{{ $product['description']}}</p>
                     
                                 <!-- Add to Cart Section -->
@@ -191,6 +191,7 @@ document.addEventListener('DOMContentLoaded', function() {
         var button = $(e.relatedTarget);
         var productTitle = button.data('product-title');
         var productDetail = button.data('product-detail');
+        var currencySymbol = @json($currencySymbol);
 
         var modal = $(this);
         modal.find('.modal-title').text(productTitle);
@@ -232,7 +233,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
                         optionsHtml += '<label class=" ms-2 form-check-label" for="option_' + optionValue.id + '">' + optionValue.name + '</label>';
                         if (optionValue.price) {
-                            optionsHtml += '<span class="ms-auto p-2 bd-highlight" >$' + optionValue.price + '</span>';
+                            optionsHtml += '<span class="ms-auto p-2 bd-highlight" >' + currencySymbol + optionValue.price + '</span>';
                         }
                         optionsHtml += '</div>';
                     });
