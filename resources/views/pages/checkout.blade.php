@@ -304,8 +304,9 @@
 
     @if ($orderType == 'delivery')
         <!-- Google Map -->
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places" async defer></script>
-        
+        {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places" async defer></script> --}}
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places&callback=initAutocomplete" async defer></script>
+
         <script>
             let autocomplete;
         
@@ -376,9 +377,7 @@
                 });
             }
         
-            document.addEventListener('DOMContentLoaded', function() {
-                initAutocomplete();
-            });
+            
         </script>
 
         <!-- Check Delivery Radius -->
@@ -403,11 +402,7 @@
                 var restaurantLat = {{ $restaurantLat }};
                 var restaurantLng = {{ $restaurantLng }};
                 var deliveryRadius = {{ $deliveryRadius }};
-console.log(customerLat);
-console.log(customerLng);
-console.log(restaurantLat);
-console.log(restaurantLng);
-console.log(deliveryRadius);
+
                 // Calculate the distance using the Haversine formula
                 var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
                 console.log('d ' + distance);
