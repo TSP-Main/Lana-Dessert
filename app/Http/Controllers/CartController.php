@@ -177,6 +177,7 @@ class CartController extends Controller
         $request->validate([
             'name'              => 'required',
             'phone'             => 'required',
+            'email'             => 'required',
             'payment_option'    => 'required|in:cash,online',
             'payment_method_id' => 'required_if:payment_option,online', // Only required for card payments
         ]);
