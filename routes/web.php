@@ -22,17 +22,20 @@ Route::get('categories', [ApiController::class, 'categories'])->name('categories
 Route::get('menu', [ApiController::class, 'products'])->name('menu');
 Route::get('product/{id}', [ApiController::class, 'product'])->name('product');
 Route::get('product_detail/{id}', [MenuController::class, 'product_detail'])->name('product.detail');
+Route::get('checkout/{id}', [MenuController::class, 'checkout'])->name('product.image');
 
 Route::post('cart/add', [CartController::class, 'add'])->name('cart.add');
 Route::get('cart', [CartController::class, 'view'])->name('cart.view');
 Route::post('cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::delete('cart/delete', [CartController::class, 'delete'])->name('cart.delete');
-Route::post('checkout', [CartController::class, 'checkout'])->name('checkout');
+Route::match(['get', 'post'],'checkout', [CartController::class, 'checkout'])->name('checkout');
 Route::post('checkout/process', [CartController::class, 'checkout_process'])->name('checkout.process');
 Route::get('order', [CartController::class, 'order'])->name('order');
 Route::get('destroy', [CartController::class, 'destroy']);
 
 Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.count');
+
+Route::post('newsletter/subscribe', [ApiController::class, 'newsletter_subscribe'])->name('newsletter.subscribe');
 
 
 

@@ -25,7 +25,7 @@ class ApiController extends Controller
             $data['response'] = false;
         }
         
-        return view('pages.categories', $data);
+        return view('dashboard', $data);
 
     }
 
@@ -49,17 +49,24 @@ class ApiController extends Controller
                 'Authorization' => $apiToken,
             ])->get($serverUrl . $url);
 
+            $categories = Http::withHeaders([
+                'Authorization' => $apiToken,
+            ])->get($serverUrl . 'api/categories');
+            $data['menus'] = $categories['data'];
+
             if($response['status'] == 'success'){
                 $data['response'] = true;
                 $data['products'] = $response['data'];
                 $data['category'] = $request->category;
+                $data['categoryDetail'] = $response['categoryDetail'];
             }
             else{
                 $data['response'] = false;
                 // $data['category'] = $request->category;
             }
         }
-        
+
+        $data['currencySymbol'] = restaurant_detail()['restaurantDetail']['currency_symbol'];
         return view('pages.products', $data);
     }
 
@@ -106,4 +113,30 @@ class ApiController extends Controller
 
         return $data;
     }
+
+    public function newsletter_subscribe(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        $postData['email'] = $request->email;
+
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/newsletter/subscribe';
+    
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->post($serverUrl . $url, $postData);
+        
+        if($response['status'] == 'success'){
+            return response()->json(['status' => 'success']);
+        }
+        else{
+            return response()->json(['status' => 'error']);
+        }
+    }
+    
 }

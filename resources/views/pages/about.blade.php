@@ -144,44 +144,44 @@
                 <div class="row d-flex justify-content-between" data-aos="fade-up" data-aos-duration="1500">
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-body">
+                            <a href="/menus" class="card-body" style="text-decoration: none;">
                                 <img src="/assets/theme/images/waffles-2.png" width="70px" alt="">
                                 <h5 class="card-title">Waffles</h5>
                                 <p class="card-text">Lana Dessert's waffles are irresistibly delicious, featuring
                                     crispy edges, soft centres, and decadent toppings for a delightful treat
                                     everyone will love.</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-body">
+                            <a href="/menus" class="card-body" style="text-decoration: none;">
                                 <img src="/assets/theme/images/shakes-1.png" width="70px" alt="">
                                 <h5 class="card-title">Shakes</h5>
                                 <p class="card-text">Savour our shakes – creamy, rich, and bursting with flavour.
                                     Indulge in classic favourites or explore unique combinations for a refreshing
                                     treat anytime.</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-body">
+                            <a href="/menus" class="card-body" style="text-decoration: none;">
                                 <img src="/assets/theme/images/croffle-1.png" width="70px" alt="">
                                 <h5 class="card-title">Croffles</h5>
                                 <p class="card-text">A delicious fusion of croissants and waffles, crispy on the
                                     outside, flaky on the inside, perfect for a delightful breakfast or snack.</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-md-3">
                         <div class="card">
-                            <div class="card-body">
+                            <a href="/menus" class="card-body" style="text-decoration: none;">
                                 <img src="/assets/theme/images/mini-doughnut.png" width="70px" alt="">
                                 <h5 class="card-title">Mini Doughnuts</h5>
                                 <p class="card-text">Bite-sized delights, fried to golden perfection, dusted with
                                     sugar or glazed for sweetness, a delightful treat for any occasion.</p>
-                            </div>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -190,4 +190,26 @@
     </div>
 </div>
 
+<script>
+        // Function to update cart count
+        function updateCartCount() {
+            fetch('{{ route('cart.count') }}')
+                .then(response => response.json())
+                .then(data => {
+                    const cartCountElement = document.getElementById('cart-count');
+                    if (data.count > 0) {
+                        cartCountElement.textContent = data.count;
+                        cartCountElement.style.display = 'inline'; // Show badge if count > 0
+                    } else {
+                        cartCountElement.textContent = ''; // Hide badge if count is 0
+                        cartCountElement.style.display = 'none'; // Optionally, you can also hide the badge
+                    }
+                })
+                .catch(error => console.error('Error fetching cart count:', error));
+        }
+
+        // Update cart count on page load
+        document.addEventListener('DOMContentLoaded', updateCartCount);
+    </script>
 @endsection
+

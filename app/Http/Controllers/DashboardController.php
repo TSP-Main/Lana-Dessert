@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Collection;
 
 class DashboardController extends Controller
-
 {
     public function index()
     {
@@ -15,20 +15,16 @@ class DashboardController extends Controller
         
         $response = Http::withHeaders([
             'Authorization' => $apiToken,
-        ])->get($serverUrl . 'api/menu');
+        ])->get($serverUrl . 'api/categories_a');
 
-        if($response['status'] == 'success'){
+        if ($response->successful()) {
             $data['response'] = true;
-            $data['menu'] = $response['data'];
-
-            $collection = collect($response['data']);
-            $data['group'] = $collection->groupBy('category_id');
-            $data['menus'] = $collection->pluck('category.name')->unique()->values()->all();
-        }
-        else{
+            $data['categories'] = collect($response->json('data')); // Convert to Collection
+        } else {
             $data['response'] = false;
+            $data['categories'] = collect(); // Ensure $categories is always a Collection
         }
         
-        return view ('dashboard', $data);
+        return view('dashboard', $data);
     }
 }

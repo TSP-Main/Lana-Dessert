@@ -1,13 +1,6 @@
 @extends('layout.app')
 @section('title', 'Checkout')
 
-<style type="text/css">
-    #map {
-            height: 400px;
-            width: 100%;
-        }
-</style>
-
 @section('content')
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
@@ -17,71 +10,150 @@
                     <input type="hidden" id="stripe_key" value="{{ $stripeKey }}">
                     <form id="checkout-form" action="{{ route('checkout.process') }}" method="post">
                         @csrf
-                        <ol>
-                            <li>
-                                <h4>Contact information</h4>
+                        <div class="card shadow-0 border">
+                            <div class="p-4">
+                                <!-- Contact Details -->
+                                <h5 class="card-title mb-3">Contact Information</h5>
                                 <div class="row">
-                                    <div class="col-md-4 p-0">
-                                        <input type="text" placeholder="Name" name="name" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="email" placeholder="Email" name="email" class="form-control" required>
-                                    </div>
-                                    <div class="col-md-4">
-                                        <input type="text" placeholder="Phone" name="phone" class="form-control" required>
-                                    </div>
-                                </div>
-                            </li>
-                            @if ($orderType == 'delivery')
-                                <li>
-                                    <h4>Delivery Address</h4>
-                                    <p>Enter the address where you want your order delivered.</p>
-                                    <div class="row">
-                                        <div class="col-md-12 p-0">
-                                            <input type="text" placeholder="Address" name="address" class="form-control" required>
+                                    <div class="col-12 mb-3">
+                                        <p class="mb-0">Name</p>
+                                        <div class="form-outline">
+                                            <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required/>
                                         </div>
                                     </div>
-                                    <h5 class="pt-4">Select your location</h4>
-                                    <div class="row">
-                                        <input type="hidden" id="coordinates" name="coordinates" value="">
-                                        <input type="hidden" id="customer-lat" name="customer_lat">
-                                        <input type="hidden" id="customer-lng" name="customer_lng"> 
-                                        <div id="map"></div>
+                    
+                                    {{-- <div class="col-6">
+                                        <p class="mb-0">Last name</p>
+                                        <div class="form-outline">
+                                            <input type="text" id="typeText" placeholder="Type here" class="form-control" />
+                                        </div>
+                                    </div> --}}
+                    
+                                    <div class="col-6 mb-3">
+                                    <p class="mb-0">Phone</p>
+                                    <div class="form-outline">
+                                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required />
                                     </div>
-                                </li>
-                            @endif
-                            <li class="otp">
-                                <h4>Payment options</h4>
-                                <div class="option-select">
-                                    <input type="radio" id="cash" name="payment_option" value="cash" checked required>
-                                    <label for="cash"> CASH</label>
+                                    </div>
+
+                    
+                                    <div class="col-6 mb-3">
+                                        <p class="mb-0">Email</p>
+                                        <div class="form-outline">
+                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="option-select">
-                                    <input type="radio" id="online" name="payment_option" value="online" required>
-                                    <label for="online"> ONLINE </label>
+                    
+                                <!-- Address Details -->
+                                @if ($orderType == 'delivery')
+                                    <hr class="my-4" />
+                                    <h5 class="card-title mb-3">Address Details</h5>
+                                    <div class="row">
+                                        <div class="col-sm-12 mb-3">
+                                            <p class="mb-0">Address</p>
+                                            <div class="form-outline">
+                                                <input type="text" id="address" name="address" placeholder="Type here" class="form-control" required />
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-sm-12 mb-3">
+                                            <p class="mb-0">Apartment, Suite, etc. (Optional)</p>
+                                            <div class="form-outline">
+                                                <input type="text" id="apartment" name="apartment" placeholder="Type here" class="form-control" />
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-sm-6 col-6 mb-3">
+                                            <p class="mb-0">City</p>
+                                            <div class="form-outline">
+                                                <input type="text" id="city" name="city" class="form-control" required />
+                                            </div>
+                                        </div>
+                        
+                                        <div class="col-sm-6 col-6 mb-3">
+                                            <p class="mb-0">Postal code</p>
+                                            <div class="form-outline">
+                                                <input type="text" id="postcode" name="postcode" class="form-control" required/>
+                                            </div>
+                                        </div>
+                        
+                                        <input type="hidden" id="latitude" name="latitude">
+                                        <input type="hidden" id="longitude" name="longitude">
+                                    </div>
+                                @endif
+
+                                <hr class="my-4" />
+                                <div class="mb-3">
+                                    <p class="mb-0">Add a note to your order (Optional)</p>
+                                    <div class="form-outline">
+                                        <textarea class="form-control" id="note" name="note" rows="2"></textarea>
+                                    </div>
                                 </div>
-                            </li>
-                        </ol>
-                        <!-- Stripe Payment Form -->
-                        <div id="stripe-form" class="container mt-4 d-none">
-                            <h4 class="mb-4">Stripe Payment</h4>
-                            <div class="form-group mb-3">
-                                <label for="card-element" class="form-label">Credit Card Information</label>
-                                <div id="card-element" class="form-control"></div>
-                                <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+
+                                <!-- Payment Detail -->
+                                <hr class="my-4" />
+                                <h5 class="card-title mb-3">Payment Option</h5>
+                                <div class="row mb-3">
+                                    <div class="col-lg-4 mb-3">
+                                        <div class="form-check h-100 border rounded-3">
+                                            <div class="p-3">
+                                                <input class="form-check-input" type="radio" name="payment_option" id="cash" value="cash" checked required/>
+                                                <label class="form-check-label" for="cash">
+                                                    Cash <br />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <div class="form-check h-100 border rounded-3">
+                                            <div class="p-3">
+                                                <input class="form-check-input" type="radio" name="payment_option" id="online" value="online" required/>
+                                                <label class="form-check-label" for="online">
+                                                    Online Payment <br />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Stripe Card Fields -->
+                                    {{-- <div id="stripe-form" class="container mt-4 d-none">
+                                        <h4 class="mb-4">Online Payment</h4>
+                                        <div class="form-group mb-3">
+                                            <label for="card-element" class="form-label">Credit Card Information</label>
+                                            <div id="card-element" class="form-control"></div>
+                                            <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36">Confirm the Payment and Place Order</button>
+                                        </div>
+                                    </div> --}}
+
+                                    <div id="stripe-form" class="container mt-4 d-none">
+                                        {{-- <h4 class="mb-4">Online Payment</h4> --}}
+                                        <div class="form-group mb-3">
+                                            <label for="card-number-element" class="form-label">Card Number</label>
+                                            <div id="card-number-element" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="card-expiry-element" class="form-label">Expiry Date</label>
+                                            <div id="card-expiry-element" class="form-control"></div>
+                                        </div>
+                                        <div class="form-group mb-3">
+                                            <label for="card-cvc-element" class="form-label">CVC</label>
+                                            <div id="card-cvc-element" class="form-control"></div>
+                                        </div>
+                                        <div id="card-errors" role="alert" class="text-danger mt-2"></div>
+                                        <div class="form-group">
+                                            <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36">Confirm the Payment and Place Order</button>
+                                        </div>
+                                    </div>
+                                </div>
+                  
+                                <div class="float-end">
+                                    <button id="place-order" class="nav-top-svg text-white shadow-0 border-white">Place Order</button>
+                                </div>
                             </div>
-                            <div class="form-group">
-                                <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36">Confirm the Payment and Place Order</button>
-                            </div>
-                        </div>
-                        <div class="add-note">
-                            <label for="note">Add a note to your order</label>
-                            <textarea cols="30" rows="3" name="note" class="form-control"></textarea>
-                        </div>
-                        <hr>
-                        <div class="return mt-4">
-                            <a href="{{ route('cart.view') }}">Return to cart</a>
-                            <button id="place-order" type="submit" class="btn">Place order</button>
                         </div>
                     </form>
                 </div>
@@ -101,15 +173,19 @@
                                 <div class="accordion-body">
                                     @foreach ($cartItems as $cartItem)
                                         <div class="d-flex">
-                                            <div class="img-sec">
-                                                <img src="/images/brownies.jpg" width="40px" alt="">
-                                            </div>
+                                        <div class="img-sec">
+                                            @if (isset($cartItem['productImage'][0]['path']))
+                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['productImage'][0]['path'] }}" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @else
+                                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @endif
+                                        </div>
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
                                                     {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">£ {{ $cartItem['rowTotal'] }}</span>
+                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
                                                 </p>
-                                                <p class="mt-0 mb-0">£ {{ $cartItem['productPrice'] }}</p>
+                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
                                                 <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
                                             </div>
                                         </div>
@@ -118,7 +194,18 @@
                             </div>
                         </div>
                     </div>
-                    <h4>Total <span> £ {{ $cartSubTotal }}</span></h4>
+                    <!-- temporary delivery charges -->
+                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
+                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol . number_format($cartSubTotal + 2, 2) }}</span></h4>
+                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
+                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol . number_format($cartSubTotal, 2) }}</span></h4>
+                    @else
+                        <h4>Total <span>{{ $currencySymbol . $cartSubTotal }}</span></h4>
+                    @endif
                 </div>
             </div>
         </div>
@@ -128,23 +215,27 @@
 
 @section('script')
     <script src="https://js.stripe.com/v3/"></script>
+
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Stripe with your public key
             const stripe = Stripe(document.getElementById('stripe_key').value);
-            
             const elements = stripe.elements();
-            
-            // Create an instance of the card Element
-            const card = elements.create('card');
-            card.mount('#card-element');
-
-            // Function to toggle visibility based on payment option
+    
+            // Create individual elements for card number, expiry, and CVC
+            const cardNumber = elements.create('cardNumber');
+            const cardExpiry = elements.create('cardExpiry');
+            const cardCvc = elements.create('cardCvc');
+    
+            // Mount elements to the corresponding divs
+            cardNumber.mount('#card-number-element');
+            cardExpiry.mount('#card-expiry-element');
+            cardCvc.mount('#card-cvc-element');
+    
             function updatePaymentForm() {
                 const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
                 const stripeForm = document.getElementById('stripe-form');
                 const placeOrderButton = document.getElementById('place-order');
-
+    
                 if (paymentOption === 'online') {
                     stripeForm.classList.remove('d-none');
                     placeOrderButton.classList.add('d-none');
@@ -153,24 +244,22 @@
                     placeOrderButton.classList.remove('d-none');
                 }
             }
-
-            // Run on page load
+    
             updatePaymentForm();
-
-            // Add event listeners to radio buttons to update form visibility
+    
             document.querySelectorAll('input[name="payment_option"]').forEach(function(element) {
                 element.addEventListener('change', updatePaymentForm);
             });
-
+    
             document.getElementById('submit-payment').addEventListener('click', function(event) {
-                event.preventDefault(); // Prevent default form submission
-
+                event.preventDefault();
+    
                 const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-
+    
                 if (paymentOption === 'online') {
                     stripe.createPaymentMethod({
                         type: 'card',
-                        card: card,
+                        card: cardNumber, // Attach the card number element
                         billing_details: {
                             name: document.querySelector('input[name="name"]').value,
                             email: document.querySelector('input[name="email"]').value,
@@ -183,7 +272,7 @@
                         } else {
                             const form = document.getElementById('checkout-form');
                             let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
-
+    
                             if (hiddenTokenInput) {
                                 hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
                             } else {
@@ -193,18 +282,21 @@
                                 hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
                                 form.appendChild(hiddenTokenInput);
                             }
-
-                            // Submit the form
-                            checkCustomerLocation();
-                            // form.submit();
+    
+                            var orderType = @json($orderType);
+                            if(orderType === 'pickup'){
+                                form.submit();
+                            }
+                            else{
+                                checkCustomerLocation();
+                            }
                         }
                     }).catch(function(error) {
                         console.error('Error creating PaymentMethod:', error);
                     });
                 } else {
-                    // For cash payment or any other type
                     const form = document.getElementById('checkout-form');
-                    form.submit(); // Simply submit the form without Stripe handling
+                    form.submit();
                 }
             });
         });
@@ -212,115 +304,100 @@
 
     @if ($orderType == 'delivery')
         <!-- Google Map -->
-        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&callback=initMap&v=weekly" defer></script>
+        {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places" async defer></script> --}}
+        <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places&callback=initAutocomplete" async defer></script>
+
         <script>
-            function initMap() {
-                let map, marker;
-                if (navigator.geolocation) {
-                    navigator.geolocation.getCurrentPosition(function (position) {
-                        var pos = {
-                            lat: position.coords.latitude,
-                            lng: position.coords.longitude
-                        };
-
-                        map = new google.maps.Map(document.getElementById('map'), {
-                            center: pos,
-                            zoom: 14
-                        });
-
-                        marker = new google.maps.Marker({
-                            position: pos,
-                            map: map,
-                            title: "You are here!",
-                            draggable: true
-                        });
-
-                        // Update hidden input fields with current position
-                        document.getElementById('customer-lat').value = pos.lat;
-                        document.getElementById('customer-lng').value = pos.lng;
-
-                        // Listen for drag events on the marker
-                        google.maps.event.addListener(marker, 'dragend', function (event) {
-                            var lat = event.latLng.lat();
-                            var lng = event.latLng.lng();
-
-                            // Update the hidden input fields with new position
-                            document.getElementById('customer-lat').value = lat;
-                            document.getElementById('customer-lng').value = lng;
-                        });
-
-                        // Listen for click events on the map
-                        google.maps.event.addListener(map, 'click', function(event) {
-                            var lat = event.latLng.lat();
-                            var lng = event.latLng.lng();
-
-                            // Move the marker to the clicked location
-                            marker.setPosition(event.latLng);
-
-                            // Update the hidden input fields with the clicked position
-                            document.getElementById('customer-lat').value = lat;
-                            document.getElementById('customer-lng').value = lng;
-                        });
-
-                    }, function () {
-                        handleLocationError(true, map.getCenter());
-                    });
-                } else {
-                    // Browser doesn't support Geolocation
-                    handleLocationError(false, map.getCenter());
-                }
+            let autocomplete;
+        
+            function initAutocomplete() {
+                // Initialize autocomplete
+                autocomplete = new google.maps.places.Autocomplete(document.getElementById('address'));
+                autocomplete.setFields(['address_component', 'geometry']);
+        
+                autocomplete.addListener('place_changed', function() {
+                    let place = autocomplete.getPlace();
+                    if (!place.geometry) {
+                        alert("No details available for the input: '" + place.name + "'");
+                        return;
+                    }
+        
+                    // Set latitude and longitude in hidden fields
+                    document.getElementById('latitude').value = place.geometry.location.lat();
+                    document.getElementById('longitude').value = place.geometry.location.lng();
+        
+                    // Autofill the city, postcode, and apartment
+                    fillInAddress(place);
+                });
+        
+                // Handle manual postcode entry
+                document.getElementById('postcode').addEventListener('blur', function() {
+                    let postcode = this.value;
+                    if (postcode) {
+                        geocodePostcode(postcode);
+                    }
+                });
             }
-
-            function handleLocationError(browserHasGeolocation, pos) {
-                alert(browserHasGeolocation ?
-                    "Error: The Geolocation service failed." :
-                    "Error: Your browser doesn't support geolocation.");
+        
+            function fillInAddress(place) {
+                let addressComponents = place.address_components;
+                let city = '';
+                let postcode = '';
+                let apartment = '';
+        
+                addressComponents.forEach(component => {
+                    let types = component.types;
+        
+                    if (types.includes('postal_code')) {
+                        postcode = component.long_name;
+                    }
+                });
+        
+                // Autofill fields
+                document.getElementById('postcode').value = postcode;
             }
+        
+            function geocodePostcode(postcode) {
+                let geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ 'address': postcode }, function(results, status) {
+                    if (status === 'OK') {
+                        if (results[0]) {
+                            let location = results[0].geometry.location;
+        
+                            // Update latitude and longitude
+                            document.getElementById('latitude').value = location.lat();
+                            document.getElementById('longitude').value = location.lng();
+        
+                            // Autofill other address fields based on geocoded result
+                            fillInAddress(results[0]);
+                        }
+                    } else {
+                        alert('Geocode was not successful for the following reason: ' + status);
+                    }
+                });
+            }
+        
+            
         </script>
 
+        <!-- Check Delivery Radius -->
         <script>
             document.getElementById('place-order').addEventListener('click', function(e) {
                 e.preventDefault();
                 checkCustomerLocation();
-                // var form = document.getElementById('checkout-form');
-
-                // // Check if the form is valid
-                // if (!form.checkValidity()) {
-                //     // If the form is not valid, display a validation message
-                //     form.reportValidity();
-                //     return;
-                // }
-
-                // var customerLat = parseFloat(document.getElementById('customer-lat').value);
-                // var customerLng = parseFloat(document.getElementById('customer-lng').value);
-                
-                // var restaurantLat = {{ $restaurantLat }};
-                // var restaurantLng = {{ $restaurantLng }};
-                // var deliveryRadius = {{ $deliveryRadius }};
-
-                // // Calculate the distance using the Haversine formula
-                // var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
-                // if (distance <= deliveryRadius * 1000) {
-                //     // Proceed with the order
-                //     document.getElementById('checkout-form').submit();
-                // } else {
-                //     // Show error message
-                //     alert('Sorry, you are outside of our delivery radius.');
-                // }
             });
 
             function checkCustomerLocation(){
                 var form = document.getElementById('checkout-form');
 
-                // Check if the form is valid
+                // If the form is not valid, display a validation message
                 if (!form.checkValidity()) {
-                    // If the form is not valid, display a validation message
                     form.reportValidity();
                     return;
                 }
 
-                var customerLat = parseFloat(document.getElementById('customer-lat').value);
-                var customerLng = parseFloat(document.getElementById('customer-lng').value);
+                var customerLat = parseFloat(document.getElementById('latitude').value);
+                var customerLng = parseFloat(document.getElementById('longitude').value);
                 
                 var restaurantLat = {{ $restaurantLat }};
                 var restaurantLng = {{ $restaurantLng }};
@@ -328,6 +405,7 @@
 
                 // Calculate the distance using the Haversine formula
                 var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                console.log('d ' + distance);
                 if (distance <= deliveryRadius * 1000) {
                     // Proceed with the order
                     document.getElementById('checkout-form').submit();

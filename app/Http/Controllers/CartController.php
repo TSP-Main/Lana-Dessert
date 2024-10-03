@@ -19,14 +19,16 @@ class CartController extends Controller
     {
         $data['cartItems'] = Session::get('cart');
         $data['cartSubTotal'] = Session::get('cartSubTotal');
+        $data['currencySymbol'] = restaurant_detail()['restaurantDetail']['currency_symbol'];
+
         return view('pages.cart', $data);
     }
 
     public function add(Request $request)
     {
         $productId      = $request->data['product_id'];
-        $options        = $request->data['options'];
-        $optionNames    = $request->data['optionNames'];
+        $options        = $request->data['options'] ?? NULL;
+        $optionNames    = $request->data['optionNames'] ?? NULL;
         $productInstruction = $request->data['product_instruction'];
 
         // fetch product detail using api
@@ -34,8 +36,11 @@ class CartController extends Controller
         $productDetail =  collect($response_product['products'])->first();
 
         // fetch product sides/options detail for total price
-        $responseOptions = collect($this->apiController->options_detail(array_values($options))['options']);
-        $optionsPrice = $responseOptions->sum('price');
+        $optionsPrice = 0;
+        if($options){
+            $responseOptions = collect($this->apiController->options_detail(array_values($options))['options']);
+            $optionsPrice = $responseOptions->sum('price');
+        }
 
         $cart = Session::get('cart', []);
 
@@ -44,7 +49,7 @@ class CartController extends Controller
         foreach ($cart as &$item) {
             if ($item['productId'] == $productId && $item['options'] == $options) {
                 $item['quantity']++;
-                $item['rowTotal'] = $item['comboTotal'] * $item['quantity'];
+                $item['rowTotal'] = number_format($item['comboTotal'] * $item['quantity'], 2);
                 $productExists = true;
                 break;
             }
@@ -56,12 +61,13 @@ class CartController extends Controller
                 'rowId'         => $rowId,
                 'productId'     => $productId,
                 'productTitle'  => $productDetail['title'],
-                'productPrice'  => $productDetail['price'],
+                'productImage'  => $productDetail['images'],
+                'productPrice'  => number_format($productDetail['price'], 2),
                 'options'       => $options,
                 'optionNames'   => $optionNames,
                 'quantity'      => 1,
-                'rowTotal'      => $productDetail['price'] + $optionsPrice,
-                'comboTotal'    => $productDetail['price'] + $optionsPrice,
+                'rowTotal'      => number_format($productDetail['price'] + $optionsPrice, 2),
+                'comboTotal'    => number_format($productDetail['price'] + $optionsPrice, 2),
                 'productInstruction' => $productInstruction
             ];
         }
@@ -71,9 +77,10 @@ class CartController extends Controller
         foreach ($cart as $product) {
             $subTotal += $product['rowTotal'];
         }
+        $formattedSubTotal = number_format($subTotal, 2);
 
         Session::put('cart', $cart);
-        Session::put('cartSubTotal', $subTotal);
+        Session::put('cartSubTotal', $formattedSubTotal);
 
         return response()->json(['success' => true, 'message' => 'Product added to cart']);
     }
@@ -136,17 +143,31 @@ class CartController extends Controller
             'order_type' => 'required|in:pickup,delivery'
         ]);
 
+        // Get Stripe Key
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/stripe/config';
+    
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->get($serverUrl . $url);
+
         Session::put('orderType', $request->order_type);
 
         $data['cartItems']      = Session::get('cart');
         $data['cartSubTotal']   = Session::get('cartSubTotal');
         $data['orderType']      = Session::get('orderType');
-        $data['stripeKey']      = env('STRIPE_API_KEY');
+        $data['stripeKey']      = $response['data']['stripeKey'];
+
+        // dd($data);
 
         $restaurantDetail = $this->restaurant_detail();
         $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
-        $data['restaurantLat'] = json_decode($restaurantDetail['restaurantDetail']['coordinates'])->lat;
-        $data['restaurantLng'] = json_decode($restaurantDetail['restaurantDetail']['coordinates'])->lng;
+        $data['restaurantLat'] = $restaurantDetail['restaurantDetail']['latitude'];
+        $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
+        $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
+        $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
         
         return view('pages.checkout', $data);
     }
@@ -176,7 +197,7 @@ class CartController extends Controller
 
         $serverUrl  = env('SERVER_URL');
         $apiToken   = env('API_TOKEN');
-        $url        = 'api/temporary_orders/process';
+        $url        = 'api/order/store';
     
         // Make the API request
         $response = Http::withHeaders([
@@ -191,9 +212,14 @@ class CartController extends Controller
 
         // Flash the response message to the session
         Session::flash('response', $response->json('message'));
-    
+
+        $data['orderData'] = $response->json('orderDetails');
+        $restaurantDetail = $this->restaurant_detail();
+        $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
+        $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
+
         // Redirect to the order page
-        return redirect()->route('order');
+        return view('pages.order', $data);
     }
     
     public function getCartCount()

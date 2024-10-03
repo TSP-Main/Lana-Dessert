@@ -31,28 +31,24 @@
         {{-- <div class="mount text-center mb-5">
             <h4>Have a Look!</h4>
             <h2>Our Mouthwatering Menu</h2>
-            <a href="{{ route('categories.all') }}" class="btn btn-primary">View All</a>
         </div> --}}
         <div class="row">
             <div class="col-md-12">
                 <div class="row" data-aos="fade-down" data-aos-duration="1500">
                     @if ($response)
-                        @foreach ($menus as $menu)
-                            <div class="col-12 col-md-6 col-lg-3 mb-4">
+                           @foreach ($categories->take(4) as $category)
+                           <div class="col-12 col-md-6 col-lg-3 mb-4">
+                           <a href="{{ route('menu', ['category' => $category['slug']]) }}" style="text-decoration: none;">
                                 <div class="card">
-                                    <div class="card-body">
-                                        <img src="./images/waffles-2.png" width="70px" alt="">
-                                        <h5 class="card-title">{{ $menu }}</h5>
-                                        <p class="card-text">
-                                            Lana Dessert's waffles are irresistibly delicious, featuring
-                                            crispy edges, soft centres, and decadent toppings for a delightful treat
-                                            everyone will love.
-                                        </p>
-                                        {{-- <a href="{{route('menu', ['category' => $menu['slug']])}}" class="btn btn-primary">View</a> --}}
-                                    </div>
+                                    <h5 class="card-title">{{ $category['name'] }}</h5>
+                                    <p>{{ $category['desc'] }}</p>
                                 </div>
-                            </div>
-                        @endforeach
+                            </a>
+                            </div> 
+                            @endforeach
+                        @if (count($categories) > 0)
+                            <div class="mount text-center mb-5"> <a href="{{ route('menus') }}" class="btn btn-outline-danger px-3 py-3 mt-3">View All</a> </div>
+                        @endif
                     @else
                         <div class="mount text-center mb-5">
                             <h2 class="text-danger">-----Api Error-----</h2>
@@ -82,18 +78,18 @@
                 <div class="founder-msg home-msg">
                     <h2>About Us</h2>
                     <h4>Our Story!</h4>
-                    <p  style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
+                    <p style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
                         Whether you want to eat in or take out, we’re open every day from 5 PM to 2 AM. You can even
                         customise your order to suit your taste because we love making things just how you like
                         them. So, come on over and enjoy our yummy treats with a side of fun! </p>
-                    <a href="">Read More</a>
+                    <a href="/about" style="text-decoration: none;">Read More</a>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<div class="counter-about" data-aos="fade-down" data-aos-duration="1500">
+<div class="counter-about" data-aos-duration="1500">  <!-- data-aos="fade-down" -->
     <div class="container">
         <div class="row">
             <div class="col-md-3">
@@ -115,6 +111,7 @@
         </div>
     </div>
 </div>
+
 
 <div class="menu-items my-5 pt-5 bg-none" data-aos="fade-down" data-aos-duration="1500">
     <div class="container" style= "height: 38rem">
@@ -161,7 +158,7 @@
                 </div>
                 <p class="lead" style="color: aliceblue; text-align: justify;">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest.
                     !</p>
-                <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Oder Online</button>
+                <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Order Online</button>
             </div>
             <!-- Uncomment and use this section if needed -->
             <!-- <div class="col-md-6" data-aos="fade-right" data-aos-duration="1500">
@@ -234,7 +231,7 @@
         </div>
     </div>
 </div>
-<div class="news-letter py-5" data-aos="fade-up" data-aos-duration="1500">
+{{-- <div class="news-letter py-5" data-aos="fade-up" data-aos-duration="1500">
     <div class="container">
         <div class="row mt-5 py-5">
             <div class="col-md-4">
@@ -244,14 +241,16 @@
                 </div>
             </div>
             <div class="col-md-5">
-                <input type="text" placeholder="Your Email" class="form-control">
+                <input type="email" name="email" id="email" placeholder="Your Email" class="sub-email form-control">
+                <span class="subscription_msg"></span>
             </div>
             <div class="col-md-3">
-                <button class="btn px-5 py-2 text-center mt-2">Subscribe</button>
+                <button class="btn px-5 py-2 text-center mt-2" id="btn_newsletter">Subscribe</button>
             </div>
         </div>
     </div>
-</div>
+</div> --}}
+
 @yield('script')
 <script>
     // Function to update cart count
