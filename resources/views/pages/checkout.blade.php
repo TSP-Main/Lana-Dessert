@@ -23,6 +23,7 @@
                     <input type="hidden" id="stripe_key" value="{{ $stripeKey }}">
                     <form id="checkout-form" action="{{ route('checkout.process') }}" method="post">
                         @csrf
+                        <input type="hidden" name="applied_code" id="applied_code" value="0">
                         <div class="card shadow-0 border">
                             <div class="p-4">
                                 <!-- Contact Details -->
@@ -357,39 +358,50 @@
                                         
                                         if(total > discountAmount){
                                             var newTotal = total - discountAmount;
+                                            $('#applied_code').val(discountCode);
                                             $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>')
                                             $('#discount_message').text(`Discount applied: ${detail.rate}%`).removeClass('text-danger').addClass('text-success');
                                         }
                                         else{
+                                            $('#applied_code').val('0');
                                             $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                            $('.discount-div').empty();
                                         }
-
-                                        
                                     }
                                     else{
+                                        $('#applied_code').val('0');
                                         $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                        $('.discount-div').empty();
                                     }
                                 }
                                 else if(detail.type == 2){
                                     if(total > detail.minimum_amount && total > detail.rate){
                                         var newTotal = total - detail.rate;
+                                        $('#applied_code').val(discountCode);
                                         $('#discount_message').text(`Discount applied: ${detail.rate}`).removeClass('text-danger').addClass('text-success');
                                         $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>');
                                     }
                                     else{
+                                        $('#applied_code').val('0');
                                         $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                        $('.discount-div').empty();
                                     }
                                 }
                             } else {
+                                $('#applied_code').val('0');
                                 $('#discount_message').text(response.message).removeClass('text-success').addClass('text-danger');
+                                $('.discount-div').empty();
                             }
                         },
                         error: function (xhr) {
+                            $('#applied_code').val('0');
                             $('#discount_message').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
                         }
                     });
                 } else {
+                    $('#applied_code').val('0');
                     $('#discount_message').text('Please enter a discount code.').removeClass('text-success').addClass('text-danger');
+                    $('.discount-div').empty();
                 }
             });
         });

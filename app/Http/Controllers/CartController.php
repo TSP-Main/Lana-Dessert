@@ -195,6 +195,7 @@ class CartController extends Controller
         $postData['cartSubTotal']   = Session::get('cartSubTotal');
         $postData['cartTotal']      = Session::get('cartSubTotal');
         $postData['orderType']      = Session::get('orderType');
+        $postData['discountCode']   = $request->applied_code ?? null;
 
         $serverUrl  = env('SERVER_URL');
         $apiToken   = env('API_TOKEN');
