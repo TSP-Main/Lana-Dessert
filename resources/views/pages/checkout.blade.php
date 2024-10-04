@@ -18,7 +18,71 @@
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <!-- Order Summary -->
+            <div class="col-md-4 order-md-2 order-lg-2 order-1">
+                <div class="cart-total">
+                    <div class="accordion mb-4" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Order Summary
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    @foreach ($cartItems as $cartItem)
+                                        <div class="d-flex">
+                                        <div class="img-sec">
+                                            @if (isset($cartItem['productImage'][0]['path']))
+                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['productImage'][0]['path'] }}" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @else
+                                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @endif
+                                        </div>
+                                            <div class="title-pro ms-3 w-100">
+                                                <p class="mb-0">
+                                                    {{ $cartItem['productTitle'] }}
+                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
+                                                </p>
+                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
+                                                <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 mb-3">
+                        <p class="mb-0">Discount code</p>
+                        <div class="input-group"> <!-- Use input-group for Bootstrap styling -->
+                            <div class="form-outline">
+                                <input type="text" id="discount_code" name="discount_code" class="form-control" style="text-transform: uppercase;" required/>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="apply_discount">APPLY</button> <!-- Button next to input -->
+                        </div>
+                        <div id="discount_message" class="mt-2"></div>
+                    </div>
+                    <!-- temporary delivery charges -->
+                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
+                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
+                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
+                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
+                    @else
+                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ $cartSubTotal }}</span></span></h4>
+                    @endif
+                    <div class="discount-div"></div>
+                </div>
+            </div>
+        
+            <!-- Place Order Button and Form -->
+            <div class="col-md-8 order-md-1 order-lg-1 order-2">
                 <div class="shipping-contact">
                     <input type="hidden" id="stripe_key" value="{{ $stripeKey }}">
                     <form id="checkout-form" action="{{ route('checkout.process') }}" method="post">
@@ -170,67 +234,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="cart-total">
-                    <div class="accordion mb-4" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Order Summary
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show"
-                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    @foreach ($cartItems as $cartItem)
-                                        <div class="d-flex">
-                                        <div class="img-sec">
-                                            @if (isset($cartItem['productImage'][0]['path']))
-                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['productImage'][0]['path'] }}" class="card-img-top" alt="No image available" style="width: 40px;">
-                                            @else
-                                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
-                                            @endif
-                                        </div>
-                                            <div class="title-pro ms-3 w-100">
-                                                <p class="mb-0">
-                                                    {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
-                                                </p>
-                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
-                                                <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xs-12 mb-3">
-                        <p class="mb-0">Discount code</p>
-                        <div class="input-group"> <!-- Use input-group for Bootstrap styling -->
-                            <div class="form-outline">
-                                <input type="text" id="discount_code" name="discount_code" class="form-control" style="text-transform: uppercase;" required/>
-                            </div>
-                            <button type="button" class="btn btn-primary" id="apply_discount">APPLY</button> <!-- Button next to input -->
-                        </div>
-                        <div id="discount_message" class="mt-2"></div>
-                    </div>
-                    <!-- temporary delivery charges -->
-                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
-                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
-                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
-                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
-                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
-                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
-                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
-                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
-                    @else
-                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ $cartSubTotal }}</span></span></h4>
-                    @endif
-                    <div class="discount-div"></div>
                 </div>
             </div>
         </div>

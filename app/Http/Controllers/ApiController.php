@@ -168,4 +168,19 @@ class ApiController extends Controller
         return $data;
     }
     
+    public function search_product(Request $request)
+    {
+        $postData['title'] = $request->title;
+
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/searching';
+    
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->get($serverUrl . $url, $postData);
+        
+        return $response['data'];
+    }
 }

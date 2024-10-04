@@ -75,6 +75,43 @@
                     }
                 });
             });
+
+            $('#search-icon').click(function() {
+                $('#search-input').toggle().focus().val('');
+                $('#suggestions').hide();
+            });
+
+            $('#search-input').on('keyup', function() {
+                let query = $(this).val();
+                if (query.length > 2) {
+                    $.ajax({
+                        url: '{{ route("search.product") }}',
+                        type: 'GET',
+                        data: { title: query },
+                        success: function(data) {
+                            $('#suggestions').empty().show();
+                            data.forEach(function(product) {
+                                $('#suggestions').append(`
+                                    <li class="list-group-item">
+                                        <a href="{{ url('/product_detail') }}/${product.id}" style="text-decoration: none; color: inherit;">
+                                            ${product.title}
+                                        </a>
+                                    </li>
+                                `);
+                            });
+                        }
+                    });
+                } else {
+                    $('#suggestions').hide();
+                }
+            });
+
+            $(document).click(function(event) {
+                if (!$(event.target).closest('#search-input, #search-icon, #suggestions').length) {
+                    $('#search-input').hide();
+                    $('#suggestions').hide();
+                }
+            });
         });
 
     </script>
