@@ -1,21 +1,99 @@
 @extends('layout.app')
 @section('title', 'Checkout')
 
+<style>
+    .input-group {
+        display: flex;
+    }
+
+    .form-outline {
+        flex-grow: 1; /* Allow the input field to take up available space */
+    }
+
+    .btn {
+        margin-left: 5px; /* Space between input and button */
+    }
+</style>
 @section('content')
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <!-- Order Summary -->
+            <div class="col-md-4 order-md-2 order-lg-2 order-1">
+                <div class="cart-total">
+                    <div class="accordion mb-4" id="accordionExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header" id="headingOne">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                    Order Summary
+                                </button>
+                            </h2>
+                            <div id="collapseOne" class="accordion-collapse collapse show"
+                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div class="accordion-body">
+                                    @foreach ($cartItems as $cartItem)
+                                        <div class="d-flex">
+                                        <div class="img-sec">
+                                            @if (isset($cartItem['productImage'][0]['path']))
+                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['productImage'][0]['path'] }}" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @else
+                                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
+                                            @endif
+                                        </div>
+                                            <div class="title-pro ms-3 w-100">
+                                                <p class="mb-0">
+                                                    {{ $cartItem['productTitle'] }}
+                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
+                                                </p>
+                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
+                                                <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
+                                            </div>
+                                        </div>
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 mb-3">
+                        <p class="mb-0">Discount code</p>
+                        <div class="input-group"> <!-- Use input-group for Bootstrap styling -->
+                            <div class="form-outline">
+                                <input type="text" id="discount_code" name="discount_code" class="form-control" style="text-transform: uppercase;" required/>
+                            </div>
+                            <button type="button" class="btn btn-primary" id="apply_discount">APPLY</button> <!-- Button next to input -->
+                        </div>
+                        <div id="discount_message" class="mt-2"></div>
+                    </div>
+                    <!-- temporary delivery charges -->
+                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
+                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
+                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
+                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
+                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
+                    @else
+                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ $cartSubTotal }}</span></span></h4>
+                    @endif
+                    <div class="discount-div"></div>
+                </div>
+            </div>
+        
+            <!-- Place Order Button and Form -->
+            <div class="col-md-8 order-md-1 order-lg-1 order-2">
                 <div class="shipping-contact">
                     <input type="hidden" id="stripe_key" value="{{ $stripeKey }}">
                     <form id="checkout-form" action="{{ route('checkout.process') }}" method="post">
                         @csrf
+                        <input type="hidden" name="applied_code" id="applied_code" value="0">
                         <div class="card shadow-0 border">
                             <div class="p-4">
                                 <!-- Contact Details -->
                                 <h5 class="card-title mb-3">Contact Information</h5>
                                 <div class="row">
-                                    <div class="col-12 mb-3">
+                                    <div class="col-xs-12 mb-3">
                                         <p class="mb-0">Name</p>
                                         <div class="form-outline">
                                             <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required/>
@@ -29,7 +107,7 @@
                                         </div>
                                     </div> --}}
                     
-                                    <div class="col-6 mb-3">
+                                    <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
                                     <p class="mb-0">Phone</p>
                                     <div class="form-outline">
                                         <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required />
@@ -37,10 +115,10 @@
                                     </div>
 
                     
-                                    <div class="col-6 mb-3">
+                                    <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
                                         <p class="mb-0">Email</p>
                                         <div class="form-outline">
-                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" />
+                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" required/>
                                         </div>
                                     </div>
                                 </div>
@@ -64,14 +142,14 @@
                                             </div>
                                         </div>
                         
-                                        <div class="col-sm-6 col-6 mb-3">
+                                        <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
                                             <p class="mb-0">City</p>
                                             <div class="form-outline">
                                                 <input type="text" id="city" name="city" class="form-control" required />
                                             </div>
                                         </div>
                         
-                                        <div class="col-sm-6 col-6 mb-3">
+                                        <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
                                             <p class="mb-0">Postal code</p>
                                             <div class="form-outline">
                                                 <input type="text" id="postcode" name="postcode" class="form-control" required/>
@@ -156,56 +234,6 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="cart-total">
-                    <div class="accordion mb-4" id="accordionExample">
-                        <div class="accordion-item">
-                            <h2 class="accordion-header" id="headingOne">
-                                <button class="accordion-button" type="button" data-bs-toggle="collapse"
-                                    data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                    Order Summary
-                                </button>
-                            </h2>
-                            <div id="collapseOne" class="accordion-collapse collapse show"
-                                aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                <div class="accordion-body">
-                                    @foreach ($cartItems as $cartItem)
-                                        <div class="d-flex">
-                                        <div class="img-sec">
-                                            @if (isset($cartItem['productImage'][0]['path']))
-                                                <img src="{{ env('SERVER_URL') }}storage/product_images/{{ $cartItem['productImage'][0]['path'] }}" class="card-img-top" alt="No image available" style="width: 40px;">
-                                            @else
-                                                <img src="{{ env('SERVER_URL') }}assets/theme/images/default_product_image.jpg" class="card-img-top" alt="No image available" style="width: 40px;">
-                                            @endif
-                                        </div>
-                                            <div class="title-pro ms-3 w-100">
-                                                <p class="mb-0">
-                                                    {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
-                                                </p>
-                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
-                                                <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
-                                            </div>
-                                        </div>
-                                    @endforeach
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- temporary delivery charges -->
-                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
-                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
-                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
-                        <h4>Total <span>{{ $currencySymbol . number_format($cartSubTotal + 2, 2) }}</span></h4>
-                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
-                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
-                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
-                        <h4>Total <span>{{ $currencySymbol . number_format($cartSubTotal, 2) }}</span></h4>
-                    @else
-                        <h4>Total <span>{{ $currencySymbol . $cartSubTotal }}</span></h4>
-                    @endif
                 </div>
             </div>
         </div>
@@ -297,6 +325,86 @@
                 } else {
                     const form = document.getElementById('checkout-form');
                     form.submit();
+                }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('input[name="discount_code"]').on('input', function () {
+                this.value = this.value.replace(/[^a-zA-Z0-9]/g, '');
+            });
+
+            $('#apply_discount').on('click', function () {
+                const discountCode = $('#discount_code').val();
+
+                if (discountCode) {
+                    $.ajax({
+                        url: '{{ route("discount.check") }}',
+                        method: 'POST',
+                        data: {
+                            code: discountCode,
+                            _token: '{{ csrf_token() }}'
+                        },
+                        success: function (response) {
+                            if (response.status) {
+                                var detail = response.discountDetail;
+                                var total = parseFloat($('.total').text());
+
+                                if(detail.type == 1){
+                                    if(total > detail.minimum_amount){
+                                        var total = parseFloat($('.total').text());
+                                        var discountRate = parseFloat(detail.rate);
+
+                                        var discountAmount = (total * (discountRate / 100));
+                                        
+                                        if(total > discountAmount){
+                                            var newTotal = total - discountAmount;
+                                            $('#applied_code').val(discountCode);
+                                            $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>')
+                                            $('#discount_message').text(`Discount applied: ${detail.rate}%`).removeClass('text-danger').addClass('text-success');
+                                        }
+                                        else{
+                                            $('#applied_code').val('0');
+                                            $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                            $('.discount-div').empty();
+                                        }
+                                    }
+                                    else{
+                                        $('#applied_code').val('0');
+                                        $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                        $('.discount-div').empty();
+                                    }
+                                }
+                                else if(detail.type == 2){
+                                    if(total > detail.minimum_amount && total > detail.rate){
+                                        var newTotal = total - detail.rate;
+                                        $('#applied_code').val(discountCode);
+                                        $('#discount_message').text(`Discount applied: ${detail.rate}`).removeClass('text-danger').addClass('text-success');
+                                        $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>');
+                                    }
+                                    else{
+                                        $('#applied_code').val('0');
+                                        $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                        $('.discount-div').empty();
+                                    }
+                                }
+                            } else {
+                                $('#applied_code').val('0');
+                                $('#discount_message').text(response.message).removeClass('text-success').addClass('text-danger');
+                                $('.discount-div').empty();
+                            }
+                        },
+                        error: function (xhr) {
+                            $('#applied_code').val('0');
+                            $('#discount_message').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
+                        }
+                    });
+                } else {
+                    $('#applied_code').val('0');
+                    $('#discount_message').text('Please enter a discount code.').removeClass('text-success').addClass('text-danger');
+                    $('.discount-div').empty();
                 }
             });
         });

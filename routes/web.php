@@ -37,6 +37,8 @@ Route::get('/cart/count', [CartController::class, 'getCartCount'])->name('cart.c
 
 Route::post('newsletter/subscribe', [ApiController::class, 'newsletter_subscribe'])->name('newsletter.subscribe');
 
+Route::post('discount/check', [ApiController::class, 'discount_check'])->name('discount.check');
 
+Route::get('search_product', [ApiController::class, 'search_product'])->name('search.product');
 
 
