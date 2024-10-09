@@ -41,4 +41,4 @@ Route::post('discount/check', [ApiController::class, 'discount_check'])->name('d
 
 Route::get('search_product', [ApiController::class, 'search_product'])->name('search.product');
 
-
+Route::fallback([DashboardController::class, 'error_404']);
