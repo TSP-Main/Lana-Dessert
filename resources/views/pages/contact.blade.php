@@ -104,6 +104,12 @@
     </div>
 </div>
 
+<div class="container mt-5">
+    <div class="row">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d212.2997422802025!2d-1.1806911575899064!3d52.98624677642055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4879c182584209db%3A0x221e3931f6953793!2sLana%20Dessert!5e0!3m2!1sen!2s!4v1728569477281!5m2!1sen!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </div>
+</div>
+
 
 <script>
         // Function to update cart count

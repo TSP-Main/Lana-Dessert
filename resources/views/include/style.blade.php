@@ -33,4 +33,9 @@
     #suggestions .list-group-item:hover {
         background-color: #f0f0f0;
     }
+
+    .lana-logo a {
+        z-index: 10;
+        position: relative;
+    }
 </style>
