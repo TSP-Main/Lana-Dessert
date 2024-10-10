@@ -11,6 +11,11 @@
 
         @include('include.style')
 
+        <!-- Schema Markup here -->
+        <script  type="application/ld+json">
+            
+        </script>
+
     </head>
 
     <body class="hold-transition light-skin sidebar-mini theme-primary fixed">
