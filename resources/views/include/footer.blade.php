@@ -74,7 +74,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a onclick="window.location.href='{{ route('dashboad') }}'"> Home</a></li>
+                            <a href='{{ route('dashboad') }}' style="text-decoration:none" class="text-white"> Home</a></li>
                             <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
                                     viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +83,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a onclick="window.location.href='{{ route('menus') }}'">Order Online</a></li>
+                            <a href='{{ route('menus') }}' style="text-decoration:none" class="text-white">Order Online</a></li>
                         <li>
                             <span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
@@ -93,7 +93,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a onclick="window.location.href='{{ route('about') }}'">About Us</a>
+                            <a href='{{ route('about') }}' style="text-decoration:none" class="text-white">About Us</a>
                         </li>
                         <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
@@ -103,7 +103,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a onclick="window.location.href='{{ route('menus') }}'"> Menu</li>
+                            <a href='{{ route('menus') }}' style="text-decoration:none" class="text-white"> Menu</li>
                         <li><span>
                                 <svg aria-hidden="true" class="e-font-icon-svg e-fas-arrow-right"
                                     viewBox="0 0 448 512" xmlns="http://www.w3.org/2000/svg">
@@ -112,7 +112,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a onclick="window.location.href='{{ route('faq') }}'">FAQ</a></li>
+                            <a href='{{ route('faq') }}' style="text-decoration:none" class="text-white">FAQ</a></li>
                     </ul>
                 </div>
             </div>
@@ -140,7 +140,7 @@
                                     </path>
                                 </svg>
                             </span>
-                            <a href="tel:+441158550583" class="text-white" style="text-decoration: none">+44 115 855 0583</a>
+                            <a href="tel:01158550583" class="text-white" style="text-decoration: none">0115 855 0583</a>
                         </li>
                         <li>
                             <span>

@@ -11,7 +11,8 @@
     <!-- style="background: url({{ $bannerUrl }} )" -->
     <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
         <div class="title">
-            <h2 style="font-weight: bold; font-size: 3rem;">{{ isset($category) ? ucfirst($category) : '' }}</h2>
+            <h1 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">{{ isset($category) ? ucfirst($category) : '' }}</h1>
         </div>
     </div>
 

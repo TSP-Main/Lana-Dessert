@@ -121,7 +121,7 @@
                     <h2 >Burgers</h2>
                     <p><strong>Cheese Burger <span>....................................................</span> £9.99</strong>
                     </p>
-                    <p class="dim-para">A good old classic beef slice cheez caramelised onion <br> Tomato french lettuce pickle service with fries</p>
+                    <p class="dim-para">A good old classic beef slice cheese caramelised onion <br> Tomato french lettuce pickle service with fries</p>
                     <p><strong>Double Cheese Burger <span>.....................................</span> £10.99</strong>
                     </p>
                     <p class="dim-para">Tomato, caramelized onion, lettuce, pickle served with <br> burger sauce and fries</p>
@@ -156,8 +156,7 @@
                     <h2 class="display-4">Online Order</h2>
                     <h4 class="display-6">Placed your online order</h4>
                 </div>
-                <p class="lead" style="color: aliceblue; text-align: justify;">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest.
-                    !</p>
+                <p class="lead" style="color: aliceblue; text-align: justify;">Treat yourself to our delicious selection of desserts without leaving your home! Simply choose your favourites, place your order, and let our delivery system take care of the rest!</p>
                 <button onclick="window.location.href='{{ route('categories.all') }}'" class="btn btn-outline-danger px-5 py-3">Order Online</button>
             </div>
             <!-- Uncomment and use this section if needed -->
