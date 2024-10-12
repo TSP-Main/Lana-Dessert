@@ -4,7 +4,7 @@
 @section('content')
 <div class="about-us-main" data-aos="fade-down" data-aos-duration="1500" style="text-align: center; display: flex; justify-content: center; align-items: center;">
     <div class="container" style="text-align: center; display: flex; justify-content: center; align-items: center;">
-        <h2 class="about-title" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Cart</h2>
+        <h1 class="about-title" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">Cart</h1>
     </div>
 </div>
 

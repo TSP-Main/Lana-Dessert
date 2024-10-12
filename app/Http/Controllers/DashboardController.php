@@ -27,4 +27,9 @@ class DashboardController extends Controller
         
         return view('dashboard', $data);
     }
+
+    public function error_404()
+    {
+        return view('404');
+    }
 }

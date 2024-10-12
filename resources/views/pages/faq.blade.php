@@ -18,8 +18,8 @@
 @section('content')
 <div class="faq-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
-    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">FAQ</h2>
+        <h1 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">FAQ</h1>
     </div>
 </div>
 
