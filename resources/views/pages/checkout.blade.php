@@ -215,7 +215,10 @@
                                         </div>
                                     </div>
 
-                                    <div id="google-pay-button-container"></div>
+                                    {{-- <div id="google-pay-button-container"></div>
+                                    <div id="apple-pay-button-container"></div> --}}
+
+                                    <div id="payment-button-container"></div>
                                 </div>
                   
                                 <div class="float-end">
@@ -320,7 +323,8 @@
         });
     </script> --}}
 
-    <script>
+    <!-- working Google Pay -->
+    {{-- <script>
         document.addEventListener('DOMContentLoaded', function() {
             var totalBill = @json($cartSubTotal) * 100;
             const stripe = Stripe(document.getElementById('stripe_key').value);
@@ -445,6 +449,147 @@
 
                             var orderType = @json($orderType);
                             if(orderType === 'pickup'){
+                                form.submit();
+                            } else {
+                                checkCustomerLocation();
+                            }
+                        }
+                    }).catch(function(error) {
+                        console.error('Error creating PaymentMethod:', error);
+                    });
+                } else {
+                    const form = document.getElementById('checkout-form');
+                    form.submit();
+                }
+            });
+        });
+    </script> --}}
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var totalBill = $('.total').text() * 100;
+            const stripe = Stripe(document.getElementById('stripe_key').value);
+            const elements = stripe.elements();
+    
+            // Create individual elements for card number, expiry, and CVC
+            const cardNumber = elements.create('cardNumber');
+            const cardExpiry = elements.create('cardExpiry');
+            const cardCvc = elements.create('cardCvc');
+    
+            // Mount elements to the corresponding divs
+            cardNumber.mount('#card-number-element');
+            cardExpiry.mount('#card-expiry-element');
+            cardCvc.mount('#card-cvc-element');
+    
+            function updatePaymentForm() {
+                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
+                const stripeForm = document.getElementById('stripe-form');
+                const paymentButtonContainer = document.getElementById('payment-button-container'); // Combined container for both Apple Pay and Google Pay
+                const placeOrderButton = document.getElementById('place-order');
+    
+                if (paymentOption === 'online') {
+                    stripeForm.classList.remove('d-none');
+                    paymentButtonContainer.classList.remove('d-none'); // Show payment button container
+                    placeOrderButton.classList.add('d-none');
+                } else {
+                    stripeForm.classList.add('d-none');
+                    paymentButtonContainer.classList.add('d-none'); // Hide payment button container
+                    placeOrderButton.classList.remove('d-none');
+                }
+            }
+    
+            updatePaymentForm();
+    
+            document.querySelectorAll('input[name="payment_option"]').forEach(function(element) {
+                element.addEventListener('change', updatePaymentForm);
+            });
+    
+            // Create Payment Request object
+            const paymentRequest = stripe.paymentRequest({
+                country: 'GB',
+                currency: 'gbp',
+                total: {
+                    label: 'Total',
+                    amount: totalBill,
+                },
+                requestPayerName: true,
+                requestPayerEmail: true,
+                requestPayerPhone: true,
+                paymentMethodTypes: ['card'], // No need to specify Google or Apple Pay explicitly here
+            });
+    
+            const prButton = elements.create('paymentRequestButton', {
+                paymentRequest: paymentRequest,
+            });
+    
+            // Check if Google Pay or Apple Pay is available and then mount the button
+            paymentRequest.canMakePayment().then(function(result) {
+                if (result) {
+                    prButton.mount('#payment-button-container');
+                } else {
+                    console.log('Neither Google Pay nor Apple Pay is available');
+                    document.getElementById('payment-button-container').style.display = 'none';
+                }
+            });
+    
+            // Handle the payment method ID returned from Google Pay/Apple Pay
+            paymentRequest.on('paymentmethod', function(ev) {
+                const form = document.getElementById('checkout-form');
+                let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
+    
+                if (hiddenTokenInput) {
+                    hiddenTokenInput.setAttribute('value', ev.paymentMethod.id);
+                } else {
+                    hiddenTokenInput = document.createElement('input');
+                    hiddenTokenInput.setAttribute('type', 'hidden');
+                    hiddenTokenInput.setAttribute('name', 'payment_method_id');
+                    hiddenTokenInput.setAttribute('value', ev.paymentMethod.id);
+                    form.appendChild(hiddenTokenInput);
+                }
+    
+                var orderType = @json($orderType);
+                if (orderType === 'pickup') {
+                    form.submit();
+                } else {
+                    checkCustomerLocation();
+                }
+                ev.complete('success');
+            });
+    
+            // Card payment submission logic
+            document.getElementById('submit-payment').addEventListener('click', function(event) {
+                event.preventDefault();
+                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
+    
+                if (paymentOption === 'online') {
+                    stripe.createPaymentMethod({
+                        type: 'card',
+                        card: cardNumber,
+                        billing_details: {
+                            name: document.querySelector('input[name="name"]').value,
+                            email: document.querySelector('input[name="email"]').value,
+                            phone: document.querySelector('input[name="phone"]').value
+                        }
+                    }).then(function(result) {
+                        if (result.error) {
+                            const displayError = document.getElementById('card-errors');
+                            displayError.textContent = result.error.message;
+                        } else {
+                            const form = document.getElementById('checkout-form');
+                            let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
+    
+                            if (hiddenTokenInput) {
+                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
+                            } else {
+                                hiddenTokenInput = document.createElement('input');
+                                hiddenTokenInput.setAttribute('type', 'hidden');
+                                hiddenTokenInput.setAttribute('name', 'payment_method_id');
+                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
+                                form.appendChild(hiddenTokenInput);
+                            }
+    
+                            var orderType = @json($orderType);
+                            if (orderType === 'pickup') {
                                 form.submit();
                             } else {
                                 checkCustomerLocation();
