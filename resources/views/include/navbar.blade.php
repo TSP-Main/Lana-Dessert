@@ -10,33 +10,39 @@
                 </div>
             </div>
             
-         <!-- Nav items centered on large devices, hidden on medium and small devices -->
-        <div class="col-lg-6 d-none d-lg-flex justify-content-center">
-            <nav class="navbar navbar-expand-lg" id="navbar">
-                <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center" style="white-space: nowrap; flex-wrap: nowrap;">
-                        <li class="nav-item mx-2">
-                            <a class="nav-link text-white text-center" aria-current="page" href="/" id="home-link">Home</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link text-white text-center" href="/about" id="about-link">About Us</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link text-white text-center" href="/menus" id="menus-link">Online Order</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link text-white text-center" href="/faq" id="faq-link">FAQ</a>
-                        </li>
-                        <li class="nav-item mx-2">
-                            <a class="nav-link text-white text-center" href="/contact" id="contact-link">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-            </nav>
-        </div>
+            <!-- Nav items centered on large devices, hidden on medium and small devices -->
+            <div class="col-lg-6 d-none d-lg-flex justify-content-center">
+                <nav class="navbar navbar-expand-lg" id="navbar">
+                    <div class="collapse navbar-collapse justify-content-center" id="navbarSupportedContent">
+                        <ul class="navbar-nav mb-2 mb-lg-0 d-flex justify-content-center" style="white-space: nowrap; flex-wrap: nowrap;">
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white text-center" aria-current="page" href="/" id="home-link">Home</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white text-center" href="/about" id="about-link">About Us</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white text-center" href="/menus" id="menus-link">Online Order</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white text-center" href="/faq" id="faq-link">FAQ</a>
+                            </li>
+                            <li class="nav-item mx-2">
+                                <a class="nav-link text-white text-center" href="/contact" id="contact-link">Contact Us</a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
             
             <!-- Cart icon and toggle button on the right -->
             <div class="col-lg-3 col-6 d-flex align-items-center justify-content-end">
+                <!-- Search Icon -->
+                <div class="nav-left-svg nav-top-svg text-end me-3 position-relative">
+                    <i id="search-icon" class="fas fa-search text-white" style="font-size: 24px; cursor: pointer;"></i>
+                    <input type="text" id="search-input" class="form-control position-absolute" style="top: 50px; right: -80px; display: none; width: 200px;" placeholder="Search products..." autocomplete="off">
+                    <ul id="suggestions" class="list-group position-absolute" style="top: 88px; right: -80px; display: none; width: 200px; z-index: 1000;"></ul>
+                </div>
                 <!-- Cart icon -->
                 <div class="nav-left-svg nav-top-svg text-end me-3">
                     <a href="{{ route('cart.view') }}">

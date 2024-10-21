@@ -138,5 +138,49 @@ class ApiController extends Controller
             return response()->json(['status' => 'error']);
         }
     }
+
+    public function discount_check(Request $request)
+    {
+        $request->validate([
+            'code' => 'required|alpha_num',
+        ]);
+
+        $postData['code'] = $request->code;
+
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/discount/check';
     
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->post($serverUrl . $url, $postData);
+
+        if($response['status'] == 'success'){
+            $data['status'] = true;
+            $data['discountDetail'] = $response['data'];
+        }
+        else{
+            $data['status'] = false;
+            $data['message'] = $response['message'];
+        }
+
+        return $data;
+    }
+    
+    public function search_product(Request $request)
+    {
+        $postData['title'] = $request->title;
+
+        $serverUrl  = env('SERVER_URL');
+        $apiToken   = env('API_TOKEN');
+        $url        = 'api/searching';
+    
+        // Make the API request
+        $response = Http::withHeaders([
+            'Authorization' => $apiToken,
+        ])->get($serverUrl . $url, $postData);
+        
+        return $response['data'];
+    }
 }

@@ -18,8 +18,8 @@
 @section('content')
 <div class="about-us-main" data-aos="fade-down" data-aos-duration="1500">
     <div class="container text-center d-flex justify-content-center align-items-center">
-        <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
-    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">About us</h2>
+        <h1 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">About us</h1>
     </div>
 </div>
 <div class="beyound py-5" data-aos="fade-down-right" data-aos-duration="1500">
@@ -27,7 +27,7 @@
         <div class="row">
             <div class="col-md-6 my-5 py-5">
                 <div class="bakery">
-                    <h4>About Us</h4>
+                    <h1>About Us</h1>
                     <h2>A Bakery Beyond <br> Expectations</h2>
                 </div>
             </div>
@@ -51,11 +51,11 @@
     <div class="container">
         <div class="row">
             <div class="col-md-3">
-                <p class="counter">12</p>
+                <p class="counter">2</p>
                 <h2>Restaurant</h2>
             </div>
             <div class="col-md-3">
-                <p class="counter">8</p>
+                <p class="counter">5</p>
                 <h2>Years Experience</h2>
             </div>
             <div class="col-md-3">
@@ -63,7 +63,7 @@
                 <h2>Menu Dishes</h2>
             </div>
             <div class="col-md-3">
-                <p class="counter">200</p>
+                <p class="counter">1000</p>
                 <h2>Customers</h2>
             </div>
         </div>

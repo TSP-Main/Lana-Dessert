@@ -20,8 +20,8 @@
 @section('content')
     <div class="main-content" data-aos="fade-down" data-aos-duration="1500">
         <div class="title">
-            <h2 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
-    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">Menu</h2>
+            <h1 class="about-title gradient-text" style="font-weight: bold; font-size: 3rem; background: linear-gradient(to top, rgba(87, 87, 87, 0.5), #ffffff);
+    -webkit-background-clip: text;  -webkit-text-fill-color: transparent;">Menu</h1>
         </div>
     </div>
 
