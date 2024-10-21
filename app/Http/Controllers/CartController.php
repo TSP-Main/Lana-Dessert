@@ -139,10 +139,6 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
-        $request->validate([
-            'order_type' => 'required|in:pickup,delivery'
-        ]);
-
         // Get Stripe Key
         $serverUrl  = env('SERVER_URL');
         $apiToken   = env('API_TOKEN');
@@ -153,14 +149,10 @@ class CartController extends Controller
             'Authorization' => $apiToken,
         ])->get($serverUrl . $url);
 
-        Session::put('orderType', $request->order_type);
-
         $data['cartItems']      = Session::get('cart');
         $data['cartSubTotal']   = Session::get('cartSubTotal');
         $data['orderType']      = Session::get('orderType');
         $data['stripeKey']      = $response['data']['stripeKey'];
-
-        // dd($data);
 
         $restaurantDetail = $this->restaurant_detail();
         $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
@@ -178,6 +170,7 @@ class CartController extends Controller
             'name'              => 'required',
             'phone'             => 'required',
             'email'             => 'required',
+            'order_type'        => 'required|in:pickup,delivery',
             'payment_option'    => 'required|in:cash,online',
             'payment_method_id' => 'required_if:payment_option,online', // Only required for card payments
         ]);
@@ -194,7 +187,7 @@ class CartController extends Controller
         $postData['cartItems']      = Session::get('cart');
         $postData['cartSubTotal']   = Session::get('cartSubTotal');
         $postData['cartTotal']      = Session::get('cartSubTotal');
-        $postData['orderType']      = Session::get('orderType');
+        $postData['orderType']      = $request->order_type;
         $postData['discountCode']   = $request->applied_code ?? null;
 
         $serverUrl  = env('SERVER_URL');

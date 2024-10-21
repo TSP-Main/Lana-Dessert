@@ -61,44 +61,21 @@
 
                 </div>
                 <div class="col-md-4" style="background-color: #f7f9f9;">
-                    <form action="{{ route('checkout') }}" method="post">
-                        @csrf
-                        <div class="cart-total">
-                            <h5 style="text-align: center;">Order Summary</h5>
-                            <hr style="border: 1px solid #ccc;">
-                            {{-- <p>Sub Total <span id="cart-sub-total">{{ $currencySymbol . $cartSubTotal }}</span></p> --}}
-                            <div style="display: flex; justify-content: space-between;">
-                                <h4>Sub Total</h4>
-                                <h4>{{ $currencySymbol }} <span id="cart-sub-total">{{ $cartSubTotal }}</span></h4> 
-                            </div>
-                            <hr style="border: 1px solid #ccc;">
-                            <div class="form-group">
-                                <label for="order_type" style="display: block; margin-bottom: 5px;">Choose order type:</label>
-                                <div>
-                                    <label style="display: block; border: 1px solid #bdc1b2; margin-bottom: 16px; padding: 8px; box-sizing: border-box;">
-                                        <input type="radio" id="pickup" name="order_type" value="pickup" {{ session('orderType') == 'pickup' ? 'checked' : '' }} style="margin-right: 8px;">
-                                        Pickup
-                                    </label>
-                                    <label style="display: block; border: 1px solid #bdc1b2; padding: 8px; box-sizing: border-box;">
-                                        <input type="radio" id="delivery" name="order_type" value="delivery" {{ session('orderType') == 'delivery' ? 'checked' : '' }} style="margin-right: 8px;">
-                                        Delivery
-                                    </label>
-                                    @error('order_type')
-                                        <div class="text-danger" style="color: #dc3545; margin-top: 8px;">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
-
-                                                        <hr style="border: 1px solid #ccc;">
-                            {{-- <h4>Total <span id="total">{{ $currencySymbol . $cartSubTotal }}</span></h4> --}}
-                            <div style="display: flex; justify-content: space-between;">
-                                <h4>Total</h4>
-                                <h4>{{ $currencySymbol }} <span id="total">{{ $cartSubTotal }}</span></h4> 
-                            </div>
+                    <div class="cart-total">
+                        <h5 style="text-align: center;">Order Summary</h5>
+                        <hr style="border: 1px solid #ccc;">
+                        <div style="display: flex; justify-content: space-between;">
+                            <h4>Sub Total</h4>
+                            <h4>{{ $currencySymbol }} <span id="cart-sub-total">{{ $cartSubTotal }}</span></h4> 
                         </div>
                         <hr style="border: 1px solid #ccc;">
-                        <button class="nav-top-svg text-white border-white" type="submit" style="width: 90%;">Checkout</button>
-                    </form>
+                        <div style="display: flex; justify-content: space-between;">
+                            <h4>Total</h4>
+                            <h4>{{ $currencySymbol }} <span id="total">{{ $cartSubTotal }}</span></h4> 
+                        </div>
+                    </div>
+                    <hr style="border: 1px solid #ccc;">
+                    <a href="{{ route('checkout') }}"><button class="nav-top-svg text-white border-white" type="submit" style="width: 90%;">Checkout</button></a>
                 </div>
             </div>
         @else
