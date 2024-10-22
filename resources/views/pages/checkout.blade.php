@@ -66,17 +66,12 @@
                         <div id="discount_message" class="mt-2"></div>
                     </div>
                     <!-- temporary delivery charges -->
-                    @if ($orderType == 'delivery' && ($cartSubTotal < $freeShippingAmount))
-                        <h6>Delivery Charges <span> {{ $currencySymbol }}2.00</span></h6>
-                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
-                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
-                    @elseif ($orderType == 'delivery' && ($cartSubTotal > $freeShippingAmount))
-                        <h6>Delivery Charges <span><del> {{ $currencySymbol }}2.00 </del></span></h6>
-                        <p>(free over {{ $currencySymbol . $freeShippingAmount }})</p>
-                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
-                    @else
-                        <h4>Total <span>{{ $currencySymbol }}<span class="total">{{ $cartSubTotal }}</span></span></h4>
-                    @endif
+                    <div id="delivery-info">
+                        <h6 id="delivery-text">Delivery Charges <span id="delivery-charges">{{ $currencySymbol }}2.00</span></h6>
+                        <p id="free-shipping-message">(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h4>Total <span id="total">{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
+                    </div>
+
                     <div class="discount-div"></div>
                 </div>
             </div>
@@ -115,9 +110,36 @@
                                         </div>
                                     </div>
                                 </div>
-                    
+
+                                <!-- Order Type -->
+                                <hr class="my-4" />
+                                <h5 class="card-title mb-3">Order Type</h5>
+                                <div class="row mb-3">
+                                    <div class="col-lg-4 mb-3">
+                                        <div class="form-check h-100 border rounded-3">
+                                            <div class="p-3">
+                                                <input class="form-check-input" type="radio" name="order_type" id="pickup" value="pickup" checked required/>
+                                                <label class="form-check-label" for="pickup">
+                                                    Pickup <br />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 mb-3">
+                                        <div class="form-check h-100 border rounded-3">
+                                            <div class="p-3">
+                                                <input class="form-check-input" type="radio" name="order_type" id="delivery" value="delivery" required/>
+                                                <label class="form-check-label" for="delivery">
+                                                    Delivery <br />
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <!-- Address Details -->
-                                @if ($orderType == 'delivery')
+                                {{-- @if ($orderType == 'delivery') --}}
+                                <div id="address-details-div" style="display: none;">
                                     <hr class="my-4" />
                                     <h5 class="card-title mb-3">Address Details</h5>
                                     <div class="row">
@@ -152,7 +174,8 @@
                                         <input type="hidden" id="latitude" name="latitude">
                                         <input type="hidden" id="longitude" name="longitude">
                                     </div>
-                                @endif
+                                </div>
+                                {{-- @endif --}}
 
                                 <hr class="my-4" />
                                 <div class="mb-3">
@@ -211,14 +234,14 @@
                                         </div>
                                         <div id="card-errors" role="alert" class="text-danger mt-2"></div>
                                         <div class="form-group">
-                                            <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36">Confirm the Payment and Place Order</button>
+                                            <button id="submit-payment" type="button" class="btn w-100" style="color: #C36; border: 1px solid #C36; margin-left:0;">Confirm the Payment and Place Order</button>
                                         </div>
                                     </div>
 
                                     {{-- <div id="google-pay-button-container"></div>
                                     <div id="apple-pay-button-container"></div> --}}
 
-                                    <div id="payment-button-container"></div>
+                                    <div class="mt-2" id="payment-button-container"></div>
                                 </div>
                   
                                 <div class="float-end">
@@ -606,8 +629,6 @@
         });
     </script>
 
-
-
     <!-- Discount Feature -->
     <script>
         $(document).ready(function() {
@@ -689,10 +710,56 @@
         });
     </script>
 
+    <script>
+        $(document).ready(function () {
+            // Address div show/hide
+            function toggleAddressDetails() {
+                if ($('#delivery').is(':checked')) {
+                    $('#address-details-div').show();
+
+                    $('#address, #city, #postcode').attr('required', true);
+                } else {
+                    $('#address-details-div').hide();
+                    $('#address, #city, #postcode').removeAttr('required');
+                }
+            }
+            $('input[name="order_type"]').on('change', function () {
+                toggleAddressDetails();
+                updateTotals();
+            });
+            toggleAddressDetails();
+
+            // update total and delivery charges
+            var freeShippingAmount = {{ $freeShippingAmount }};
+            var cartSubTotal = {{ $cartSubTotal }};
+            var deliveryCharge = 2.00;
+            var currencySymbol = '{{ $currencySymbol }}';
+
+            function updateTotals() {
+                var orderType = $('input[name="order_type"]:checked').val();
+
+                if (orderType === 'delivery') {
+                    if (cartSubTotal < freeShippingAmount) {
+                        $('#delivery-charges').text(currencySymbol + deliveryCharge.toFixed(2));
+                        $('#free-shipping-message').text('(free over ' + currencySymbol + freeShippingAmount + ')');
+                        $('#total .total').text((cartSubTotal + deliveryCharge).toFixed(2));
+                    } else {
+                        $('#delivery-charges').html('<del>' + currencySymbol + deliveryCharge.toFixed(2) + '</del>');
+                        $('#free-shipping-message').text('(free over ' + currencySymbol + freeShippingAmount + ')');
+                        $('#total .total').text(cartSubTotal.toFixed(2));
+                    }
+                } else {
+                    $('#delivery-charges').text('');
+                    $('#free-shipping-message').text('');
+                    $('#total .total').text(cartSubTotal.toFixed(2));
+                }
+            }
+            updateTotals();
+        });
+    </script>
+
     <!-- Delivery Radius Feature -->
-    @if ($orderType == 'delivery')
         <!-- Google Map -->
-        {{-- <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places" async defer></script> --}}
         <script src="https://maps.googleapis.com/maps/api/js?key={{ env('MAP_API_KEY') }}&libraries=places&callback=initAutocomplete" async defer></script>
 
         <script>
@@ -776,30 +843,39 @@
             });
 
             function checkCustomerLocation(){
-                var form = document.getElementById('checkout-form');
+                if ($('#delivery').is(':checked')) {
+                    var form = document.getElementById('checkout-form');
 
-                // If the form is not valid, display a validation message
-                if (!form.checkValidity()) {
-                    form.reportValidity();
-                    return;
-                }
+                    // If the form is not valid, display a validation message
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        return;
+                    }
 
-                var customerLat = parseFloat(document.getElementById('latitude').value);
-                var customerLng = parseFloat(document.getElementById('longitude').value);
-                
-                var restaurantLat = {{ $restaurantLat }};
-                var restaurantLng = {{ $restaurantLng }};
-                var deliveryRadius = {{ $deliveryRadius }};
+                    var customerLat = parseFloat(document.getElementById('latitude').value);
+                    var customerLng = parseFloat(document.getElementById('longitude').value);
+                    
+                    var restaurantLat = {{ $restaurantLat }};
+                    var restaurantLng = {{ $restaurantLng }};
+                    var deliveryRadius = {{ $deliveryRadius }};
 
-                // Calculate the distance using the Haversine formula
-                var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
-                console.log('d ' + distance);
-                if (distance <= deliveryRadius * 1000) {
-                    // Proceed with the order
-                    document.getElementById('checkout-form').submit();
+                    // Calculate the distance using the Haversine formula
+                    var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
+                    console.log('d ' + distance);
+                    if (distance <= deliveryRadius * 1000) {
+                        // Proceed with the order
+                        document.getElementById('checkout-form').submit();
+                    } else {
+                        // Show error message
+                        alert('Sorry, you are outside of our delivery radius.');
+                    }
                 } else {
-                    // Show error message
-                    alert('Sorry, you are outside of our delivery radius.');
+                    var form = document.getElementById('checkout-form');
+                    if (!form.checkValidity()) {
+                        form.reportValidity();
+                        return;
+                    }
+                    document.getElementById('checkout-form').submit();
                 }
             }
 
@@ -812,5 +888,4 @@
                 return R * c; // Distance in meters
             }
         </script>
-    @endif
 @endsection
