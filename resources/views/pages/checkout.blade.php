@@ -67,8 +67,8 @@
                     </div>
                     <!-- temporary delivery charges -->
                     <div id="delivery-info">
-                        <h6 id="delivery-text">Delivery Charges <span id="delivery-charges">{{ $currencySymbol }}2.00</span></h6>
-                        <p id="free-shipping-message">(free over {{ $currencySymbol . $freeShippingAmount }})</p>
+                        <h6 id="delivery-text"> </h6><span id="delivery-charges"></span>
+                        <p id="free-shipping-message"></p>
                         <h4>Total <span id="total">{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
                     </div>
 
@@ -538,7 +538,7 @@
                 requestPayerName: true,
                 requestPayerEmail: true,
                 requestPayerPhone: true,
-                paymentMethodTypes: ['card'], // No need to specify Google or Apple Pay explicitly here
+                paymentMethodTypes: ['card', 'applePay', 'googlePay'], // No need to specify Google or Apple Pay explicitly here
             });
     
             const prButton = elements.create('paymentRequestButton', {
@@ -547,7 +547,7 @@
     
             // Check if Google Pay or Apple Pay is available and then mount the button
             paymentRequest.canMakePayment().then(function(result) {
-                if (result) {
+                if (result && (result.applePay || result.googlePay)) {
                     prButton.mount('#payment-button-container');
                 } else {
                     console.log('Neither Google Pay nor Apple Pay is available');
@@ -740,15 +740,18 @@
 
                 if (orderType === 'delivery') {
                     if (cartSubTotal < freeShippingAmount) {
+                        $('#delivery-text').text('Delivery Charges');
                         $('#delivery-charges').text(currencySymbol + deliveryCharge.toFixed(2));
                         $('#free-shipping-message').text('(free over ' + currencySymbol + freeShippingAmount + ')');
                         $('#total .total').text((cartSubTotal + deliveryCharge).toFixed(2));
                     } else {
+                        $('#delivery-text').text('Delivery Charges');
                         $('#delivery-charges').html('<del>' + currencySymbol + deliveryCharge.toFixed(2) + '</del>');
                         $('#free-shipping-message').text('(free over ' + currencySymbol + freeShippingAmount + ')');
                         $('#total .total').text(cartSubTotal.toFixed(2));
                     }
                 } else {
+                    $('#delivery-text').text('');
                     $('#delivery-charges').text('');
                     $('#free-shipping-message').text('');
                     $('#total .total').text(cartSubTotal.toFixed(2));
