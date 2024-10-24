@@ -139,29 +139,34 @@ class CartController extends Controller
 
     public function checkout(Request $request)
     {
-        // Get Stripe Key
-        $serverUrl  = env('SERVER_URL');
-        $apiToken   = env('API_TOKEN');
-        $url        = 'api/stripe/config';
-    
-        // Make the API request
-        $response = Http::withHeaders([
-            'Authorization' => $apiToken,
-        ])->get($serverUrl . $url);
-
-        $data['cartItems']      = Session::get('cart');
-        $data['cartSubTotal']   = Session::get('cartSubTotal');
-        $data['orderType']      = Session::get('orderType');
-        $data['stripeKey']      = $response['data']['stripeKey'];
-
-        $restaurantDetail = $this->restaurant_detail();
-        $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
-        $data['restaurantLat'] = $restaurantDetail['restaurantDetail']['latitude'];
-        $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
-        $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
-        $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
+        if(Session::get('cart')){
+            // Get Stripe Key
+            $serverUrl  = env('SERVER_URL');
+            $apiToken   = env('API_TOKEN');
+            $url        = 'api/stripe/config';
         
-        return view('pages.checkout', $data);
+            // Make the API request
+            $response = Http::withHeaders([
+                'Authorization' => $apiToken,
+            ])->get($serverUrl . $url);
+
+            $data['cartItems']      = Session::get('cart');
+            $data['cartSubTotal']   = Session::get('cartSubTotal');
+            $data['orderType']      = Session::get('orderType');
+            $data['stripeKey']      = $response['data']['stripeKey'];
+
+            $restaurantDetail = $this->restaurant_detail();
+            $data['deliveryRadius'] = $restaurantDetail['restaurantDetail']['radius'];
+            $data['restaurantLat'] = $restaurantDetail['restaurantDetail']['latitude'];
+            $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
+            $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
+            $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
+            
+            return view('pages.checkout', $data);
+        }
+        else{
+            return redirect()->route('cart.view');
+        }
     }
 
     public function checkout_process(Request $request)

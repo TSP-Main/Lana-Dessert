@@ -68,11 +68,6 @@
                             <h4>Sub Total</h4>
                             <h4>{{ $currencySymbol }} <span id="cart-sub-total">{{ $cartSubTotal }}</span></h4> 
                         </div>
-                        <hr style="border: 1px solid #ccc;">
-                        <div style="display: flex; justify-content: space-between;">
-                            <h4>Total</h4>
-                            <h4>{{ $currencySymbol }} <span id="total">{{ $cartSubTotal }}</span></h4> 
-                        </div>
                     </div>
                     <hr style="border: 1px solid #ccc;">
                     <a href="{{ route('checkout') }}"><button class="nav-top-svg text-white border-white" type="submit" style="width: 90%;">Checkout</button></a>

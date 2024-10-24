@@ -50,20 +50,20 @@
 <div class="counter-about text-center" data-aos="fade-up" data-aos-duration="1500">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <p class="counter">2</p>
+            <div class="col-md-3 text-center">
+                <p class="">1</p>
                 <h2>Restaurant</h2>
             </div>
-            <div class="col-md-3">
-                <p class="counter">5</p>
+            <div class="col-md-3 text-center">
+                <p class="">5+</p>
                 <h2>Years Experience</h2>
             </div>
-            <div class="col-md-3">
-                <p class="counter">50</p>
+            <div class="col-md-3 text-center">
+                <p class="counter">{{ $totalProducts }}</p>
                 <h2>Menu Dishes</h2>
             </div>
-            <div class="col-md-3">
-                <p class="counter">1000</p>
+            <div class="col-md-3 text-center">
+                <p class="counter">{{ $totalCustomers }}</p>
                 <h2>Customers</h2>
             </div>
         </div>
@@ -210,6 +210,8 @@
 
         // Update cart count on page load
         document.addEventListener('DOMContentLoaded', updateCartCount);
+
+            
     </script>
 @endsection
 
