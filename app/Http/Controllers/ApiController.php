@@ -36,6 +36,11 @@ class ApiController extends Controller
 
         $schedule = is_restaurant_closed();
 
+        if($schedule['status'] == 'error'){
+            // restaurant is inactive or expired
+            return view('expiry');    
+        }
+
         if($schedule['isClosed']){
             $data['schedule'] = $schedule;
             $data['isClosed'] = $schedule['isClosed'];

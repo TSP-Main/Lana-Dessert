@@ -8,9 +8,9 @@
             <div class="col-md-6 col-12 text-center text-md-start">
                 <div class="welcome my-5" data-aos="fade-right">
                     <h4>Welcome To Lana Dessert</h4>
-                    <h2>
+                    <h1 class="text-white">
                         Bite into Blissful Moments <br>Where Flavor Knows No Limits
-                    </h2>
+                    </h1>
                     <p style="text-align: justify;">We are a bakery that creatively combines desserts and fast food, emphasizing unique flavors
                         and inventive culinary presentations for enjoyment.</p>
                     <button onclick="window.location.href='{{ route('menus') }}'" class="btn px-5 py-3">Online Order</button>
@@ -92,20 +92,20 @@
 <div class="counter-about" data-aos-duration="1500">  <!-- data-aos="fade-down" -->
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <p class="counter">2</p>
+            <div class="col-md-3 text-center">
+                <p class="">1</p>
                 <h2>Restaurant</h2>
             </div>
-            <div class="col-md-3">
-                <p class="counter">5</p>
+            <div class="col-md-3 text-center">
+                <p class="">5+</p>
                 <h2>Years Experience</h2>
             </div>
-            <div class="col-md-3">
-                <p class="counter">50</p>
+            <div class="col-md-3 text-center">
+                <p class="counter">{{ $totalProducts }}</p>
                 <h2>Menu Items</h2>
             </div>
-            <div class="col-md-3">
-                <p class="counter">1000</p>
+            <div class="col-md-3 text-center">
+                <p class="counter">{{ $totalCustomers }}</p>
                 <h2>Customers</h2>
             </div>
         </div>
