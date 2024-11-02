@@ -185,6 +185,8 @@ class CartController extends Controller
         $postData['email']          = $request->email ?? NULL;
         $postData['phone']          = $request->phone;
         $postData['address']        = $request->address ?? NULL;
+        $postData['city']           = $request->city ?? NULL;
+        $postData['postcode']       = $request->postcode ?? NULL;
         $postData['coordinates']    = $request->address ?? NULL;
         $postData['paymentOption']  = $request->payment_option;
         $postData['orderNote']      = $request->note;
