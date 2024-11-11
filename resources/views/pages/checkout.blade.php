@@ -17,6 +17,18 @@
 @section('content')
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Success!</strong> {{ session()->get('success')}}
+            </div>
+        @elseif (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Error!</strong> {{ session()->get('error')}}
+            </div>
+        @endif
+
         <div class="row">
             <!-- Order Summary -->
             <div class="col-md-4 order-md-2 order-lg-2 order-1">
@@ -91,23 +103,32 @@
                                     <div class="col-xs-12 mb-3">
                                         <p class="mb-0">Name</p>
                                         <div class="form-outline">
-                                            <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required/>
+                                            <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required value="{{ old('name') }}"/>
                                         </div>
+                                        @error('name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                     
                                     <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
-                                    <p class="mb-0">Phone</p>
-                                    <div class="form-outline">
-                                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required />
-                                    </div>
+                                        <p class="mb-0">Phone</p>
+                                        <div class="form-outline">
+                                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required  value="{{ old('phone') }}" />
+                                        </div>
+                                        @error('phone')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
 
                     
                                     <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
                                         <p class="mb-0">Email</p>
                                         <div class="form-outline">
-                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" required/>
+                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" required  value="{{ old('email') }}"/>
                                         </div>
+                                        @error('email')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -135,6 +156,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @error('order_type')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <!-- Address Details -->
