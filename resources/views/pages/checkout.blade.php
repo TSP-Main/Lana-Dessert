@@ -17,6 +17,18 @@
 @section('content')
 <div class="cart-sec pt-3 pb-5">
     <div class="container">
+        @if (session()->has('success'))
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Success!</strong> {{ session()->get('success')}}
+            </div>
+        @elseif (session()->has('error'))
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                <strong>Error!</strong> {{ session()->get('error')}}
+            </div>
+        @endif
+
         <div class="row">
             <!-- Order Summary -->
             <div class="col-md-4 order-md-2 order-lg-2 order-1">
@@ -91,23 +103,32 @@
                                     <div class="col-xs-12 mb-3">
                                         <p class="mb-0">Name</p>
                                         <div class="form-outline">
-                                            <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required/>
+                                            <input type="text" name="name" id="name" placeholder="Type Name" class="form-control" required value="{{ old('name') }}"/>
                                         </div>
+                                        @error('name')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                     
                                     <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
-                                    <p class="mb-0">Phone</p>
-                                    <div class="form-outline">
-                                        <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required />
-                                    </div>
+                                        <p class="mb-0">Phone</p>
+                                        <div class="form-outline">
+                                            <input type="tel" name="phone" id="phone" class="form-control" placeholder="Type Phone Number" maxlength="16" pattern="\d*" title="Please enter a valid phone number with up to 16 digits." required  value="{{ old('phone') }}" />
+                                        </div>
+                                        @error('phone')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
 
                     
                                     <div class="col-xs-12 col-sm-6 col-md-6 mb-3">
                                         <p class="mb-0">Email</p>
                                         <div class="form-outline">
-                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" required/>
+                                            <input type="email" name="email" id="email" placeholder="example@gmail.com" class="form-control" required  value="{{ old('email') }}"/>
                                         </div>
+                                        @error('email')
+                                            <small class="text-danger">{{ $message }}</small>
+                                        @enderror
                                     </div>
                                 </div>
 
@@ -118,7 +139,7 @@
                                     <div class="col-lg-4 mb-3">
                                         <div class="form-check h-100 border rounded-3">
                                             <div class="p-3">
-                                                <input class="form-check-input" type="radio" name="order_type" id="pickup" value="pickup" checked required/>
+                                                <input class="form-check-input" type="radio" name="order_type" id="pickup" value="pickup" required/>
                                                 <label class="form-check-label" for="pickup">
                                                     Pickup <br />
                                                 </label>
@@ -135,6 +156,9 @@
                                             </div>
                                         </div>
                                     </div>
+                                    @error('order_type')
+                                        <small class="text-danger">{{ $message }}</small>
+                                    @enderror
                                 </div>
 
                                 <!-- Address Details -->
@@ -259,234 +283,6 @@
 
 @section('script')
     <script src="https://js.stripe.com/v3/"></script>
-
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const stripe = Stripe(document.getElementById('stripe_key').value);
-            const elements = stripe.elements();
-    
-            // Create individual elements for card number, expiry, and CVC
-            const cardNumber = elements.create('cardNumber');
-            const cardExpiry = elements.create('cardExpiry');
-            const cardCvc = elements.create('cardCvc');
-    
-            // Mount elements to the corresponding divs
-            cardNumber.mount('#card-number-element');
-            cardExpiry.mount('#card-expiry-element');
-            cardCvc.mount('#card-cvc-element');
-    
-            function updatePaymentForm() {
-                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-                const stripeForm = document.getElementById('stripe-form');
-                const placeOrderButton = document.getElementById('place-order');
-    
-                if (paymentOption === 'online') {
-                    stripeForm.classList.remove('d-none');
-                    placeOrderButton.classList.add('d-none');
-                } else {
-                    stripeForm.classList.add('d-none');
-                    placeOrderButton.classList.remove('d-none');
-                }
-            }
-    
-            updatePaymentForm();
-    
-            document.querySelectorAll('input[name="payment_option"]').forEach(function(element) {
-                element.addEventListener('change', updatePaymentForm);
-            });
-    
-            document.getElementById('submit-payment').addEventListener('click', function(event) {
-                event.preventDefault();
-    
-                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-    
-                if (paymentOption === 'online') {
-                    stripe.createPaymentMethod({
-                        type: 'card',
-                        card: cardNumber, // Attach the card number element
-                        billing_details: {
-                            name: document.querySelector('input[name="name"]').value,
-                            email: document.querySelector('input[name="email"]').value,
-                            phone: document.querySelector('input[name="phone"]').value
-                        }
-                    }).then(function(result) {
-                        if (result.error) {
-                            const displayError = document.getElementById('card-errors');
-                            displayError.textContent = result.error.message;
-                        } else {
-                            const form = document.getElementById('checkout-form');
-                            let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
-    
-                            if (hiddenTokenInput) {
-                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
-                            } else {
-                                hiddenTokenInput = document.createElement('input');
-                                hiddenTokenInput.setAttribute('type', 'hidden');
-                                hiddenTokenInput.setAttribute('name', 'payment_method_id');
-                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
-                                form.appendChild(hiddenTokenInput);
-                            }
-    
-                            var orderType = @json($orderType);
-                            if(orderType === 'pickup'){
-                                form.submit();
-                            }
-                            else{
-                                checkCustomerLocation();
-                            }
-                        }
-                    }).catch(function(error) {
-                        console.error('Error creating PaymentMethod:', error);
-                    });
-                } else {
-                    const form = document.getElementById('checkout-form');
-                    form.submit();
-                }
-            });
-        });
-    </script> --}}
-
-    <!-- working Google Pay -->
-    {{-- <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            var totalBill = @json($cartSubTotal) * 100;
-            const stripe = Stripe(document.getElementById('stripe_key').value);
-            const elements = stripe.elements();
-
-            // Create individual elements for card number, expiry, and CVC
-            const cardNumber = elements.create('cardNumber');
-            const cardExpiry = elements.create('cardExpiry');
-            const cardCvc = elements.create('cardCvc');
-
-            // Mount elements to the corresponding divs
-            cardNumber.mount('#card-number-element');
-            cardExpiry.mount('#card-expiry-element');
-            cardCvc.mount('#card-cvc-element');
-
-            function updatePaymentForm() {
-                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-                const stripeForm = document.getElementById('stripe-form');
-                const googlePayButtonContainer = document.getElementById('google-pay-button-container');
-                const placeOrderButton = document.getElementById('place-order');
-
-                if (paymentOption === 'online') {
-                    stripeForm.classList.remove('d-none');
-                    googlePayButtonContainer.classList.remove('d-none'); // Show Google Pay button
-                    placeOrderButton.classList.add('d-none');
-                } else {
-                    stripeForm.classList.add('d-none');
-                    googlePayButtonContainer.classList.add('d-none'); // Hide Google Pay button
-                    placeOrderButton.classList.remove('d-none');
-                }
-            }
-
-            updatePaymentForm();
-
-            document.querySelectorAll('input[name="payment_option"]').forEach(function(element) {
-                element.addEventListener('change', updatePaymentForm);
-            });
-
-            // Create Google Pay button
-            const paymentRequest = stripe.paymentRequest({
-                country: 'GB',
-                currency: 'gbp',
-                total: {
-                    label: 'Total',
-                    amount: totalBill,
-                },
-                requestPayerName: true,
-                requestPayerEmail: true,
-            });
-
-            const prButton = elements.create('paymentRequestButton', {
-                paymentRequest: paymentRequest,
-            });
-
-            // Check if Google Pay is available and then mount the button
-            paymentRequest.canMakePayment().then(function(result) {
-                if (result) {
-                    prButton.mount('#google-pay-button-container');
-                } else {
-                    console.log('Google Pay is not available')
-                    googlePayButtonContainer.style.display = 'none';
-                }
-            });
-
-            // Handle the payment method ID returned from Google Pay
-            paymentRequest.on('paymentmethod', function(ev) {
-                console.log('ev ' + ev)
-                const form = document.getElementById('checkout-form');
-                let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
-
-                if (hiddenTokenInput) {
-                    hiddenTokenInput.setAttribute('value', ev.paymentMethod.id);
-                } else {
-                    hiddenTokenInput = document.createElement('input');
-                    hiddenTokenInput.setAttribute('type', 'hidden');
-                    hiddenTokenInput.setAttribute('name', 'payment_method_id');
-                    hiddenTokenInput.setAttribute('value', ev.paymentMethod.id);
-                    form.appendChild(hiddenTokenInput);
-                }
-
-                var orderType = @json($orderType);
-                if(orderType === 'pickup'){
-                    console.log('pickup')
-                    form.submit();
-                } else {
-                    checkCustomerLocation();
-                }
-                ev.complete('success'); // Complete the payment request
-            });
-
-            // Card payment submission logic
-            document.getElementById('submit-payment').addEventListener('click', function(event) {
-                event.preventDefault();
-                const paymentOption = document.querySelector('input[name="payment_option"]:checked').value;
-
-                if (paymentOption === 'online') {
-                    stripe.createPaymentMethod({
-                        type: 'card',
-                        card: cardNumber, // Attach the card number element
-                        billing_details: {
-                            name: document.querySelector('input[name="name"]').value,
-                            email: document.querySelector('input[name="email"]').value,
-                            phone: document.querySelector('input[name="phone"]').value
-                        }
-                    }).then(function(result) {
-                        if (result.error) {
-                            const displayError = document.getElementById('card-errors');
-                            displayError.textContent = result.error.message;
-                        } else {
-                            const form = document.getElementById('checkout-form');
-                            let hiddenTokenInput = form.querySelector('input[name="payment_method_id"]');
-
-                            if (hiddenTokenInput) {
-                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
-                            } else {
-                                hiddenTokenInput = document.createElement('input');
-                                hiddenTokenInput.setAttribute('type', 'hidden');
-                                hiddenTokenInput.setAttribute('name', 'payment_method_id');
-                                hiddenTokenInput.setAttribute('value', result.paymentMethod.id);
-                                form.appendChild(hiddenTokenInput);
-                            }
-
-                            var orderType = @json($orderType);
-                            if(orderType === 'pickup'){
-                                form.submit();
-                            } else {
-                                checkCustomerLocation();
-                            }
-                        }
-                    }).catch(function(error) {
-                        console.error('Error creating PaymentMethod:', error);
-                    });
-                } else {
-                    const form = document.getElementById('checkout-form');
-                    form.submit();
-                }
-            });
-        });
-    </script> --}}
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -705,6 +501,22 @@
                     $('#applied_code').val('0');
                     $('#discount_message').text('Please enter a discount code.').removeClass('text-success').addClass('text-danger');
                     $('.discount-div').empty();
+                }
+            });
+
+            var deliveryMiniAmount = @json($deliveryMiniAmount);
+            var pickupMiniAmount = @json($pickupMiniAmount);
+            // check order amout if less than disaply alert
+            $('input[name="order_type"]').change(function() {
+                var orderType = $(this).val();
+                var orderAmount = parseFloat($('.total').text());
+
+                if (orderType === 'pickup' && orderAmount < pickupMiniAmount) {
+                    alert("Order amount must be at least " + pickupMiniAmount + " for Pickup.");
+                    $(this).prop('checked', false);
+                } else if (orderType === 'delivery' && orderAmount < deliveryMiniAmount) {
+                    alert("Order amount must be at least " + deliveryMiniAmount + " for Delivery.");
+                    $(this).prop('checked', false);
                 }
             });
         });

@@ -161,6 +161,8 @@ class CartController extends Controller
             $data['restaurantLng'] = $restaurantDetail['restaurantDetail']['longitude'];
             $data['freeShippingAmount'] = $restaurantDetail['restaurantDetail']['amount'];
             $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
+            $data['pickupMiniAmount'] = $restaurantDetail['restaurantDetail']['pickup_minimum_amount'];
+            $data['deliveryMiniAmount'] = $restaurantDetail['restaurantDetail']['delivery_minimum_amount'];
             
             return view('pages.checkout', $data);
         }
@@ -179,6 +181,15 @@ class CartController extends Controller
             'payment_option'    => 'required|in:cash,online',
             'payment_method_id' => 'required_if:payment_option,online', // Only required for card payments
         ]);
+
+        $orderTotal = Session::get('cartSubTotal');
+        $restaurantDetail = $this->restaurant_detail();
+        $pickupMiniAmount = $restaurantDetail['restaurantDetail']['pickup_minimum_amount'];
+        $deliveryMiniAmount = $restaurantDetail['restaurantDetail']['delivery_minimum_amount'];
+
+        if($orderTotal < $pickupMiniAmount || $orderTotal < $deliveryMiniAmount){
+            return redirect()->route('checkout')->with('error', 'Order amount must be at least '. $pickupMiniAmount . ' for pickup OR ' . $deliveryMiniAmount . ' for delivery.');
+        }
 
 
         $postData['name']           = $request->name;
