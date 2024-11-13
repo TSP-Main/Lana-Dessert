@@ -1,3 +1,16 @@
+<!-- Topbar for mobile number -->
+<section class="topbar bg-dark py-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center text-white">
+                <span class="d-inline-block d-md-none">📞</span>
+                <span class="d-none d-md-inline">Call us:</span> 
+                <a href="tel:01158550583" class="text-white text-decoration-none ms-2">0115 855 0583</a>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="nav-top bg-light py-2">
     <div class="container">
         <div class="row align-items-center">

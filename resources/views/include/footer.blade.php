@@ -25,12 +25,12 @@
                     <div class="footer-h">
                     <img src="/assets/theme/images/lana-logo.png" width="120px" alt="lana-footer-logo">
                     </div>
-                    <p style="text-align: justify;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
+                    <p style="text-align: left;">Welcome to Lana Dessert in Nottingham! We make delicious desserts and fast food with a twist.
                         Whether you want to eat in or take out.</p> 
                         <p>We’re open every day from 5 PM to 2 AM.</p>
                         
                         <span class="nav-top-svg">
-                        <a href="https://www.facebook.com/profile.php?id=61559471222997">
+                        <a href="https://www.facebook.com/profile.php?id=61559471222997" target="_blank">
                         <svg class="e-font-icon-svg e-fab-facebook" viewBox="0 0 512 512"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -40,7 +40,7 @@
                         </a>
                         </span>         
                         <span class="nav-top-svg">
-                        <a href="https://www.instagram.com/lanadesserts/">
+                        <a href="https://www.instagram.com/lanadesserts/" target="_blank">
                         <svg class="e-font-icon-svg e-fab-instagram" viewBox="0 0 448 512"
                             xmlns="http://www.w3.org/2000/svg">
                             <path
@@ -50,7 +50,7 @@
                         </a>
                         </span>    
                         <span class="nav-top-svg">
-                        <a href="https://www.tiktok.com/@lanadessert">
+                        <a href="https://www.tiktok.com/@lanadessert" target="_blank">
                             <svg class="e-font-icon-svg e-fab-tiktok" viewBox="0 0 448 512"
                                 xmlns="http://www.w3.org/2000/svg">
                                 <path
