@@ -187,10 +187,9 @@ class CartController extends Controller
         $pickupMiniAmount = $restaurantDetail['restaurantDetail']['pickup_minimum_amount'];
         $deliveryMiniAmount = $restaurantDetail['restaurantDetail']['delivery_minimum_amount'];
 
-        if($orderTotal < $pickupMiniAmount || $orderTotal < $deliveryMiniAmount){
+        if(($request->order_type == 'pickup' && $orderTotal < $pickupMiniAmount) || ($request->order_type == 'delivery' && $orderTotal < $deliveryMiniAmount)){
             return redirect()->route('checkout')->with('error', 'Order amount must be at least '. $pickupMiniAmount . ' for pickup OR ' . $deliveryMiniAmount . ' for delivery.');
         }
-
 
         $postData['name']           = $request->name;
         $postData['email']          = $request->email ?? NULL;
