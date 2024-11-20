@@ -56,9 +56,9 @@
                                             <div class="title-pro ms-3 w-100">
                                                 <p class="mb-0">
                                                     {{ $cartItem['productTitle'] }}
-                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }}</span>
+                                                    <span class="text-end">{{ $currencySymbol . number_format($cartItem['rowTotal'], 2) }} </span>
                                                 </p>
-                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }}</p>
+                                                <p class="mt-0 mb-0">{{ $currencySymbol . $cartItem['productPrice'] }} x {{ $cartItem['quantity'] }} </p>
                                                 <p class="mt-0">{{ $cartItem['optionNames'] ? implode(', ', $cartItem['optionNames']) : '' }}</p>
                                             </div>
                                         </div>
