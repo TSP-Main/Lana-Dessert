@@ -163,6 +163,7 @@ class CartController extends Controller
             $data['currencySymbol'] = $restaurantDetail['restaurantDetail']['currency_symbol'];
             $data['pickupMiniAmount'] = $restaurantDetail['restaurantDetail']['pickup_minimum_amount'];
             $data['deliveryMiniAmount'] = $restaurantDetail['restaurantDetail']['delivery_minimum_amount'];
+            $data['deliveryCharges'] = $restaurantDetail['restaurantDetail']['delivery_charges'];
             
             return view('pages.checkout', $data);
         }
