@@ -192,13 +192,27 @@ class CartController extends Controller
             return redirect()->route('checkout')->with('error', 'Order amount must be at least '. $pickupMiniAmount . ' for pickup OR ' . $deliveryMiniAmount . ' for delivery.');
         }
 
+        $deliveryCharges = 0;
+        if($request->order_type == 'delivery'){
+            $custLat = $request->latitude;
+            $custLng = $request->longitude;
+            if(Session::get('cartSubTotal') < $restaurantDetail['restaurantDetail']['amount']){
+                $deliveryCharges = $this->calculateDeliveryCharges($restaurantDetail['restaurantDetail'], $custLat, $custLng);
+            }
+
+            $coordinates = [
+                'lat' => $request->latitude,
+                'lng' => $request->longitude,
+            ];
+        }
+
         $postData['name']           = $request->name;
         $postData['email']          = $request->email ?? NULL;
         $postData['phone']          = $request->phone;
         $postData['address']        = $request->address ?? NULL;
         $postData['city']           = $request->city ?? NULL;
         $postData['postcode']       = $request->postcode ?? NULL;
-        $postData['coordinates']    = $request->address ?? NULL;
+        $postData['coordinates']    = $request->address ? $coordinates : NULL;
         $postData['paymentOption']  = $request->payment_option;
         $postData['orderNote']      = $request->note;
         $postData['payment_method_id'] = $request->payment_method_id;
@@ -207,6 +221,7 @@ class CartController extends Controller
         $postData['cartTotal']      = Session::get('cartSubTotal');
         $postData['orderType']      = $request->order_type;
         $postData['discountCode']   = $request->applied_code ?? null;
+        $postData['deliveryCharges'] = $deliveryCharges;
 
         $serverUrl  = env('SERVER_URL');
         $apiToken   = env('API_TOKEN');
@@ -271,5 +286,32 @@ class CartController extends Controller
         }
         
         return $data;
+    }
+
+    public function calculateDeliveryCharges($restaurantDetail, $custLat, $custLng)
+    {
+        $restaurantLat = $restaurantDetail['latitude'];
+        $restaurantLng = $restaurantDetail['longitude'];
+        
+        $deliveryCharges = $restaurantDetail['delivery_charges'];
+
+        $earthRadius = 6371000;
+        $dLat = deg2rad($custLat - $restaurantLat);
+        $dLng = deg2rad($custLng - $restaurantLng);
+        $a = sin($dLat / 2) * sin($dLat / 2) + cos(deg2rad($restaurantLat)) * cos(deg2rad($custLat)) * sin($dLng / 2) * sin($dLng / 2);
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distanceMeters = $earthRadius * $c;
+
+        $distanceKm = $distanceMeters / 1000; 
+
+        $deliveryCharge = 0;
+        foreach ($deliveryCharges as $charge) {
+            if ($distanceKm >= $charge['min_distance'] && $distanceKm < $charge['max_distance']) {
+                $deliveryCharge = (float) $charge['charge'];
+                break;
+            }
+        }
+
+        return $deliveryCharge;
     }
 }

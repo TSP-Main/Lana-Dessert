@@ -77,7 +77,6 @@
                         </div>
                         <div id="discount_message" class="mt-2"></div>
                     </div>
-                    <!-- temporary delivery charges -->
                     <div id="delivery-info">
                         <div class="delivery-charges-div" style="display: none;">
                             <h6> Delivery Charges (may vary) </h6><span id="delivery-charges-amount"></span>
@@ -564,7 +563,7 @@
                 $('#postcode').val('');
 
                 let discountPrice = $('#discount-price').text();
-                $('#discount-bill').text(cartSubTotal - discountPrice);
+                $('#discount-bill').text((cartSubTotal - discountPrice).toFixed(2));
             });
 
             toggleAddressDetails();
