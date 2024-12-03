@@ -77,14 +77,21 @@
                         </div>
                         <div id="discount_message" class="mt-2"></div>
                     </div>
-                    <!-- temporary delivery charges -->
                     <div id="delivery-info">
-                        <h6 id="delivery-text"> </h6><span id="delivery-charges"></span>
-                        <p id="free-shipping-message"></p>
-                        <h4>Total <span id="total">{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
+                        <h4>Subtotal <span id="subtotal">{{ $currencySymbol }}<span class="subtotal">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
+                        <div class="delivery-charges-div" style="display: none;">
+                            <h6> Delivery Charges (may vary) </h6><span id="delivery-charges-amount"></span>
+                            <p id="free-shipping-message">(Free over {{ $currencySymbol.$freeShippingAmount }})</p>
+                        </div>
+                        <h4>Total <span id="total">{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
                     </div>
 
-                    <div class="discount-div"></div>
+
+                    {{-- <div class="discount-div"></div> --}}
+                    <div class="discount-info" style="display: none">
+                        <h4>After Discount Total <span>{{ $currencySymbol }}<span id="discount-bill"></span></span></span></h4>
+                        <span id="discount-price" style="display: none;"></span>
+                    </div>
                 </div>
             </div>
         
@@ -233,14 +240,6 @@
                                             </div>
                                         </div>
                                     </div>
-                                    {{-- <div class="col-lg-4 mb-3">
-                                        <div class="form-check h-100 border rounded-3">
-                                            <div class="p-3">
-                                                <button id="google-pay-button" class="btn btn-primary" style="width: 100%;">Google Pay</button>
-                                                <button id="apple-pay-button" class="btn btn-primary" style="width: 100%;">Apple Pay</button>
-                                            </div>
-                                        </div>
-                                    </div> --}}
 
                                     <!-- Stripe Card Fields -->
                                     <div id="stripe-form" class="container mt-4 d-none">
@@ -262,9 +261,6 @@
                                         </div>
                                     </div>
 
-                                    {{-- <div id="google-pay-button-container"></div>
-                                    <div id="apple-pay-button-container"></div> --}}
-
                                     <div class="mt-2" id="payment-button-container"></div>
                                 </div>
                   
@@ -284,6 +280,7 @@
 @section('script')
     <script src="https://js.stripe.com/v3/"></script>
 
+    <!-- Stripe Payment -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             var totalBill = $('.total').text() * 100;
@@ -436,73 +433,94 @@
                 const discountCode = $('#discount_code').val();
 
                 if (discountCode) {
-                    $.ajax({
-                        url: '{{ route("discount.check") }}',
-                        method: 'POST',
-                        data: {
-                            code: discountCode,
-                            _token: '{{ csrf_token() }}'
-                        },
-                        success: function (response) {
-                            if (response.status) {
-                                var detail = response.discountDetail;
-                                var total = parseFloat($('.total').text());
-
-                                if(detail.type == 1){
-                                    if(total > detail.minimum_amount){
-                                        var total = parseFloat($('.total').text());
-                                        var discountRate = parseFloat(detail.rate);
-
-                                        var discountAmount = (total * (discountRate / 100));
-                                        
-                                        if(total > discountAmount){
-                                            var newTotal = total - discountAmount;
-                                            $('#applied_code').val(discountCode);
-                                            $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>')
-                                            $('#discount_message').text(`Discount applied: ${detail.rate}%`).removeClass('text-danger').addClass('text-success');
-                                        }
-                                        else{
-                                            $('#applied_code').val('0');
-                                            $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
-                                            $('.discount-div').empty();
-                                        }
-                                    }
-                                    else{
-                                        $('#applied_code').val('0');
-                                        $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
-                                        $('.discount-div').empty();
-                                    }
-                                }
-                                else if(detail.type == 2){
-                                    if(total > detail.minimum_amount && total > detail.rate){
-                                        var newTotal = total - detail.rate;
-                                        $('#applied_code').val(discountCode);
-                                        $('#discount_message').text(`Discount applied: ${detail.rate}`).removeClass('text-danger').addClass('text-success');
-                                        $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>');
-                                    }
-                                    else{
-                                        $('#applied_code').val('0');
-                                        $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
-                                        $('.discount-div').empty();
-                                    }
-                                }
-                            } else {
-                                $('#applied_code').val('0');
-                                $('#discount_message').text(response.message).removeClass('text-success').addClass('text-danger');
-                                $('.discount-div').empty();
-                            }
-                        },
-                        error: function (xhr) {
-                            $('#applied_code').val('0');
-                            $('#discount_message').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
-                        }
-                    });
+                    calculateDiscount(discountCode)
                 } else {
                     $('#applied_code').val('0');
                     $('#discount_message').text('Please enter a discount code.').removeClass('text-success').addClass('text-danger');
-                    $('.discount-div').empty();
+                    // $('.discount-div').empty();
                 }
             });
+
+            function calculateDiscount(discountCode){
+                $.ajax({
+                    url: '{{ route("discount.check") }}',
+                    method: 'POST',
+                    data: {
+                        code: discountCode,
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        if (response.status) {
+                            var detail = response.discountDetail;
+                            var total = parseFloat($('.total').text());
+
+                            if(detail.type == 1){
+                                if(total > detail.minimum_amount){
+                                    var total = parseFloat($('.total').text());
+                                    var discountRate = parseFloat(detail.rate);
+
+                                    var discountAmount = (total * (discountRate / 100));
+                                    
+                                    if(total > discountAmount){
+                                        var newTotal = total - discountAmount;
+                                        $('#applied_code').val(discountCode);
+                                        // $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>')
+                                        $('#discount_message').text(`Discount applied: ${detail.rate}%`).removeClass('text-danger').addClass('text-success');
+
+                                        $('.discount-info').show();
+                                        $('#discount-bill').text(newTotal.toFixed(2));
+                                        $('#discount-price').text(discountAmount.toFixed(2));
+                                    }
+                                    else{
+                                        $('#applied_code').val('0');
+                                        $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                        // $('.discount-div').empty();
+                                        $('.discount-info').hide();
+                                        $('#discount-price').text('');
+                                    }
+                                }
+                                else{
+                                    $('#applied_code').val('0');
+                                    $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                    // $('.discount-div').empty();
+                                    $('.discount-info').hide();
+                                    $('#discount-price').text('');
+                                }
+                            }
+                            else if(detail.type == 2){
+                                if(total > detail.minimum_amount && total > detail.rate){
+                                    var newTotal = total - detail.rate;
+                                    $('#applied_code').val(discountCode);
+                                    $('#discount_message').text(`Discount applied: ${detail.rate}`).removeClass('text-danger').addClass('text-success');
+                                    // $('.discount-div').html('<h4>After Discount Total <span>'+@json($currencySymbol)+newTotal.toFixed(2)+'</span></h4>');
+
+                                    $('.discount-info').show();
+                                    $('#discount-bill').text(newTotal.toFixed(2));
+                                    $('#discount-price').text(detail.rate);
+                                }
+                                else{
+                                    $('#applied_code').val('0');
+                                    $('#discount_message').text(`Minimum order amount should be: ${detail.minimum_amount}`).removeClass('text-success').addClass('text-danger');
+                                    // $('.discount-div').empty();
+                                    $('.discount-info').hide();
+                                    $('#discount-price').text('');
+                                }
+                            }
+                        } else {
+                            $('#applied_code').val('0');
+                            $('#discount_message').text(response.message).removeClass('text-success').addClass('text-danger');
+                            // $('.discount-div').empty();
+
+                            $('.discount-info').hide();
+                            $('#discount-price').text('');
+                        }
+                    },
+                    error: function (xhr) {
+                        $('#applied_code').val('0');
+                        $('#discount_message').text('An error occurred. Please try again.').removeClass('text-success').addClass('text-danger');
+                    }
+                });
+            }
 
             var deliveryMiniAmount = @json($deliveryMiniAmount);
             var pickupMiniAmount = @json($pickupMiniAmount);
@@ -535,40 +553,40 @@
                     $('#address, #city, #postcode').removeAttr('required');
                 }
             }
+
             $('input[name="order_type"]').on('change', function () {
                 toggleAddressDetails();
                 updateTotals();
+
+                $('#address').val('');
+                $('#address').val('');
+                $('#apartment').val('');
+                $('#postcode').val('');
+
+                let discountPrice = $('#discount-price').text();
+                $('#discount-bill').text((cartSubTotal - discountPrice).toFixed(2));
             });
+
             toggleAddressDetails();
 
             // update total and delivery charges
             var freeShippingAmount = {{ $freeShippingAmount }};
             var cartSubTotal = {{ $cartSubTotal }};
-            var deliveryCharge = 2.00;
+            // var deliveryCharge = 2.00;
             var currencySymbol = '{{ $currencySymbol }}';
 
             function updateTotals() {
                 var orderType = $('input[name="order_type"]:checked').val();
 
                 if (orderType === 'delivery') {
-                    if (cartSubTotal < freeShippingAmount) {
-                        $('#delivery-text').text('Delivery Charges');
-                        $('#delivery-charges').text(currencySymbol + deliveryCharge.toFixed(2));
-                        $('#free-shipping-message').text('(free over ' + currencySymbol + freeShippingAmount + ')');
-                        $('#total .total').text((cartSubTotal + deliveryCharge).toFixed(2));
-                    } else {
-                        $('#delivery-text').text('Delivery Charges');
-                        $('#delivery-charges').html('<del>' + currencySymbol + deliveryCharge.toFixed(2) + '</del>');
-                        $('#free-shipping-message').text('(free over ' + currencySymbol + freeShippingAmount + ')');
-                        $('#total .total').text(cartSubTotal.toFixed(2));
-                    }
+                    $('.delivery-charges-div').show();
                 } else {
-                    $('#delivery-text').text('');
-                    $('#delivery-charges').text('');
-                    $('#free-shipping-message').text('');
+                    $('.delivery-charges-div').hide();
+                    $('#delivery-charges-amount').text('');
                     $('#total .total').text(cartSubTotal.toFixed(2));
                 }
             }
+
             updateTotals();
         });
     </script>
@@ -579,6 +597,13 @@
 
         <script>
             let autocomplete;
+
+            const restaurantLat = {{ $restaurantLat }};
+            const restaurantLng = {{ $restaurantLng }};
+            const deliveryRadius = {{ $deliveryRadius }};
+            const currencySymbol = '{{ $currencySymbol }}';
+            let cartSubTotal = {{ $cartSubTotal }};
+            let freeShippingAmount = {{ $freeShippingAmount }};
         
             function initAutocomplete() {
                 // Initialize autocomplete
@@ -598,6 +623,7 @@
         
                     // Autofill the city, postcode, and apartment
                     fillInAddress(place);
+                    geocodePostcode($('#postcode').val());
                 });
         
                 // Handle manual postcode entry
@@ -637,7 +663,28 @@
                             // Update latitude and longitude
                             document.getElementById('latitude').value = location.lat();
                             document.getElementById('longitude').value = location.lng();
-        
+
+                            let customerDistanceMeters = calculateDistance(restaurantLat, restaurantLng, location.lat(), location.lng());
+
+                            // Convert distance from meters to kilometers
+                            let customerDistanceKm = customerDistanceMeters / 1000;
+
+                            // Get delivery charge based on distance
+                            let deliveryCharge = getDeliveryCharge(customerDistanceKm);
+                            let discountPrice = $('#discount-price').text();
+                            
+                            if (cartSubTotal < freeShippingAmount) {
+                                $('#delivery-charges-amount').text(currencySymbol + deliveryCharge);
+                                $('#total .total').text((parseFloat(deliveryCharge) + parseFloat(cartSubTotal)).toFixed(2));
+
+                                $('#discount-bill').text((parseFloat(cartSubTotal) + parseFloat(deliveryCharge) - parseFloat(discountPrice)).toFixed(2));
+                            } else {
+                                $('#delivery-charges-amount').html('<del>' + currencySymbol + deliveryCharge + '</del>');
+                                $('#total .total').text(cartSubTotal.toFixed(2));
+
+                                $('#discount-bill').text(parseFloat(discountBill).toFixed(2));
+                            }
+
                             // Autofill other address fields based on geocoded result
                             fillInAddress(results[0]);
                         }
@@ -646,12 +693,8 @@
                     }
                 });
             }
-        
-            
-        </script>
 
-        <!-- Check Delivery Radius -->
-        <script>
+            // Check Delivery Radius
             document.getElementById('place-order').addEventListener('click', function(e) {
                 e.preventDefault();
                 checkCustomerLocation();
@@ -670,9 +713,9 @@
                     var customerLat = parseFloat(document.getElementById('latitude').value);
                     var customerLng = parseFloat(document.getElementById('longitude').value);
                     
-                    var restaurantLat = {{ $restaurantLat }};
-                    var restaurantLng = {{ $restaurantLng }};
-                    var deliveryRadius = {{ $deliveryRadius }};
+                    // var restaurantLat = {{ $restaurantLat }};
+                    // var restaurantLng = {{ $restaurantLng }};
+                    // var deliveryRadius = {{ $deliveryRadius }};
 
                     // Calculate the distance using the Haversine formula
                     var distance = calculateDistance(restaurantLat, restaurantLng, customerLat, customerLng);
@@ -701,6 +744,20 @@
                 const a = Math.sin(dLat / 2) * Math.sin(dLat / 2) + Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * Math.sin(dLng / 2) * Math.sin(dLng / 2);
                 const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
                 return R * c; // Distance in meters
+            }
+
+            function getDeliveryCharge(distance){
+                let deliveryCharges = @json($deliveryCharges);
+
+                for (let i = 0; i < deliveryCharges.length; i++) {
+                    let minDistance = parseFloat(deliveryCharges[i].min_distance);
+                    let maxDistance = parseFloat(deliveryCharges[i].max_distance);
+
+                    if (distance >= minDistance && distance < maxDistance) {
+                        return deliveryCharges[i].charge;
+                    }
+                }
+                return 'Not available';
             }
         </script>
 @endsection

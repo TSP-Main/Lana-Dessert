@@ -60,17 +60,19 @@
                     </div>
 
                 </div>
-                <div class="col-md-4" style="background-color: #f7f9f9;">
-                    <div class="cart-total">
-                        <h5 style="text-align: center;">Order Summary</h5>
-                        <hr style="border: 1px solid #ccc;">
-                        <div style="display: flex; justify-content: space-between;">
-                            <h4>Sub Total</h4>
-                            <h4>{{ $currencySymbol }} <span id="cart-sub-total">{{ $cartSubTotal }}</span></h4> 
+                <div class="col-md-4">
+                    <div style="background-color: #f7f9f9; padding:5px;">
+                        <div class="cart-total">
+                            <h5 style="text-align: center;">Order Summary</h5>
+                            <hr style="border: 1px solid #ccc;">
+                            <div style="display: flex; justify-content: space-between;">
+                                <h4>Sub Total</h4>
+                                <h4>{{ $currencySymbol }} <span id="cart-sub-total">{{ $cartSubTotal }}</span></h4> 
+                            </div>
                         </div>
+                        <hr style="border: 1px solid #ccc;">
+                        <a href="{{ route('checkout') }}"><button class="nav-top-svg text-white border-white" type="submit" style="width: 90%;">Checkout</button></a>
                     </div>
-                    <hr style="border: 1px solid #ccc;">
-                    <a href="{{ route('checkout') }}"><button class="nav-top-svg text-white border-white" type="submit" style="width: 90%;">Checkout</button></a>
                 </div>
             </div>
         @else
