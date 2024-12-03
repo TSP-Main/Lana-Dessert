@@ -78,11 +78,12 @@
                         <div id="discount_message" class="mt-2"></div>
                     </div>
                     <div id="delivery-info">
+                        <h4>Subtotal <span id="subtotal">{{ $currencySymbol }}<span class="subtotal">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
                         <div class="delivery-charges-div" style="display: none;">
                             <h6> Delivery Charges (may vary) </h6><span id="delivery-charges-amount"></span>
                             <p id="free-shipping-message">(Free over {{ $currencySymbol.$freeShippingAmount }})</p>
                         </div>
-                        <h4>Total <span id="total">{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal + 2, 2) }}</span></span></h4>
+                        <h4>Total <span id="total">{{ $currencySymbol }}<span class="total">{{ number_format($cartSubTotal, 2) }}</span></span></h4>
                     </div>
 
 

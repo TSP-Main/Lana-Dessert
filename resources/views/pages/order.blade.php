@@ -269,7 +269,7 @@
                 <div class="row">
                     <div class="col-9"></div>
                     <div class="col-12">Sub Total: <big>{{ $currencySymbol . $orderData['original_bill'] }}</big></div>
-                    <div class="col-12">Discount AMount: <big>{{ $currencySymbol . $orderData['discount_amount'] }}</big></div>
+                    <div class="col-12">Discount Amount: -<big>{{ $currencySymbol . $orderData['discount_amount'] }}</big></div>
                     <div class="col-12">Order Total: <big>{{ $currencySymbol . $orderData['original_bill'] - $orderData['discount_amount'] }}</big></div>
                     <div class="col-12">Delivery Charges: {{ $currencySymbol . $orderData['delivery_charges'] }}</div>
                     <div class="col-12">Total: <big>{{ $currencySymbol . $orderData['total'] }}</big></div>
